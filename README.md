@@ -12,6 +12,10 @@ This provides a great way to quickly get up and running with prototypes and mock
 $ npm i --save @nestjs-addons/in-memory-db
 ```
 
+## Video Walkthrough
+
+[![](http://img.youtube.com/vi/eSx6nKDw5PQ/0.jpg)](http://www.youtube.com/watch?v=eSx6nKDw5PQ "NestJS Addons - In Memory DB - Walkthrough")
+
 ## Quick Start
 
 ### Import into Module(s)
