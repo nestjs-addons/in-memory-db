@@ -76,12 +76,12 @@ export class UserController {
   constructor(private readonly userService: InMemoryDBService<UserEntity>) {}
 
   @Get('users/:id')
-  getUser(@Param() id: number): User {
+  getUser(@Param() id: number): UserEntity {
     return this.userService.get(id);
   }
 
   @Post('users')
-  createUser(@Body() user: User): User {
+  createUser(@Body() user: UserEntity): UserEntity {
     return this.service.create(user);
   }
 }
