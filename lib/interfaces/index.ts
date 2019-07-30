@@ -1,1 +1,1 @@
-export * from "./in-memory-db-entity";
+export * from './in-memory-db-entity';

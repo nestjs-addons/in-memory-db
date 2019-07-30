@@ -1,15 +1,15 @@
-import { Injectable } from "@nestjs/common";
-import { InMemoryDBEntity } from "./interfaces/in-memory-db-entity";
+import { Injectable } from '@nestjs/common';
+import { InMemoryDBEntity } from './interfaces/in-memory-db-entity';
 
 @Injectable()
 export class InMemoryDBService<T extends InMemoryDBEntity> {
   public records: T[] = [];
 
-  public create(record: Partial<T>): T {
+  public create(record: Partial<T>): number {
     const id = record.id || this.getNextId();
     const newRecord: T = { ...record, id } as T;
     this.records.push(newRecord);
-    return newRecord;
+    return newRecord.id;
   }
 
   public update(record: T): void {

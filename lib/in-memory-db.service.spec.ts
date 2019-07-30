@@ -1,7 +1,7 @@
-import { InMemoryDBService } from "./in-memory-db.service";
-import { InMemoryDBEntity } from "./interfaces/in-memory-db-entity";
+import { InMemoryDBService } from './in-memory-db.service';
+import { InMemoryDBEntity } from './interfaces/in-memory-db-entity';
 
-describe("In Memory DB Service", () => {
+describe('In Memory DB Service', () => {
   interface TestEntity extends InMemoryDBEntity {
     someField: string;
   }
@@ -9,16 +9,16 @@ describe("In Memory DB Service", () => {
   let service: InMemoryDBService<TestEntity>;
 
   const sampleRecords: TestEntity[] = [
-    { id: 1, someField: "AAA" },
-    { id: 2, someField: "BBB" }
+    { id: 1, someField: 'AAA' },
+    { id: 2, someField: 'BBB' },
   ];
 
   beforeEach(() => {
     service = new InMemoryDBService<TestEntity>();
   });
 
-  describe("get", () => {
-    it("should return expected record if given valid id", () => {
+  describe('get', () => {
+    it('should return expected record if given valid id', () => {
       // arrange
       service.records = [...sampleRecords];
       const expectedRecord = sampleRecords[0];
@@ -30,7 +30,7 @@ describe("In Memory DB Service", () => {
       expect(actualRecord).toEqual(expectedRecord);
     });
 
-    it("should return undefined if given invalid id", () => {
+    it('should return undefined if given invalid id', () => {
       // arrange
       service.records = [...sampleRecords];
       const expectedRecord = undefined;
@@ -42,8 +42,8 @@ describe("In Memory DB Service", () => {
       expect(actualRecord).toEqual(expectedRecord);
     });
   });
-  describe("getAll", () => {
-    it("should return all expected records", () => {
+  describe('getAll', () => {
+    it('should return all expected records', () => {
       // arrange
       service.records = [...sampleRecords];
       const expectedRecords = service.records;
@@ -54,7 +54,7 @@ describe("In Memory DB Service", () => {
       // assert
       expect(actualRecords).toEqual(expectedRecords);
     });
-    it("should return empty array if no records", () => {
+    it('should return empty array if no records', () => {
       // arrange
       service.records = [];
       const expectedRecords = [];
@@ -66,11 +66,11 @@ describe("In Memory DB Service", () => {
       expect(actualRecords).toEqual(expectedRecords);
     });
   });
-  describe("create", () => {
-    it("should update records with correct items", () => {
+  describe('create', () => {
+    it('should update records with correct items', () => {
       // arrange
       service.records = [];
-      const itemToAdd: Partial<TestEntity> = { someField: "Test" };
+      const itemToAdd: Partial<TestEntity> = { someField: 'Test' };
       const expectedRecords = [...[{ ...itemToAdd, id: 1 }]];
 
       // act
@@ -80,12 +80,25 @@ describe("In Memory DB Service", () => {
       // assert
       expect(actualRecords).toEqual(expectedRecords);
     });
-  });
-  describe("update", () => {
-    it("should update record as expected", () => {
+    it('should return generated id', () => {
       // arrange
-      const originalRecord: TestEntity = { id: 1, someField: "AAA" };
-      const expectedUpdatedRecord: TestEntity = { id: 1, someField: "BBB" };
+      service.records = [];
+      const itemToAdd: Partial<TestEntity> = { someField: 'Test' };
+      const expectedGeneratedId = 1;
+      const expectedRecords = [...[{ ...itemToAdd, id: expectedGeneratedId }]];
+
+      // act
+      const actualGeneratedId = service.create(itemToAdd);
+
+      // assert
+      expect(actualGeneratedId).toEqual(expectedGeneratedId);
+    });
+  });
+  describe('update', () => {
+    it('should update record as expected', () => {
+      // arrange
+      const originalRecord: TestEntity = { id: 1, someField: 'AAA' };
+      const expectedUpdatedRecord: TestEntity = { id: 1, someField: 'BBB' };
       service.records = [...[originalRecord]];
 
       // act
@@ -93,18 +106,18 @@ describe("In Memory DB Service", () => {
 
       // assert
       const actualUpdatedRecord = service.records.find(
-        record => record.id === originalRecord.id
+        record => record.id === originalRecord.id,
       );
 
       expect(actualUpdatedRecord).toEqual(expectedUpdatedRecord);
     });
   });
-  describe("delete", () => {
-    it("should remove record as expected", () => {
+  describe('delete', () => {
+    it('should remove record as expected', () => {
       // arrange
       service.records = [
-        { id: 1, someField: "AAA" },
-        { id: 2, someField: "BBB" }
+        { id: 1, someField: 'AAA' },
+        { id: 2, someField: 'BBB' },
       ];
 
       // act
@@ -116,17 +129,17 @@ describe("In Memory DB Service", () => {
       expect(service.records.length).toEqual(1);
     });
   });
-  describe("query", () => {
-    it("should return expected records for given predicate", () => {
+  describe('query', () => {
+    it('should return expected records for given predicate', () => {
       // arrange
       service.records = [
-        { id: 1, someField: "AAA" },
-        { id: 2, someField: "BBB" }
+        { id: 1, someField: 'AAA' },
+        { id: 2, someField: 'BBB' },
       ];
       const expectedFoundRecord = [service.records[1]];
 
       // act
-      const foundRecord = service.query(record => record.someField === "BBB");
+      const foundRecord = service.query(record => record.someField === 'BBB');
 
       // assert
       expect(foundRecord).toEqual(expectedFoundRecord);
