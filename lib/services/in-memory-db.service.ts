@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { InMemoryDBEntity } from './interfaces/in-memory-db-entity';
+import { InMemoryDBEntity } from '../interfaces';
 
 @Injectable()
 export class InMemoryDBService<T extends InMemoryDBEntity> {

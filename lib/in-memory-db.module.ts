@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { InMemoryDBService } from './in-memory-db.service';
+import { InMemoryDBService } from './services';
 
 @Module({
   providers: [InMemoryDBService],

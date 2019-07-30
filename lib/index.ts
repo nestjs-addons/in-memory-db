@@ -1,3 +1,4 @@
-export { InMemoryDBModule } from './in-memory-db.module';
-export { InMemoryDBService } from './in-memory-db.service';
-export { InMemoryDBEntity } from './interfaces/in-memory-db-entity';
+import 'reflect-metadata';
+export * from './in-memory-db.module';
+export * from './interfaces';
+export * from './services';

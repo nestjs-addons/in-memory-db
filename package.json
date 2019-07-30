@@ -1,6 +1,6 @@
 {
   "name": "@nestjs-addons/in-memory-db",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "Simple In-Memory DB Service for NestJS projects",
   "author": "Wes Grimes",
   "license": "MIT",
@@ -13,10 +13,6 @@
     "prepublish:npm": "npm run build",
     "publish:npm": "npm publish --access public",
     "test": "jest --config jest.json"
-  },
-  "dependencies": {
-    "lodash": "4.17.15",
-    "path-to-regexp": "3.0.0"
   },
   "devDependencies": {
     "@nestjs/common": "6.5.3",

@@ -1,5 +1,5 @@
+import { InMemoryDBEntity } from '../interfaces';
 import { InMemoryDBService } from './in-memory-db.service';
-import { InMemoryDBEntity } from './interfaces/in-memory-db-entity';
 
 describe('In Memory DB Service', () => {
   interface TestEntity extends InMemoryDBEntity {
