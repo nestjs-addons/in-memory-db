@@ -17,7 +17,7 @@ Help us keep Nest open and inclusive. Please read and follow our [Code of Conduc
 
 ## <a name="question"></a> Got a Question or Problem?
 
-**Do not open issues for general support questions as we want to keep GitHub issues for bug reports and feature requests.** You've got much better chances of getting your question answered on [Stack Overflow](https://stackoverflow.com/questions/tagged/nestjs) where the questions should be tagged with tag `nestjs`.
+**Do not open issues for general support questions as we want to keep GitHub issues for bug reports and feature requests.** You've got much better chances of getting your question answered on [Stack Overflow](https://stackoverflow.com/questions/tagged/-addons) where the questions should be tagged with tag `nestjs-addons`.
 
 Stack Overflow is a much better place to ask questions since:
 
@@ -56,7 +56,7 @@ Before you submit an issue, please search the issue tracker, maybe an issue for 
 
 We want to fix all the issues as soon as possible, but before fixing a bug we need to reproduce and confirm it. In order to reproduce bugs we will systematically ask you to provide a minimal reproduction scenario using a repository or [Gist](https://gist.github.com/). Having a live, reproducible scenario gives us wealth of important information without going back & forth to you with additional questions like:
 
-- version of NestJS used
+- version of NestJS Addons - InMemory DB used
 - 3rd-party libraries and their versions
 - and most importantly - a use-case that fails
 
@@ -69,17 +69,17 @@ A minimal reproduce scenario using a repository or Gist allows us to quickly con
 
 Unfortunately, we are not able to investigate / fix bugs without a minimal reproduction, so if we don't hear back from you we are going to close an issue that don't have enough info to be reproduced.
 
-You can file new issues by filling out our [new issue form](https://github.com/nestjs/nest/issues/new).
+You can file new issues by filling out our [new issue form](https://github.com/nestjs-addons/in-memory-db/issues/new).
 
 ### <a name="submit-pr"></a> Submitting a Pull Request (PR)
 
 Before you submit your Pull Request (PR) consider the following guidelines:
 
-1. Search [GitHub](https://github.com/nestjs/nest/pulls) for an open or closed PR
+1. Search [GitHub](https://github.com/nestjs-addons/in-memory-db/pulls) for an open or closed PR
    that relates to your submission. You don't want to duplicate effort.
    <!-- 1. Please sign our [Contributor License Agreement (CLA)](#cla) before sending PRs.
      We cannot accept code without this. -->
-1. Fork the nestjs/nest repo.
+1. Fork the nestjs-addons/in-memory-db repo.
 1. Make your changes in a new git branch:
 
    ```shell
@@ -106,7 +106,7 @@ Before you submit your Pull Request (PR) consider the following guidelines:
    git push origin my-fix-branch
    ```
 
-1. In GitHub, send a pull request to `nestjs:master`.
+1. In GitHub, send a pull request to `nestjs-addons/in-memory-db:master`.
 
 - If we suggest changes then:
 
@@ -188,14 +188,14 @@ to read on GitHub as well as in various git tools.
 
 Footer should contain a [closing reference to an issue](https://help.github.com/articles/closing-issues-via-commit-messages/) if any.
 
-Samples: (even more [samples](https://github.com/nestjs/nest/commits/master))
+Samples: (even more [samples](https://github.com/nestjs-addons/in-memory-db/commits/master))
 
 ```
 docs(changelog) update change log to beta.5
 ```
 
 ```
-bugfix(@nestjs/core) need to depend on latest rxjs and zone.js
+bugfix(@nestjs-addons/in-memory-db) need to depend on latest rxjs and zone.js
 
 The version in our package.json gets copied to the one we publish, and users need the latest of these.
 ```
@@ -254,9 +254,7 @@ changes to be accepted, the CLA must be signed. It's a quick process, we promise
 
 [commit-message-format]: https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/edit#
 [corporate-cla]: http://code.google.com/legal/corporate-cla-v1.0.html
-[dev-doc]: https://github.com/nestjs/nest/blob/master/docs/DEVELOPER.md
-[github]: https://github.com/nestjs/nest
-[gitter]: https://gitter.im/nestjs/nest
+[github]: https://github.com/nestjs-addons/in-memory-db
 [individual-cla]: http://code.google.com/legal/individual-cla-v1.0.html
 [js-style-guide]: https://google.github.io/styleguide/jsguide.html
 [jsfiddle]: http://jsfiddle.net
