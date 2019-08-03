@@ -1,64 +1,42 @@
-# Javascript Node CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-javascript/ for more details
-#
 version: 2
-
-defaults: &defaults
-  working_directory: ~/repo
-  docker:
-    - image: circleci/node:10.16.0
-
 jobs:
-  test:
-    <<: *defaults
+  test_node_8:
+    docker:
+      - image: circleci/node:8
     steps:
       - checkout
-
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
-
       - run: npm install
       - run:
           name: Run tests
           command: npm test
 
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
-
-      - persist_to_workspace:
-          root: ~/repo
-          paths: .
-  deploy:
-    <<: *defaults
+  test_node_10:
+    docker:
+      - image: circleci/node:10
     steps:
-      - attach_workspace:
-          at: ~/repo
+      - checkout
+      - run: npm install
       - run:
-          name: Authenticate with registry
-          command: echo "//registry.npmjs.org/:_authToken=$npm_TOKEN" > ~/repo/.npmrc
-      - run:
-          name: Publish package
-          command: npm publish
+          name: Run tests
+          command: npm test
+
+  release:
+    docker:
+      - image: circleci/node:10
+    steps:
+      - checkout
+      - run: npm install
+      - run: npm run build
+      - run: npx semantic-release
 
 workflows:
   version: 2
-  test-deploy:
+  test_and_release:
+    # Run the test jobs first, then the release only when all the test jobs are successful
     jobs:
-      - test:
-          filters:
-            tags:
-              only: /^v.*/
-      - deploy:
+      - test_node_8
+      - test_node_10
+      - release:
           requires:
-            - test
-          filters:
-            tags:
-              only: /^v.*/
-            branches:
-              ignore: /.*/
+            - test_node_8
+            - test_node_10

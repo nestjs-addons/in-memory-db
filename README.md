@@ -1,5 +1,11 @@
 # NestJS Addons: In-Memory DB Service
 
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+
+[![CircleCI](https://circleci.com/gh/nestjs-addons/in-memory-db.svg?style=svg)](https://circleci.com/gh/nestjs-addons/in-memory-db)
+
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+
 ## Description
 
 `@nestjs-addons/in-memory-db` provides a ridiculously simple, no configuration needed, way to create a simple in-memory database for use in your `nestjs` applications. You simply define an `interface` that extends the `interface InMemoryEntity`, inject the `InMemoryDBService<T>` into your controllers and/or services, and immediately profit. The records are stored in-memory, as a singleton, for each interface, for the life of the service.
@@ -14,7 +20,7 @@ $ npm i --save @nestjs-addons/in-memory-db
 
 ## Video Walkthrough
 
-[![](http://img.youtube.com/vi/eSx6nKDw5PQ/0.jpg)](http://www.youtube.com/watch?v=eSx6nKDw5PQ "NestJS Addons - In Memory DB - Walkthrough")
+[![](http://img.youtube.com/vi/eSx6nKDw5PQ/0.jpg)](http://www.youtube.com/watch?v=eSx6nKDw5PQ 'NestJS Addons - In Memory DB - Walkthrough')
 
 ## Quick Start
 
