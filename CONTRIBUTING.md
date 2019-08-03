@@ -159,14 +159,18 @@ To ensure consistency throughout the source code, keep these rules in mind as yo
   // We're working on auto-documentation.
 - All public API methods **must be documented**. (Details TBC). -->
 - We follow [Google's JavaScript Style Guide][js-style-guide], but wrap all code at
-  **100 characters**. An automated formatter is available, see
-  [DEVELOPER.md](docs/DEVELOPER.md#clang-format).
+  **100 characters**.
 
 ## <a name="commit"></a> Commit Message Guidelines
 
 We have very precise rules over how our git commit messages can be formatted. This leads to **more
 readable messages** that are easy to follow when looking through the **project history**. But also,
-we use the git commit messages to **generate the Nest change log**.
+we use the git commit messages to **generate the NestJS Addons - In Memory DB change log**.
+
+This project uses Commitizen to help with formatting commit messages.
+
+Simply run `git commit` in your terminal and the tooling will ask a series of questions to format
+the commit message correctly.
 
 ### Commit Message Format
 
