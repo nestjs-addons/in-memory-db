@@ -7,7 +7,8 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
 
   /**
    * Given the array of records of type `T`, reduce the array into a dictionary object of
-   * type `{ [id: number]: T }`. Set the value of the `recordMap` to this reduced input array.
+   * type `{ [id: number]: T }`. Set the value of the in-memory data store
+   * to this reduced input array.
    * Example:
    *
    * - input array
@@ -51,23 +52,43 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
   }
 
   /**
-   * Add the supplied `record` partial to the `recordMap` in-memory data store of records.
+   * Add the supplied `record` partial to the in-memory data store of records.
    * Get the `id` of the record by getting the next available `id` value.
-   * Returns the `id` of the newly added record.
+   * Returns the updated record with the newly generated `id`.
    * @param record the partial record of type `T` to create
    */
-  public create(record: Partial<T>): number {
+  public create(record: Partial<T>): T {
     const id = record.id || this.getNextId();
     const newRecord: T = { ...record, id } as T;
     this.recordMap = {
       ...this.recordMap,
       [id]: newRecord,
     };
-    return newRecord.id;
+    return newRecord;
   }
 
   /**
-   * Update a record in the `recordMap` of type `T` using the supplied record.
+   * Add the supplied `records` partials array to in-memory data store of records.
+   * Get the `id` of the record by getting the next available `id` value.
+   * Returns a sequential array of the records with the newly generated `ids`.
+   * @param records any array of partial records of type `T` to create
+   */
+  public createMany(records: Array<Partial<T>>): T[] {
+    const newRecords = records.map(record => {
+      const id = record.id || this.getNextId();
+      const newRecord: T = { ...record, id } as T;
+      this.recordMap = {
+        ...this.recordMap,
+        [id]: newRecord,
+      };
+      return newRecord;
+    });
+
+    return newRecords;
+  }
+
+  /**
+   * Update a record in the in-memory data store of type `T` using the supplied record.
    * @param record the record of type `T` to update
    */
   public update(record: T): void {
@@ -78,7 +99,7 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
   }
 
   /**
-   * Remove the record of type `T` from the `recordMap` using the supplied PK id.
+   * Remove the record of type `T` from the in-memory data store using the supplied PK id.
    * @param id the PK id of the record
    */
   public delete(id: number): void {

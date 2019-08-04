@@ -75,23 +75,59 @@ describe('In Memory DB Service', () => {
 
       // act
       service.create(itemToAdd);
-      const actualRecords = service.records;
 
       // assert
-      expect(actualRecords).toEqual(expectedRecords);
+      expect(service.records).toEqual(expectedRecords);
     });
     it('should return generated id', () => {
       // arrange
       service.records = [];
       const itemToAdd: Partial<TestEntity> = { someField: 'Test' };
-      const expectedGeneratedId = 1;
-      const expectedRecords = [...[{ ...itemToAdd, id: expectedGeneratedId }]];
+      const expectedRecord = { ...itemToAdd, id: 1 };
 
       // act
-      const actualGeneratedId = service.create(itemToAdd);
+      const actualRecord = service.create(itemToAdd);
 
       // assert
-      expect(actualGeneratedId).toEqual(expectedGeneratedId);
+      expect(actualRecord).toEqual(expectedRecord);
+    });
+  });
+  describe('createMany', () => {
+    it('should update records with correct items', () => {
+      // arrange
+      service.records = [];
+      const item1ToAdd: Partial<TestEntity> = { someField: 'Test' };
+      const item2ToAdd: Partial<TestEntity> = { someField: 'Another' };
+      const expectedRecords = [
+        ...[{ ...item1ToAdd, id: 1 }, { ...item2ToAdd, id: 2 }],
+      ];
+
+      // act
+      const createdRecords = service.createMany([item1ToAdd, item2ToAdd]);
+
+      // assert
+      expect(service.records).toEqual(expectedRecords);
+      expect(createdRecords).toEqual(expectedRecords);
+    });
+    it('should return generated ids', () => {
+      // arrange
+      service.records = [];
+      const item1ToAdd: Partial<TestEntity> = { someField: 'Test' };
+      const item2ToAdd: Partial<TestEntity> = { someField: 'Another' };
+
+      const expectedGeneratedRecords = [
+        { ...item1ToAdd, id: 1 },
+        { ...item2ToAdd, id: 2 },
+      ];
+
+      // act
+      const actualGeneratedRecords = service.createMany([
+        item1ToAdd,
+        item2ToAdd,
+      ]);
+
+      // assert
+      expect(actualGeneratedRecords).toEqual(expectedGeneratedRecords);
     });
   });
   describe('update', () => {
