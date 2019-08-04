@@ -85,13 +85,51 @@ describe('In Memory DB Service', () => {
       service.records = [];
       const itemToAdd: Partial<TestEntity> = { someField: 'Test' };
       const expectedGeneratedId = 1;
-      const expectedRecords = [...[{ ...itemToAdd, id: expectedGeneratedId }]];
 
       // act
       const actualGeneratedId = service.create(itemToAdd);
 
       // assert
       expect(actualGeneratedId).toEqual(expectedGeneratedId);
+      expect(actualGeneratedId).toEqual(service.records[0].id);
+    });
+  });
+  describe('createMany', () => {
+    it('should update records with correct items', () => {
+      // arrange
+      service.records = [];
+      const item1ToAdd: Partial<TestEntity> = { someField: 'Test' };
+      const item2ToAdd: Partial<TestEntity> = { someField: 'Another' };
+      const expectedRecords = [
+        ...[{ ...item1ToAdd, id: 1 }, { ...item2ToAdd, id: 2 }],
+      ];
+
+      // act
+      service.createMany(item1ToAdd, item2ToAdd);
+      const actualRecords = service.records;
+
+      // assert
+      expect(actualRecords).toEqual(expectedRecords);
+    });
+    it('should return generated ids', () => {
+      // arrange
+      service.records = [];
+      const item1ToAdd: Partial<TestEntity> = { someField: 'Test' };
+      const expectedGenerated1Id = 1;
+      const item2ToAdd: Partial<TestEntity> = { someField: 'Another' };
+      const expectedGenerated2Id = 2;
+
+      const expectedGeneratedIds = [expectedGenerated1Id, expectedGenerated2Id];
+
+      // act
+      const actualGeneratedIds = service.createMany(item1ToAdd, item2ToAdd);
+
+      // assert
+      expect(actualGeneratedIds).toEqual(expectedGeneratedIds);
+      expect(actualGeneratedIds).toEqual([
+        service.records[0].id,
+        service.records[1].id,
+      ]);
     });
   });
   describe('update', () => {
