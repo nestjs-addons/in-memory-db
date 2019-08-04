@@ -75,10 +75,9 @@ describe('In Memory DB Service', () => {
 
       // act
       service.create(itemToAdd);
-      const actualRecords = service.records;
 
       // assert
-      expect(actualRecords).toEqual(expectedRecords);
+      expect(service.records).toEqual(expectedRecords);
     });
     it('should return generated id', () => {
       // arrange
@@ -105,11 +104,10 @@ describe('In Memory DB Service', () => {
       ];
 
       // act
-      service.createMany(item1ToAdd, item2ToAdd);
-      const actualRecords = service.records;
+      service.createMany([item1ToAdd, item2ToAdd]);
 
       // assert
-      expect(actualRecords).toEqual(expectedRecords);
+      expect(service.records).toEqual(expectedRecords);
     });
     it('should return generated ids', () => {
       // arrange
@@ -122,7 +120,7 @@ describe('In Memory DB Service', () => {
       const expectedGeneratedIds = [expectedGenerated1Id, expectedGenerated2Id];
 
       // act
-      const actualGeneratedIds = service.createMany(item1ToAdd, item2ToAdd);
+      const actualGeneratedIds = service.createMany([item1ToAdd, item2ToAdd]);
 
       // assert
       expect(actualGeneratedIds).toEqual(expectedGeneratedIds);

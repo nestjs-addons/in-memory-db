@@ -73,7 +73,7 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
    * Returns a sequential array of the newly generated `ids`.
    * @param records any array of partial records of type `T` to create
    */
-  public createMany(...records: Array<Partial<T>>): number[] {
+  public createMany(records: Array<Partial<T>>): number[] {
     const newRecords = new Array<number>();
 
     for (const record of records) {
