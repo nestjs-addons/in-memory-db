@@ -54,17 +54,17 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
   /**
    * Add the supplied `record` partial to the in-memory data store of records.
    * Get the `id` of the record by getting the next available `id` value.
-   * Returns the `id` of the newly added record.
+   * Returns the updated record with the newly generated `id`.
    * @param record the partial record of type `T` to create
    */
-  public create(record: Partial<T>): number {
+  public create(record: Partial<T>): T {
     const id = record.id || this.getNextId();
     const newRecord: T = { ...record, id } as T;
     this.recordMap = {
       ...this.recordMap,
       [id]: newRecord,
     };
-    return newRecord.id;
+    return newRecord;
   }
 
   /**

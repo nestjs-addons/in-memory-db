@@ -83,14 +83,13 @@ describe('In Memory DB Service', () => {
       // arrange
       service.records = [];
       const itemToAdd: Partial<TestEntity> = { someField: 'Test' };
-      const expectedGeneratedId = 1;
+      const expectedRecord = { ...itemToAdd, id: 1 };
 
       // act
-      const actualGeneratedId = service.create(itemToAdd);
+      const actualRecord = service.create(itemToAdd);
 
       // assert
-      expect(actualGeneratedId).toEqual(expectedGeneratedId);
-      expect(actualGeneratedId).toEqual(service.records[0].id);
+      expect(actualRecord).toEqual(expectedRecord);
     });
   });
   describe('createMany', () => {
