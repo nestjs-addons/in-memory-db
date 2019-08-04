@@ -70,21 +70,19 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
   /**
    * Add the supplied `records` partials array to in-memory data store of records.
    * Get the `id` of the record by getting the next available `id` value.
-   * Returns a sequential array of the newly generated `ids`.
+   * Returns a sequential array of the records with the newly generated `ids`.
    * @param records any array of partial records of type `T` to create
    */
-  public createMany(records: Array<Partial<T>>): number[] {
-    const newRecords = new Array<number>();
-
-    for (const record of records) {
+  public createMany(records: Array<Partial<T>>): T[] {
+    const newRecords = records.map(record => {
       const id = record.id || this.getNextId();
       const newRecord: T = { ...record, id } as T;
       this.recordMap = {
         ...this.recordMap,
         [id]: newRecord,
       };
-      newRecords.push(newRecord.id);
-    }
+      return newRecord;
+    });
 
     return newRecords;
   }

@@ -104,30 +104,31 @@ describe('In Memory DB Service', () => {
       ];
 
       // act
-      service.createMany([item1ToAdd, item2ToAdd]);
+      const createdRecords = service.createMany([item1ToAdd, item2ToAdd]);
 
       // assert
       expect(service.records).toEqual(expectedRecords);
+      expect(createdRecords).toEqual(expectedRecords);
     });
     it('should return generated ids', () => {
       // arrange
       service.records = [];
       const item1ToAdd: Partial<TestEntity> = { someField: 'Test' };
-      const expectedGenerated1Id = 1;
       const item2ToAdd: Partial<TestEntity> = { someField: 'Another' };
-      const expectedGenerated2Id = 2;
 
-      const expectedGeneratedIds = [expectedGenerated1Id, expectedGenerated2Id];
+      const expectedGeneratedRecords = [
+        { ...item1ToAdd, id: 1 },
+        { ...item2ToAdd, id: 2 },
+      ];
 
       // act
-      const actualGeneratedIds = service.createMany([item1ToAdd, item2ToAdd]);
+      const actualGeneratedRecords = service.createMany([
+        item1ToAdd,
+        item2ToAdd,
+      ]);
 
       // assert
-      expect(actualGeneratedIds).toEqual(expectedGeneratedIds);
-      expect(actualGeneratedIds).toEqual([
-        service.records[0].id,
-        service.records[1].id,
-      ]);
+      expect(actualGeneratedRecords).toEqual(expectedGeneratedRecords);
     });
   });
   describe('update', () => {
