@@ -14,6 +14,7 @@
   "devDependencies": {
     "@nestjs/common": "6.5.3",
     "@nestjs/core": "6.5.3",
+    "@semantic-release/changelog": "^3.0.4",
     "@types/jest": "24.0.15",
     "@types/node": "11.13.18",
     "cz-conventional-changelog": "^3.0.2",
@@ -50,5 +51,11 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "release": {
+    "plugins": [
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/changelog"
+    ]
   }
 }
