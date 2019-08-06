@@ -71,20 +71,10 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
    * Add the supplied `records` partials array to in-memory data store of records.
    * Get the `id` of the record by getting the next available `id` value.
    * Returns a sequential array of the records with the newly generated `ids`.
-   * @param records any array of partial records of type `T` to create
+   * @param records an array of partial records of type `T` to create
    */
   public createMany(records: Array<Partial<T>>): T[] {
-    const newRecords = records.map(record => {
-      const id = record.id || this.getNextId();
-      const newRecord: T = { ...record, id } as T;
-      this.recordMap = {
-        ...this.recordMap,
-        [id]: newRecord,
-      };
-      return newRecord;
-    });
-
-    return newRecords;
+    return records.map(record => this.create(record));
   }
 
   /**
@@ -94,8 +84,18 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
   public update(record: T): void {
     this.recordMap = {
       ...this.recordMap,
-      [record.id]: record,
+      [record.id]: { ...record },
     };
+  }
+
+  /**
+   * Update records in the in-memory data store of type `T` using the supplied records.
+   * @param records an array of records of type `T` to update
+   */
+  public updateMany(records: T[]): void {
+    for (const record of records) {
+      this.update(record);
+    }
   }
 
   /**
@@ -110,11 +110,35 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
   }
 
   /**
-   * Get a single record of type `T` with the supplid id value.
+   * Remove the records of type `T` from the in-memory data store using the supplied PK ids.
+   * @param ids the PK ids of the records
+   */
+  public deleteMany(ids: number[]): void {
+    for (const id of ids) {
+      this.delete(id);
+    }
+  }
+
+  /**
+   * Get a single record of type `T` with the supplied id value.
    * @param id the PK id of the record
    */
   public get(id: number): T {
     return this.recordMap[id];
+  }
+
+  /**
+   * Get records of type `T` with the supplied id values.
+   * @param ids the PK ids of the records
+   */
+  public getMany(ids: number[]): T[] {
+    const records = ids
+      .filter(id => this.recordMap[id])
+      .map(id => {
+        return this.recordMap[id];
+      });
+
+    return records;
   }
 
   /**

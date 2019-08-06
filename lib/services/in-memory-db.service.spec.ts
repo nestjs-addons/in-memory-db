@@ -11,6 +11,7 @@ describe('In Memory DB Service', () => {
   const sampleRecords: TestEntity[] = [
     { id: 1, someField: 'AAA' },
     { id: 2, someField: 'BBB' },
+    { id: 3, someField: 'CCC' },
   ];
 
   beforeEach(() => {
@@ -40,6 +41,31 @@ describe('In Memory DB Service', () => {
 
       // assert
       expect(actualRecord).toEqual(expectedRecord);
+    });
+  });
+  describe('getMany', () => {
+    it('should return expected records if given valid ids', () => {
+      // arrange
+      service.records = [...sampleRecords];
+      const expectedRecords = [...[sampleRecords[0], sampleRecords[1]]];
+
+      // act
+      const actualRecords = service.getMany([1, 2]);
+
+      // assert
+      expect(actualRecords).toEqual(expectedRecords);
+    });
+
+    it('should return only expected records if given an invalid id', () => {
+      // arrange
+      service.records = [...sampleRecords];
+      const expectedRecords = [sampleRecords[0]];
+
+      // act
+      const actualRecords = service.getMany([-1, 1]);
+
+      // assert
+      expect(actualRecords).toEqual(expectedRecords);
     });
   });
   describe('getAll', () => {
@@ -148,6 +174,31 @@ describe('In Memory DB Service', () => {
       expect(actualUpdatedRecord).toEqual(expectedUpdatedRecord);
     });
   });
+  describe('updateMany', () => {
+    it('should update records as expected', () => {
+      // arrange
+      const originalRecords: TestEntity[] = [
+        { id: 1, someField: 'AAA' },
+        { id: 2, someField: 'BBB' },
+        { id: 3, someField: 'CCC' },
+      ];
+      const expectedUpdatedRecords: TestEntity[] = [
+        { id: 1, someField: 'YYY' },
+        { id: 2, someField: 'ZZZ' },
+      ];
+      service.records = [...originalRecords];
+
+      // act
+      service.updateMany(expectedUpdatedRecords);
+
+      // assert
+      const actualUpdatedRecords = service.records.filter(record =>
+        expectedUpdatedRecords.map(o => o.id).includes(record.id),
+      );
+
+      expect(actualUpdatedRecords).toEqual(expectedUpdatedRecords);
+    });
+  });
   describe('delete', () => {
     it('should remove record as expected', () => {
       // arrange
@@ -162,6 +213,24 @@ describe('In Memory DB Service', () => {
       // assert
       const secondRecord = service.records.find(record => record.id === 2);
       expect(secondRecord).toEqual(undefined);
+      expect(service.records.length).toEqual(1);
+    });
+  });
+  describe('deleteMany', () => {
+    it('should remove records as expected', () => {
+      // arrange
+      service.records = [
+        { id: 1, someField: 'AAA' },
+        { id: 2, someField: 'BBB' },
+        { id: 3, someField: 'CCC' },
+      ];
+
+      // act
+      service.deleteMany([1, 2]);
+
+      // assert
+      const thirdRecord = service.records[0];
+      expect(thirdRecord).toEqual({ id: 3, someField: 'CCC' });
       expect(service.records.length).toEqual(1);
     });
   });
