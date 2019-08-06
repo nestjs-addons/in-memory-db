@@ -74,17 +74,7 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
    * @param records an array of partial records of type `T` to create
    */
   public createMany(records: Array<Partial<T>>): T[] {
-    const newRecords = records.map(record => {
-      const id = record.id || this.getNextId();
-      const newRecord: T = { ...record, id } as T;
-      this.recordMap = {
-        ...this.recordMap,
-        [id]: newRecord,
-      };
-      return newRecord;
-    });
-
-    return newRecords;
+    return records.map(record => this.create(record));
   }
 
   /**
@@ -103,12 +93,9 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
    * @param records an array of records of type `T` to update
    */
   public updateMany(records: T[]): void {
-    records.forEach(record => {
-      this.recordMap = {
-        ...this.recordMap,
-        [record.id]: { ...record },
-      };
-    });
+    for (const record of records) {
+      this.update(record);
+    }
   }
 
   /**
@@ -127,12 +114,9 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
    * @param ids the PK ids of the records
    */
   public deleteMany(ids: number[]): void {
-    ids.forEach(id => {
-      const { [id]: removed, ...remainder } = this.recordMap;
-      this.recordMap = {
-        ...remainder,
-      };
-    });
+    for (const id of ids) {
+      this.delete(id);
+    }
   }
 
   /**
