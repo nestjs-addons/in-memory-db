@@ -14,8 +14,16 @@ This provides a great way to quickly get up and running with prototypes and mock
 
 ## Installation
 
+**With NPM**
+
 ```bash
 $ npm i --save @nestjs-addons/in-memory-db
+```
+
+**With Yarn**
+
+```bash
+$ yarn add @nestjs-addons/in-memory-db
 ```
 
 ## Video Walkthrough
