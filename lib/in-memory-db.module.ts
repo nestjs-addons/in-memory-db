@@ -1,9 +1,12 @@
-import { DynamicModule, Module } from '@nestjs/common';
+import { DynamicModule, Module, OnModuleInit } from '@nestjs/common';
 
 import { InMemoryDBConfig } from './interfaces';
 import { InMemoryDBService } from './services';
 
-@Module({})
+@Module({
+  providers: [InMemoryDBService],
+  exports: [InMemoryDBService],
+})
 export class InMemoryDBModule {
   static forFeature(config: Partial<InMemoryDBConfig> = {}): DynamicModule {
     return {

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Optional } from '@nestjs/common';
 
 import { InMemoryDBConfig, InMemoryDBEntity } from '../interfaces';
 
@@ -7,8 +7,8 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
   private readonly moduleConfig: Partial<InMemoryDBConfig>;
   private recordMap: { [id: number]: T } = {};
 
-  constructor(config: Partial<InMemoryDBConfig>) {
-    this.moduleConfig = config;
+  constructor(@Optional() config: Partial<InMemoryDBConfig> = {}) {
+    this.moduleConfig = config || {};
   }
 
   /**
