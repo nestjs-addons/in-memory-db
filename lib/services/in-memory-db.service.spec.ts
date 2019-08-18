@@ -15,7 +15,7 @@ describe('In Memory DB Service', () => {
   ];
 
   beforeEach(() => {
-    service = new InMemoryDBService<TestEntity>();
+    service = new InMemoryDBService<TestEntity>({});
   });
 
   describe('get', () => {

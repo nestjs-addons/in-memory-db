@@ -1,9 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import { InMemoryDBEntity } from '../interfaces';
+
+import { InMemoryDBConfig, InMemoryDBEntity } from '../interfaces';
 
 @Injectable()
 export class InMemoryDBService<T extends InMemoryDBEntity> {
+  private readonly moduleConfig: Partial<InMemoryDBConfig>;
   private recordMap: { [id: number]: T } = {};
+
+  constructor(config: Partial<InMemoryDBConfig>) {
+    this.moduleConfig = config;
+  }
 
   /**
    * Given the array of records of type `T`, reduce the array into a dictionary object of
