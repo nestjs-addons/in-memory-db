@@ -1,4 +1,4 @@
-import { DynamicModule, Module, OnModuleInit } from '@nestjs/common';
+import { DynamicModule, Module } from '@nestjs/common';
 
 import { InMemoryDBConfig } from './interfaces';
 import { InMemoryDBService } from './services';
