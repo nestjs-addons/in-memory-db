@@ -8,7 +8,7 @@ import { InMemoryDBService } from './services';
   exports: [InMemoryDBService],
 })
 export class InMemoryDBModule {
-  static forFeature(config: Partial<InMemoryDBConfig> = {}): DynamicModule {
+  static forRoot(config: Partial<InMemoryDBConfig> = {}): DynamicModule {
     return {
       module: InMemoryDBModule,
       providers: [
