@@ -82,13 +82,8 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
    * @param record the partial record of type `T` to create
    */
   public createAsync(record: Partial<T>): Observable<T> {
-    const id = record.id || this.getNextId();
-    const newRecord: T = { ...record, id } as T;
-    this.recordMap = {
-      ...this.recordMap,
-      [id]: newRecord,
-    };
-    return of(newRecord);
+    const result$ = of(this.create(record));
+    return result$;
   }
 
   /**
@@ -108,7 +103,8 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
    * @param records an array of partial records of type `T` to create
    */
   public createManyAsync(records: Array<Partial<T>>): Observable<T[]> {
-    return of(records.map(record => this.create(record)));
+    const result$ = of(this.createMany(records));
+    return result$;
   }
 
   /**
@@ -127,12 +123,9 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
    * @param record the record of type `T` to update
    */
   public updateAsync(record: T): Observable<void> {
-    this.recordMap = {
-      ...this.recordMap,
-      [record.id]: { ...record },
-    };
-
-    return of();
+    this.update(record);
+    const result$ = of<void>();
+    return result$;
   }
 
   /**
@@ -150,11 +143,9 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
    * @param records an array of records of type `T` to update
    */
   public updateManyAsync(records: T[]): Observable<void> {
-    for (const record of records) {
-      this.update(record);
-    }
-
-    return of();
+    this.updateMany(records);
+    const result$ = of<void>();
+    return result$;
   }
 
   /**
@@ -173,12 +164,9 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
    * @param id the PK id of the record
    */
   public deleteAsync(id: number): Observable<void> {
-    const { [id]: removed, ...remainder } = this.recordMap;
-    this.recordMap = {
-      ...remainder,
-    };
-
-    return of();
+    this.delete(id);
+    const result$ = of<void>();
+    return result$;
   }
 
   /**
@@ -196,11 +184,9 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
    * @param ids the PK ids of the records
    */
   public deleteManyAsync(ids: number[]): Observable<void> {
-    for (const id of ids) {
-      this.delete(id);
-    }
-
-    return of();
+    this.deleteMany(ids);
+    const result$ = of<void>();
+    return result$;
   }
 
   /**
@@ -216,7 +202,8 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
    * @param id the PK id of the record
    */
   public getAsync(id: number): Observable<T> {
-    return of(this.recordMap[id]);
+    const result$ = of(this.get(id));
+    return result$;
   }
 
   /**
@@ -234,17 +221,12 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
   }
 
   /**
-   * Get records of type Obsersable `T with the supplied id values
+   * Get records of type Obsersable `T` with the supplied id values
    * @param ids the PK ids of the records
    */
   public getManyAsync(ids: number[]): Observable<T[]> {
-    const records = ids
-      .filter(id => this.recordMap[id])
-      .map(id => {
-        return this.recordMap[id];
-      });
-
-    return of(records);
+    const result$ = of(this.getMany(ids));
+    return result$;
   }
 
   /**
@@ -258,7 +240,8 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
    * Return all the records of type `T` as an Observable.
    */
   public getAllAsync(): Observable<T[]> {
-    return of(this.records || []);
+    const result$ = of(this.getAll());
+    return result$;
   }
 
   /**
@@ -309,8 +292,9 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
    * ```
    * @param predicate the filter predicate
    */
-  public queryAsync(predicate: (record: T) => boolean) {
-    return of(this.records.filter(predicate));
+  public queryAsync(predicate: (record: T) => boolean): Observable<T[]> {
+    const result$ = of(this.query(predicate));
+    return result$;
   }
 
   /**
