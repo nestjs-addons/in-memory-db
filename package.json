@@ -7,6 +7,7 @@
   "repository": "https://github.com/nestjs-addons/in-memory-db",
   "scripts": {
     "build": "tsc -p tsconfig.json",
+    "build:dev": "tsc-watch -p tsconfig.json",
     "format": "prettier lib/**/*.ts --write",
     "test": "jest --config jest.json",
     "semantic-release": "semantic-release"
@@ -26,6 +27,7 @@
     "rxjs-marbles": "^5.0.2",
     "semantic-release": "^15.13.19",
     "ts-jest": "24.0.2",
+    "tsc-watch": "^2.4.0",
     "typescript": "3.5.3"
   },
   "peerDependencies": {
