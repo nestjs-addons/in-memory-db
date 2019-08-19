@@ -1,4 +1,5 @@
 # NestJS Addons: In-Memory DB Service
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
 
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
@@ -296,3 +297,19 @@ export interface InMemoryDBEntity {
 ## License
 
 NestJS Addons is [MIT licensed](LICENSE).
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore -->
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/cmwhited"><img src="https://avatars0.githubusercontent.com/u/18075124?v=4" width="100px;" alt="Chris Whited"/><br /><sub><b>Chris Whited</b></sub></a><br /><a href="#infra-cmwhited" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/nestjs-addons/in-memory-db/commits?author=cmwhited" title="Tests">⚠️</a> <a href="https://github.com/nestjs-addons/in-memory-db/commits?author=cmwhited" title="Code">💻</a></td>
+  </tr>
+</table>
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
