@@ -26,6 +26,16 @@
         "test",
         "code"
       ]
+    },
+    {
+      "login": "wescopeland",
+      "name": "Wes Copeland",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/3984985?v=4",
+      "profile": "https://github.com/wescopeland",
+      "contributions": [
+        "code",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
