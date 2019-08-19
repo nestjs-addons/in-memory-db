@@ -220,7 +220,7 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
   }
 
   /**
-   * Get records of type Obsersable `T` with the supplied id values
+   * Get records of type Observable `T` with the supplied id values
    * @param ids the PK ids of the records
    */
   public getManyAsync(ids: number[]): Observable<T[]> {

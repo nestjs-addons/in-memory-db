@@ -47,29 +47,35 @@ describe('In Memory DB Service', () => {
   });
 
   describe('getAsync', () => {
-    it('should return expected record as an observable if given valid id', marbles(m => {
-      // arrange
-      service.records = [...sampleRecords];
-      const expectedRecord = m.cold('a|', sampleRecords[0]);
+    it(
+      'should return expected record as an observable if given valid id',
+      marbles(m => {
+        // arrange
+        service.records = [...sampleRecords];
+        const expectedRecord = m.cold('a|', sampleRecords[0]);
 
-      // act
-      const actualRecord = m.cold('a|', service.getAsync(1));
+        // act
+        const actualRecord = m.cold('a|', service.getAsync(1));
 
-      // assert
-      m.expect(actualRecord).toBeObservable(expectedRecord);
-    }));
+        // assert
+        m.expect(actualRecord).toBeObservable(expectedRecord);
+      }),
+    );
 
-    it('should return undefined if given invalid id', marbles(m => {
-      // arrange
-      service.records = [...sampleRecords];
-      const expectedRecord = m.cold('a|', undefined);
+    it(
+      'should return undefined if given invalid id',
+      marbles(m => {
+        // arrange
+        service.records = [...sampleRecords];
+        const expectedRecord = m.cold('a|', undefined);
 
-      // act
-      const actualRecord = m.cold('a|', service.get(-1));
+        // act
+        const actualRecord = m.cold('a|', service.get(-1));
 
-      // assert
-      m.expect(actualRecord).toBeObservable(expectedRecord);
-    }));
+        // assert
+        m.expect(actualRecord).toBeObservable(expectedRecord);
+      }),
+    );
   });
 
   describe('getMany', () => {
@@ -99,29 +105,37 @@ describe('In Memory DB Service', () => {
   });
 
   describe('getManyAsync', () => {
-    it('should return expected records as observable if given valid ids', marbles(m => {
-      // arrange
-      service.records = [...sampleRecords];
-      const expectedRecord = m.cold('a|', [...[sampleRecords[0], sampleRecords[1]]]);
+    it(
+      'should return expected records as observable if given valid ids',
+      marbles(m => {
+        // arrange
+        service.records = [...sampleRecords];
+        const expectedRecord = m.cold('a|', [
+          ...[sampleRecords[0], sampleRecords[1]],
+        ]);
 
-      // act
-      const actualRecord = m.cold('a|', service.getManyAsync([1, 2]));
+        // act
+        const actualRecord = m.cold('a|', service.getManyAsync([1, 2]));
 
-      // assert
-      m.expect(actualRecord).toBeObservable(expectedRecord);
-    }));
+        // assert
+        m.expect(actualRecord).toBeObservable(expectedRecord);
+      }),
+    );
 
-    it('should return only expected records as observables if given an invalid id', marbles(m => {
-      // arrange
-      service.records = [...sampleRecords];
-      const expectedRecord = m.cold('a|', [sampleRecords[0]]);
+    it(
+      'should return only expected records as observables if given an invalid id',
+      marbles(m => {
+        // arrange
+        service.records = [...sampleRecords];
+        const expectedRecord = m.cold('a|', [sampleRecords[0]]);
 
-      // act
-      const actualRecords = m.cold('a|', service.getManyAsync([-1, 1]));
+        // act
+        const actualRecords = m.cold('a|', service.getManyAsync([-1, 1]));
 
-      // assert
-      m.expect(actualRecords).toBeObservable(expectedRecord);
-    }));
+        // assert
+        m.expect(actualRecords).toBeObservable(expectedRecord);
+      }),
+    );
   });
 
   describe('getAll', () => {
@@ -150,28 +164,34 @@ describe('In Memory DB Service', () => {
   });
 
   describe('getAllAsync', () => {
-    it('should return all expected records as observalbe', marbles(m => {
-      // arrange
-      service.records = [...sampleRecords];
-      const expectedRecords = m.cold('a|', service.records);
+    it(
+      'should return all expected records as observable',
+      marbles(m => {
+        // arrange
+        service.records = [...sampleRecords];
+        const expectedRecords = m.cold('a|', service.records);
 
-      // act
-      const actualRecords = m.cold('a|', service.getAllAsync());
+        // act
+        const actualRecords = m.cold('a|', service.getAllAsync());
 
-      // assert
-      m.expect(actualRecords).toBeObservable(expectedRecords);
-    }));
-    it('should return empty array as observable if no records', marbles(m => {
-      // arrange
-      service.records = [];
-      const expectedRecords = m.cold('a|', []);
+        // assert
+        m.expect(actualRecords).toBeObservable(expectedRecords);
+      }),
+    );
+    it(
+      'should return empty array as observable if no records',
+      marbles(m => {
+        // arrange
+        service.records = [];
+        const expectedRecords = m.cold('a|', []);
 
-      // act
-      const actualRecords = m.cold('a|', service.getAllAsync());
+        // act
+        const actualRecords = m.cold('a|', service.getAllAsync());
 
-      // assert
-      m.expect(actualRecords).toBeObservable(expectedRecords);
-    }));
+        // assert
+        m.expect(actualRecords).toBeObservable(expectedRecords);
+      }),
+    );
   });
 
   describe('create', () => {
@@ -202,31 +222,37 @@ describe('In Memory DB Service', () => {
   });
 
   describe('createAsync', () => {
-    it('should update records with correct items asyncronously', marbles(m => {
-      // arrange
-      service.records = [];
-      const itemToAdd: Partial<TestEntity> = { someField: 'Test' };
-      const expectedRecords = m.cold('a|', [...[{ ...itemToAdd, id: 1}]]);
+    it(
+      'should update records with correct items asyncronously',
+      marbles(m => {
+        // arrange
+        service.records = [];
+        const itemToAdd: Partial<TestEntity> = { someField: 'Test' };
+        const expectedRecords = m.cold('a|', [...[{ ...itemToAdd, id: 1 }]]);
 
-      // act
-      service.createAsync(itemToAdd);
-      const actualRecords = m.cold('a|', service.records);
+        // act
+        service.createAsync(itemToAdd);
+        const actualRecords = m.cold('a|', service.records);
 
-      // assert
-      m.expect(actualRecords).toBeObservable(expectedRecords);
-    }));
-    it('should return generated id as observable', marbles(m => {
-      // arrange
-      service.records = [];
-      const itemToAdd: Partial<TestEntity> = { someField: 'Test' };
-      const expectedRecord = m.cold('a|', { ...itemToAdd, id: 1 });
+        // assert
+        m.expect(actualRecords).toBeObservable(expectedRecords);
+      }),
+    );
+    it(
+      'should return generated id as observable',
+      marbles(m => {
+        // arrange
+        service.records = [];
+        const itemToAdd: Partial<TestEntity> = { someField: 'Test' };
+        const expectedRecord = m.cold('a|', { ...itemToAdd, id: 1 });
 
-      // act
-      const actualRecord = m.cold('a|', service.createAsync(itemToAdd));
+        // act
+        const actualRecord = m.cold('a|', service.createAsync(itemToAdd));
 
-      // assert
-      m.expect(actualRecord).toBeObservable(expectedRecord);
-    }));
+        // assert
+        m.expect(actualRecord).toBeObservable(expectedRecord);
+      }),
+    );
   });
 
   describe('createMany', () => {
@@ -269,43 +295,54 @@ describe('In Memory DB Service', () => {
   });
 
   describe('createManyAsync', () => {
-    it('should update records with correct items asynchronously', marbles(m => {
-      // arrange
-      service.records = [];
-      const item1ToAdd: Partial<TestEntity> = { someField: 'Test' };
-      const item2ToAdd: Partial<TestEntity> = { someField: 'Another' };
-      const expectedRecords = m.cold('a|', [
-        ...[{ ...item1ToAdd, id: 1 }, { ...item2ToAdd, id: 2 }],
-      ]);
+    it(
+      'should update records with correct items asynchronously',
+      marbles(m => {
+        // arrange
+        service.records = [];
+        const item1ToAdd: Partial<TestEntity> = { someField: 'Test' };
+        const item2ToAdd: Partial<TestEntity> = { someField: 'Another' };
+        const expectedRecords = m.cold('a|', [
+          ...[{ ...item1ToAdd, id: 1 }, { ...item2ToAdd, id: 2 }],
+        ]);
 
-      // act
-      const createdRecords = m.cold('a|', service.createManyAsync([item1ToAdd, item2ToAdd]));
-      const actualRecords = m.cold('a|', service.records);
+        // act
+        const createdRecords = m.cold(
+          'a|',
+          service.createManyAsync([item1ToAdd, item2ToAdd]),
+        );
+        const actualRecords = m.cold('a|', service.records);
 
-      // assert
-      m.expect(actualRecords).toBeObservable(expectedRecords);
-      m.expect(createdRecords).toBeObservable(expectedRecords);
-    }));
-    it('should return generated ids asyncronously', marbles(m => {
-      // arrange
-      service.records = [];
-      const item1ToAdd: Partial<TestEntity> = { someField: 'Test' };
-      const item2ToAdd: Partial<TestEntity> = { someField: 'Another' };
+        // assert
+        m.expect(actualRecords).toBeObservable(expectedRecords);
+        m.expect(createdRecords).toBeObservable(expectedRecords);
+      }),
+    );
+    it(
+      'should return generated ids asyncronously',
+      marbles(m => {
+        // arrange
+        service.records = [];
+        const item1ToAdd: Partial<TestEntity> = { someField: 'Test' };
+        const item2ToAdd: Partial<TestEntity> = { someField: 'Another' };
 
-      const expectedGeneratedRecords = m.cold('a|', [
-        { ...item1ToAdd, id: 1 },
-        { ...item2ToAdd, id: 2 },
-      ]);
+        const expectedGeneratedRecords = m.cold('a|', [
+          { ...item1ToAdd, id: 1 },
+          { ...item2ToAdd, id: 2 },
+        ]);
 
-      // act
-      const actualGeneratedRecords = m.cold('a|', service.createManyAsync([
-        item1ToAdd,
-        item2ToAdd
-      ]));
+        // act
+        const actualGeneratedRecords = m.cold(
+          'a|',
+          service.createManyAsync([item1ToAdd, item2ToAdd]),
+        );
 
-      // assert
-      m.expect(actualGeneratedRecords).toBeObservable(expectedGeneratedRecords);
-    }));
+        // assert
+        m.expect(actualGeneratedRecords).toBeObservable(
+          expectedGeneratedRecords,
+        );
+      }),
+    );
   });
 
   describe('update', () => {
@@ -328,23 +365,27 @@ describe('In Memory DB Service', () => {
   });
 
   describe('updateAsync', () => {
-    it('should update record as expected asyncronously', marbles(m => {
-      // arrange
-      const originRecord: TestEntity = { id: 1, someField: 'AAA' };
-      const updatedRecord: TestEntity = { id: 1, someField: 'BBB' };
-      service.records = [...[originRecord]];
-      const expectedRecord = m.cold('a|', updatedRecord);
+    it(
+      'should update record as expected asyncronously',
+      marbles(m => {
+        // arrange
+        const originRecord: TestEntity = { id: 1, someField: 'AAA' };
+        const updatedRecord: TestEntity = { id: 1, someField: 'BBB' };
+        service.records = [...[originRecord]];
+        const expectedRecord = m.cold('a|', updatedRecord);
 
-      // act
-      service.updateAsync(updatedRecord);
+        // act
+        service.updateAsync(updatedRecord);
 
-      // assert
-      const actualUpdatedRecord = m.cold('a|', service.records.find(
-        record => record.id === originRecord.id,
-      ));
+        // assert
+        const actualUpdatedRecord = m.cold(
+          'a|',
+          service.records.find(record => record.id === originRecord.id),
+        );
 
-      m.expect(actualUpdatedRecord).toBeObservable(expectedRecord);
-    }));
+        m.expect(actualUpdatedRecord).toBeObservable(expectedRecord);
+      }),
+    );
   });
 
   describe('updateMany', () => {
@@ -374,30 +415,36 @@ describe('In Memory DB Service', () => {
   });
 
   describe('updateManyAsync', () => {
-    it('should update records as expected asynronously', marbles(m => {
-      // arrange
-      const originRecords: TestEntity[] = [
-        { id: 1, someField: 'AAA' },
-        { id: 2, someField: 'BBB' },
-        { id: 3, someField: 'CCC' }
-      ];
-      const updatedRecords: TestEntity[] = [
-        { id: 1, someField: 'YYY' },
-        { id: 2, someField: 'ZZZ' }
-      ];
-      service.records = [...originRecords];
-      const expectedRecords = m.cold('a|', updatedRecords);
+    it(
+      'should update records as expected asynronously',
+      marbles(m => {
+        // arrange
+        const originRecords: TestEntity[] = [
+          { id: 1, someField: 'AAA' },
+          { id: 2, someField: 'BBB' },
+          { id: 3, someField: 'CCC' },
+        ];
+        const updatedRecords: TestEntity[] = [
+          { id: 1, someField: 'YYY' },
+          { id: 2, someField: 'ZZZ' },
+        ];
+        service.records = [...originRecords];
+        const expectedRecords = m.cold('a|', updatedRecords);
 
-      // act
-      service.updateManyAsync(updatedRecords);
+        // act
+        service.updateManyAsync(updatedRecords);
 
-      // assert
-      const actualUpdatedRecords = m.cold('a|', service.records.filter(record =>
-        updatedRecords.map(o => o.id).includes(record.id),
-      ));
+        // assert
+        const actualUpdatedRecords = m.cold(
+          'a|',
+          service.records.filter(record =>
+            updatedRecords.map(o => o.id).includes(record.id),
+          ),
+        );
 
-      m.expect(actualUpdatedRecords).toBeObservable(expectedRecords);
-    }));
+        m.expect(actualUpdatedRecords).toBeObservable(expectedRecords);
+      }),
+    );
   });
 
   describe('delete', () => {
@@ -423,7 +470,7 @@ describe('In Memory DB Service', () => {
       // arrange
       service.records = [
         { id: 1, someField: 'AAA' },
-        { id: 2, someField: 'BBB' }
+        { id: 2, someField: 'BBB' },
       ];
 
       // act
@@ -461,7 +508,7 @@ describe('In Memory DB Service', () => {
       service.records = [
         { id: 1, someField: 'AAAA' },
         { id: 2, someField: 'BBB' },
-        { id: 3, someField: 'CCC' }
+        { id: 3, someField: 'CCC' },
       ];
 
       // act
@@ -492,19 +539,25 @@ describe('In Memory DB Service', () => {
   });
 
   describe('queryAsync', () => {
-    it('should return expected records for given predicate as observable', marbles(m => {
-      // arrange
-      service.records = [
-        { id: 1, someField: 'AAA' },
-        { id: 2, someField: 'BBB' }
-      ];
-      const expectedFoundRecord = m.cold('a|', service.records[1]);
+    it(
+      'should return expected records for given predicate as observable',
+      marbles(m => {
+        // arrange
+        service.records = [
+          { id: 1, someField: 'AAA' },
+          { id: 2, someField: 'BBB' },
+        ];
+        const expectedFoundRecord = m.cold('a|', service.records[1]);
 
-      // act
-      const foundRecord = m.cold('a|', service.query(record => record.someField === 'BBB'));
+        // act
+        const foundRecord = m.cold(
+          'a|',
+          service.query(record => record.someField === 'BBB'),
+        );
 
-      // assert
-      m.expect(foundRecord).toBeObservable(expectedFoundRecord);
-    }));
+        // assert
+        m.expect(foundRecord).toBeObservable(expectedFoundRecord);
+      }),
+    );
   });
 });
