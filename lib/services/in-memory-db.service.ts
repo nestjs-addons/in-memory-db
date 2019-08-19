@@ -1,8 +1,7 @@
 import { Injectable, Optional } from '@nestjs/common';
 
-import { InMemoryDBEntity } from '../interfaces';
+import { InMemoryDBConfig, InMemoryDBEntity } from '../interfaces';
 import { Observable, of } from 'rxjs';
-import { InMemoryDBConfig } from '../interfaces/in-memory-db-config';
 
 @Injectable()
 export class InMemoryDBService<T extends InMemoryDBEntity> {
