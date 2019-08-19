@@ -1,0 +1,25 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "wesleygrimes",
+      "name": "Wes Grimes",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/324308?v=4",
+      "profile": "https://wesleygrimes.com",
+      "contributions": [
+        "infra",
+        "test",
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "in-memory-db",
+  "projectOwner": "nestjs-addons",
+  "repoType": "github",
+  "repoHost": "https://github.com"
+}
