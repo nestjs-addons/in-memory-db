@@ -39,10 +39,6 @@
     "*.ts": [
       "prettier --write",
       "git add -f"
-    ],
-    "*.--write": [
-      "prettier --write",
-      "git add"
     ]
   },
   "husky": {
