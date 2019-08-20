@@ -62,11 +62,11 @@ describe('In Memory DB Service', () => {
     );
 
     it(
-      'should return undefined if given invalid id',
+      'should return observable with no value given invalid id',
       marbles(m => {
         // arrange
         service.records = [...sampleRecords];
-        const expectedRecord = m.cold('a|', undefined);
+        const expectedRecord = m.cold('a|', {});
 
         // act
         const actualRecord = m.cold('a|', service.getAsync(-1));
