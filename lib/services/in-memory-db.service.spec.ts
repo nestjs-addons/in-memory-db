@@ -69,7 +69,7 @@ describe('In Memory DB Service', () => {
         const expectedRecord = m.cold('a|', undefined);
 
         // act
-        const actualRecord = m.cold('a|', service.get(-1));
+        const actualRecord = m.cold('a|', service.getAsync(-1));
 
         // assert
         m.expect(actualRecord).toBeObservable(expectedRecord);
