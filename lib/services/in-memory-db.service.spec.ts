@@ -551,7 +551,7 @@ describe('In Memory DB Service', () => {
         // act
         const foundRecord = m.cold(
           'a|',
-          service.query(record => record.someField === 'BBB'),
+          service.queryAsync(record => record.someField === 'BBB'),
         );
 
         // assert
