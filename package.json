@@ -19,9 +19,9 @@
     "@types/jest": "24.0.18",
     "@types/node": "11.13.19",
     "cz-conventional-changelog": "3.0.2",
-    "husky": "3.0.4",
+    "husky": "^3.0.4",
     "jest": "24.9.0",
-    "lint-staged": "9.2.3",
+    "lint-staged": "^9.2.3",
     "prettier": "1.18.2",
     "reflect-metadata": "0.1.13",
     "rxjs-marbles": "^5.0.2",
@@ -39,12 +39,15 @@
     "*.ts": [
       "prettier --write",
       "git add -f"
+    ],
+    "*.--write": [
+      "prettier --write",
+      "git add"
     ]
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged",
-      "prepare-commit-msg": "exec < /dev/tty && git cz --hook"
+      "pre-commit": "lint-staged"
     }
   },
   "publishConfig": {

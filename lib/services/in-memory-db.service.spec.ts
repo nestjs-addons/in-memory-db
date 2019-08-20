@@ -1,7 +1,6 @@
+import { marbles } from 'rxjs-marbles';
 import { InMemoryDBEntity } from '../interfaces';
 import { InMemoryDBService } from './in-memory-db.service';
-import { marbles } from 'rxjs-marbles';
-import { Observable } from 'rxjs';
 
 describe('In Memory DB Service', () => {
   interface TestEntity extends InMemoryDBEntity {
