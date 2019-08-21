@@ -12,7 +12,8 @@
     "format:verify": "prettier lib/**/*.ts --check",
     "lint": "tslint -p tsconfig.json -c tslint.json \"lib/**/*.ts\" -e \"*.spec.ts\"",
     "test": "jest --config jest.json",
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release",
+    "commit": "npx git-cz"
   },
   "devDependencies": {
     "@nestjs/common": "6.5.3",
@@ -27,10 +28,11 @@
     "prettier": "1.18.2",
     "reflect-metadata": "0.1.13",
     "rxjs-marbles": "^5.0.2",
-    "semantic-release": "15.13.21",
+    "semantic-release": "^15.13.21",
     "ts-jest": "24.0.2",
     "tsc-watch": "2.4.0",
-    "typescript": "3.5.3"
+    "typescript": "3.5.3",
+    "tslint": "5.19.0"
   },
   "peerDependencies": {
     "@nestjs/common": "^6.0.0",
@@ -60,13 +62,10 @@
   "release": {
     "plugins": [
       "@semantic-release/commit-analyzer",
-      "@semantic-release/github",
-      "@semantic-release/npm",
       "@semantic-release/release-notes-generator",
-      "@semantic-release/changelog"
+      "@semantic-release/changelog",
+      "@semantic-release/npm",
+      "@semantic-release/github"
     ]
-  },
-  "dependencies": {
-    "tslint": "5.19.0"
   }
 }
