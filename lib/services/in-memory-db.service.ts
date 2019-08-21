@@ -1,6 +1,7 @@
 import { Injectable, Optional } from '@nestjs/common';
 
 import { InMemoryDBConfig, InMemoryDBEntity } from '../interfaces';
+import { Observable, of } from 'rxjs';
 
 @Injectable()
 export class InMemoryDBService<T extends InMemoryDBEntity> {
@@ -74,6 +75,17 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
   }
 
   /**
+   * Add the supplied `record` partial to the in-memroy data store of records asyncronously.
+   * Get the `id` of the record by getting the next available `id` value.
+   * Returns the updated record with the newly generated `id` as an observable.
+   * @param record the partial record of type `T` to create
+   */
+  public createAsync(record: Partial<T>): Observable<T> {
+    const result$ = of(this.create(record));
+    return result$;
+  }
+
+  /**
    * Add the supplied `records` partials array to in-memory data store of records.
    * Get the `id` of the record by getting the next available `id` value.
    * Returns a sequential array of the records with the newly generated `ids`.
@@ -81,6 +93,17 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
    */
   public createMany(records: Array<Partial<T>>): T[] {
     return records.map(record => this.create(record));
+  }
+
+  /**
+   * Add the supplied `records` partials array to in-memory data store of records.
+   * Get the `id` of the record by getting the next available `id` value.
+   * Returns a sequential array of the records with the newly generated `ids` as an Observable.
+   * @param records an array of partial records of type `T` to create
+   */
+  public createManyAsync(records: Array<Partial<T>>): Observable<T[]> {
+    const result$ = of(this.createMany(records));
+    return result$;
   }
 
   /**
@@ -95,6 +118,16 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
   }
 
   /**
+   * Update a record in the in-memory data store of type `T` using the supplied record asyncronously.
+   * @param record the record of type `T` to update
+   */
+  public updateAsync(record: T): Observable<void> {
+    this.update(record);
+    const result$ = of<void>();
+    return result$;
+  }
+
+  /**
    * Update records in the in-memory data store of type `T` using the supplied records.
    * @param records an array of records of type `T` to update
    */
@@ -102,6 +135,16 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
     for (const record of records) {
       this.update(record);
     }
+  }
+
+  /**
+   * Update records in the in-memory data store of type `T` using the supplied records asyncronously.
+   * @param records an array of records of type `T` to update
+   */
+  public updateManyAsync(records: T[]): Observable<void> {
+    this.updateMany(records);
+    const result$ = of<void>();
+    return result$;
   }
 
   /**
@@ -116,6 +159,16 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
   }
 
   /**
+   * Remove the record of type `T` from the in-memory data store using the supplied PK id asyncronously.
+   * @param id the PK id of the record
+   */
+  public deleteAsync(id: number): Observable<void> {
+    this.delete(id);
+    const result$ = of<void>();
+    return result$;
+  }
+
+  /**
    * Remove the records of type `T` from the in-memory data store using the supplied PK ids.
    * @param ids the PK ids of the records
    */
@@ -126,11 +179,30 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
   }
 
   /**
+   * Remove the records of type `T` from the in-memory data store using the supplied PK ids asyncronously.
+   * @param ids the PK ids of the records
+   */
+  public deleteManyAsync(ids: number[]): Observable<void> {
+    this.deleteMany(ids);
+    const result$ = of<void>();
+    return result$;
+  }
+
+  /**
    * Get a single record of type `T` with the supplied id value.
    * @param id the PK id of the record
    */
   public get(id: number): T {
     return this.recordMap[id];
+  }
+
+  /**
+   * Get a single record of type `T` with the supplied id value as an Observable;
+   * @param id the PK id of the record
+   */
+  public getAsync(id: number): Observable<T> {
+    const result$ = of(this.get(id));
+    return result$;
   }
 
   /**
@@ -148,10 +220,27 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
   }
 
   /**
+   * Get records of type Observable `T` with the supplied id values
+   * @param ids the PK ids of the records
+   */
+  public getManyAsync(ids: number[]): Observable<T[]> {
+    const result$ = of(this.getMany(ids));
+    return result$;
+  }
+
+  /**
    * Return all of the records of type `T`.
    */
   public getAll(): T[] {
     return this.records || [];
+  }
+
+  /**
+   * Return all the records of type `T` as an Observable.
+   */
+  public getAllAsync(): Observable<T[]> {
+    const result$ = of(this.getAll());
+    return result$;
   }
 
   /**
@@ -178,6 +267,33 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
    */
   public query(predicate: (record: T) => boolean) {
     return this.records.filter(predicate);
+  }
+
+  /**
+   * Return an array of records of type `T` filtered with the supplied predicate as an Observable.
+   * Example:
+   * - given records:
+   * ```json5
+   * [
+   *  {
+   *    "id": 1,
+   *    "prop": "test1"
+   *  },
+   *  {
+   *    "id": 2,
+   *    "prop": "test2"
+   *  }
+   * ]
+   * ```
+   * - to find records with a `prop` value of `test1`:
+   * ```ts
+   * const records: Observable<T[]> = service.queryAsync(record => record.prop === 'test1');
+   * ```
+   * @param predicate the filter predicate
+   */
+  public queryAsync(predicate: (record: T) => boolean): Observable<T[]> {
+    const result$ = of(this.query(predicate));
+    return result$;
   }
 
   /**
