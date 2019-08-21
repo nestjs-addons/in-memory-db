@@ -1,4 +1,4 @@
-name: Master / Publish
+name: master
 
 on:
   push:
