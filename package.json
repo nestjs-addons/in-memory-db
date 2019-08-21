@@ -67,6 +67,6 @@
     ]
   },
   "dependencies": {
-    "tslint": "^5.19.0"
+    "tslint": "5.19.0"
   }
 }
