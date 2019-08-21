@@ -26,11 +26,8 @@ jobs:
       - run: npm ci
       - run: npm run test
 
-  test:
-    needs: [test-8, test-10]
-
   release:
-    needs: test
+    needs: [test-8, test-10]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
