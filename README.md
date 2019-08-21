@@ -1,7 +1,9 @@
 # NestJS Addons: In-Memory DB Service
 
 [![npm version](https://badge.fury.io/js/%40nestjs-addons%2Fin-memory-db.svg)](https://badge.fury.io/js/%40nestjs-addons%2Fin-memory-db)
+[![npm downloads](https://img.shields.io/npm/dt/@nestjs-addons/in-memory-db?label=npm%20downloads)](https://www.npmjs.com/package/@nestjs-addons/in-memory-db)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+[![CI Status](https://github.com/nestjs-addons/in-memory-db/workflows/master/badge.svg)](#)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 [![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors)
 
