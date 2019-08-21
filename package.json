@@ -9,6 +9,8 @@
     "build": "tsc -p tsconfig.json",
     "build:dev": "tsc-watch -p tsconfig.json",
     "format": "prettier lib/**/*.ts --write",
+    "format:verify": "prettier lib/**/*.ts --check",
+    "lint": "tslint -p tsconfig.json -c tslint.json \"lib/**/*.ts\" -e \"*.spec.ts\"",
     "test": "jest --config jest.json",
     "semantic-release": "semantic-release"
   },
@@ -25,7 +27,7 @@
     "prettier": "1.18.2",
     "reflect-metadata": "0.1.13",
     "rxjs-marbles": "^5.0.2",
-    "semantic-release": "^15.13.19",
+    "semantic-release": "15.13.21",
     "ts-jest": "24.0.2",
     "tsc-watch": "2.4.0",
     "typescript": "3.5.3"
@@ -38,7 +40,8 @@
   "lint-staged": {
     "*.ts": [
       "prettier --write",
-      "git add -f"
+      "git add -f",
+      "npm run lint"
     ]
   },
   "husky": {
@@ -62,5 +65,8 @@
       "@semantic-release/release-notes-generator",
       "@semantic-release/changelog"
     ]
+  },
+  "dependencies": {
+    "tslint": "5.19.0"
   }
 }
