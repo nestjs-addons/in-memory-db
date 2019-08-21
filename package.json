@@ -30,7 +30,8 @@
     "semantic-release": "^15.13.21",
     "ts-jest": "24.0.2",
     "tsc-watch": "2.4.0",
-    "typescript": "3.5.3"
+    "typescript": "3.5.3",
+    "tslint": "5.19.0"
   },
   "peerDependencies": {
     "@nestjs/common": "^6.0.0",
@@ -65,8 +66,5 @@
       "@semantic-release/npm",
       "@semantic-release/github"
     ]
-  },
-  "dependencies": {
-    "tslint": "5.19.0"
   }
 }
