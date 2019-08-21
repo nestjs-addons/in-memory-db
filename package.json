@@ -10,7 +10,7 @@
     "build:dev": "tsc-watch -p tsconfig.json",
     "format": "prettier lib/**/*.ts --write",
     "format:verify": "prettier lib/**/*.ts --check",
-    "lint": "tslint -p tsconfig.json -c tslint.json \"lib/**/*.ts\" -e \"*.spec.ts\"",
+    "lint": "npx tslint -p tsconfig.json -c tslint.json \"lib/**/*.ts\" -e \"*.spec.ts\" --force",
     "test": "jest --config jest.json",
     "semantic-release": "semantic-release",
     "commit": "npx git-cz"
@@ -31,8 +31,7 @@
     "semantic-release": "15.13.21",
     "ts-jest": "24.0.2",
     "tsc-watch": "2.4.0",
-    "typescript": "3.5.3",
-    "tslint": "5.19.0"
+    "typescript": "3.5.3"
   },
   "peerDependencies": {
     "@nestjs/common": "^6.0.0",

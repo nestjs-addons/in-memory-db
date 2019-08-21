@@ -297,6 +297,25 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
   }
 
   /**
+   * Randomly generate at a set of records for the given amount and record factory.
+   * Example:
+   * ```typescript
+   * service.seed((i) => { myProp: i}, 100);
+   * ```
+   *
+   * @param recordFactory a factory method to call when generating the random record.
+   * @param amount the amount of records to generate, defaults to 10.
+   */
+  public seed(recordFactory: (index: number) => Partial<T>, amount = 10) {
+    amount = amount === null ? 10 : amount;
+
+    for (let i = 0; i < amount; i++) {
+      const record = recordFactory(i);
+      this.create({ ...record });
+    }
+  }
+
+  /**
    * get the next id by finding the max id in the current records array and adding 1 to that value.
    * Example:
    * - current `recordMap`
