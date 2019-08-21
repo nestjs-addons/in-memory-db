@@ -4,7 +4,7 @@
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 [![CircleCI](https://circleci.com/gh/nestjs-addons/in-memory-db.svg?style=svg)](https://circleci.com/gh/nestjs-addons/in-memory-db)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
-[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors)
 
 ## Description
 
@@ -122,6 +122,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://wesleygrimes.com"><img src="https://avatars0.githubusercontent.com/u/324308?v=4" width="100px;" alt="Wes Grimes"/><br /><sub><b>Wes Grimes</b></sub></a><br /><a href="#infra-wesleygrimes" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/nestjs-addons/in-memory-db/commits?author=wesleygrimes" title="Tests">⚠️</a> <a href="https://github.com/nestjs-addons/in-memory-db/commits?author=wesleygrimes" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/cmwhited"><img src="https://avatars0.githubusercontent.com/u/18075124?v=4" width="100px;" alt="Chris Whited"/><br /><sub><b>Chris Whited</b></sub></a><br /><a href="#infra-cmwhited" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/nestjs-addons/in-memory-db/commits?author=cmwhited" title="Tests">⚠️</a> <a href="https://github.com/nestjs-addons/in-memory-db/commits?author=cmwhited" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/wescopeland"><img src="https://avatars0.githubusercontent.com/u/3984985?v=4" width="100px;" alt="Wes Copeland"/><br /><sub><b>Wes Copeland</b></sub></a><br /><a href="https://github.com/nestjs-addons/in-memory-db/commits?author=wescopeland" title="Code">💻</a> <a href="https://github.com/nestjs-addons/in-memory-db/commits?author=wescopeland" title="Tests">⚠️</a></td>
+    <td align="center"><a href="http://hirejordanpowell.com"><img src="https://avatars0.githubusercontent.com/u/3605268?v=4" width="100px;" alt="Jordan"/><br /><sub><b>Jordan</b></sub></a><br /><a href="https://github.com/nestjs-addons/in-memory-db/commits?author=jordanpowell88" title="Code">💻</a> <a href="https://github.com/nestjs-addons/in-memory-db/commits?author=jordanpowell88" title="Tests">⚠️</a></td>
   </tr>
 </table>
 
