@@ -2,7 +2,6 @@
 
 [![npm version](https://badge.fury.io/js/%40nestjs-addons%2Fin-memory-db.svg)](https://badge.fury.io/js/%40nestjs-addons%2Fin-memory-db)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
-[![CircleCI](https://circleci.com/gh/nestjs-addons/in-memory-db.svg?style=svg)](https://circleci.com/gh/nestjs-addons/in-memory-db)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 [![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors)
 
