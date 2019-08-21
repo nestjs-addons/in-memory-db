@@ -12,7 +12,8 @@
     "format:verify": "prettier lib/**/*.ts --check",
     "lint": "tslint -p tsconfig.json -c tslint.json \"lib/**/*.ts\" -e \"*.spec.ts\"",
     "test": "jest --config jest.json",
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release",
+    "commit": "npx git-cz"
   },
   "devDependencies": {
     "@nestjs/common": "6.5.3",
