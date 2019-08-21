@@ -309,10 +309,11 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
   public seed(recordFactory: (index: number) => Partial<T>, amount = 10) {
     amount = amount === null ? 10 : amount;
 
-    for (let i = 0; i < amount; i++) {
-      const record = recordFactory(i);
-      this.create({ ...record });
-    }
+    const recordsToCreate = [...Array(amount).keys()].map(i =>
+      recordFactory(i),
+    );
+
+    this.createMany(recordsToCreate);
   }
 
   /**
