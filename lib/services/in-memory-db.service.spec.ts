@@ -559,4 +559,38 @@ describe('In Memory DB Service', () => {
       }),
     );
   });
+
+  describe('seed', () => {
+    const recordFactory = (idx: number): Partial<TestEntity> => ({
+      someField: `${idx}`,
+    });
+
+    it.each([[0, 0], [9, 9], [10, 10], [11, 11], [10, null], [10, undefined]])(
+      'should seed %p records given input amount of %p',
+      (expectedAmount: number, inputAmount: number) => {
+        // act
+        service.seed(recordFactory, inputAmount);
+
+        // assert
+        expect(service.records.length).toEqual(expectedAmount);
+      },
+    );
+
+    it.each([[0, 0], [9, 9], [10, 10], [11, 11], [10, null], [10, undefined]])(
+      'should generate correct seed records of %p given input amount of %p',
+      (expectedAmount: number, inputAmount: number) => {
+        // arrange
+        const expectedRecords = [...Array(expectedAmount).keys()].map(i => ({
+          ...recordFactory(i),
+          id: i + 1,
+        }));
+
+        // act
+        service.seed(recordFactory, inputAmount);
+
+        // assert
+        expect(service.records).toEqual(expectedRecords);
+      },
+    );
+  });
 });

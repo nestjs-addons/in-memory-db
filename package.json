@@ -10,7 +10,7 @@
     "build:dev": "tsc-watch -p tsconfig.json",
     "format": "prettier lib/**/*.ts --write",
     "format:verify": "prettier lib/**/*.ts --check",
-    "lint": "tslint -p tsconfig.json -c tslint.json \"lib/**/*.ts\" -e \"*.spec.ts\"",
+    "lint": "npx tslint -p tsconfig.json -c tslint.json \"lib/**/*.ts\" -e \"*.spec.ts\" --force",
     "test": "jest --config jest.json",
     "semantic-release": "semantic-release",
     "commit": "npx git-cz"
@@ -42,13 +42,16 @@
   "lint-staged": {
     "*.ts": [
       "prettier --write",
-      "git add -f",
+      "git add -f"
+    ],
+    "*.ts,!*.spec.ts": [
       "npm run lint"
     ]
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged",
+      "prepare-commit-msg": "exec < /dev/tty && git cz --hook"
     }
   },
   "publishConfig": {
@@ -67,5 +70,6 @@
       "@semantic-release/npm",
       "@semantic-release/github"
     ]
-  }
+  },
+  "dependencies": {}
 }
