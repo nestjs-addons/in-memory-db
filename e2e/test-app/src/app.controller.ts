@@ -1,16 +1,15 @@
+import { InMemoryDBService } from '@nestjs-addons/in-memory-db';
 import {
+  Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
-  Body,
   Put,
-  Delete,
 } from '@nestjs/common';
-import { InMemoryDBService } from '@nestjs-addons/in-memory-db';
-import { User } from './user';
 import { Observable } from 'rxjs';
-import { userInfo } from 'os';
+import { User } from './user';
 
 @Controller()
 export class AppController {
