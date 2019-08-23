@@ -26,7 +26,8 @@
     "module-alias": "^2.2.1",
     "reflect-metadata": "^0.1.12",
     "rimraf": "^2.6.2",
-    "rxjs": "^6.3.3"
+    "rxjs": "^6.3.3",
+    "rxjs-marbles": "^5.0.2"
   },
   "devDependencies": {
     "@nestjs/testing": "^6.0.0",
