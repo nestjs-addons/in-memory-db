@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { of } from 'rxjs';
+import { of, Observable } from 'rxjs';
 import * as request from 'supertest';
 import { AppModule } from './../src/app.module';
 import { User } from 'src/user';
@@ -69,12 +69,44 @@ describe('AppController (e2e)', () => {
     });
   });
 
+  describe('Create, Update, Read, Delete Users Asyncronously', () => {
+    const user: User = { id: 1, firstName: 'John', lastName: 'Doe' };
+
+    it('/api/user/async (POST) - Create New User Async', () => {
+      return request(app.getHttpServer())
+        .post('/api/user/async')
+        .send(user)
+        .expect(201)
+        .expect(of(user));
+    });
+    it('/api/user/1/async (PUT) - Updates User 1 Async', () => {
+      user.firstName = 'Jane';
+      return request(app.getHttpServer())
+        .put('/api/user/1/async')
+        .send(user)
+        .expect(200)
+        .expect(of({}));
+    });
+    it('/api/user/1/async (GET) - Gets Updated User 1 Async', () => {
+      return request(app.getHttpServer())
+        .get('/api/user/1/async')
+        .expect(200)
+        .expect(of(user));
+    });
+    it('/api/user/1/async (DELETE) - Deletes User 1 Async', () => {
+      return request(app.getHttpServer())
+        .delete('/api/user/1/async')
+        .expect(200)
+        .expect(of({}));
+    });
+  });
+
   describe('Create, Update Read & Delete 3 Users & Query By First & Last Name', () => {
     const user1: User = { id: 1, firstName: 'John', lastName: 'Doe' };
     const user2: User = { id: 2, firstName: 'Jane', lastName: 'Doe' };
     const user3: User = { id: 3, firstName: 'Joe', lastName: 'Shmoe' };
 
-    it('/api/users (POST) - Create 2 Users', () => {
+    it('/api/users (POST) - Create 3 Users', () => {
       return request(app.getHttpServer())
         .post('/api/users')
         .send([user1, user2, user3])
@@ -121,6 +153,58 @@ describe('AppController (e2e)', () => {
         .get('/api/users')
         .expect(200)
         .expect([]);
+    });
+  });
+
+  describe('Create, Update Read & Delete 3 Users & Query By First & Last Name Asyncronously', () => {
+    const user1: User = { id: 1, firstName: 'John', lastName: 'Doe' };
+    const user2: User = { id: 2, firstName: 'Jane', lastName: 'Doe' };
+    const user3: User = { id: 3, firstName: 'Joe', lastName: 'Shmoe' };
+
+    it('/api/users/async (POST) - Create 3 Users Asyncronously', () => {
+      return request(app.getHttpServer())
+        .post('/api/users/async')
+        .send([user1, user2, user3])
+        .expect(201)
+        .expect(of([user1, user2, user3]));
+    });
+    it('/api/users/firstName/Joe/async (GET) - Gets Users by First Name Joe Asyncronously', () => {
+      return request(app.getHttpServer())
+        .get('/api/users/firstName/Joe/async')
+        .expect(200)
+        .expect(of([user3]));
+    });
+    it('/api/users/lastName/Doe/async (GET) - Gets Users by Last Name Doe Asyncronously', () => {
+      return request(app.getHttpServer())
+        .get('/api/users/lastName/Doe/async')
+        .expect(200)
+        .expect(of([user1, user2]));
+    });
+    it('/api/users/async (PUT) - Updates Users 1 and 2 Asyncronously', () => {
+      return request(app.getHttpServer())
+        .put('/api/users/async')
+        .send([user1, user2])
+        .expect(200)
+        .expect(of({}));
+    });
+    it('/api/users/async (GET) - Gets All 3 Users Async', () => {
+      return request(app.getHttpServer())
+        .get('/api/users/async')
+        .expect(200)
+        .expect(of([user1, user2, user3]));
+    });
+    it('/api/users/async (DELETE) - Deletes All 3 Users Asyncronously', () => {
+      return request(app.getHttpServer())
+        .delete('/api/users/async')
+        .send([1, 2, 3])
+        .expect(200)
+        .expect(of({}));
+    });
+    it('/api/users/async (GET) - Gets All Users Async = []', () => {
+      return request(app.getHttpServer())
+        .get('/api/users/async')
+        .expect(200)
+        .expect(of([]));
     });
   });
 });
