@@ -5,6 +5,7 @@
   "author": "Wes Grimes",
   "license": "MIT",
   "repository": "https://github.com/nestjs-addons/in-memory-db",
+  "schematics": "./dist/collection.json",
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "build:dev": "tsc-watch -p tsconfig.json",
@@ -62,5 +63,9 @@
       "@semantic-release/release-notes-generator",
       "@semantic-release/changelog"
     ]
+  },
+  "dependencies": {
+    "@angular-devkit/core": "^8.2.2",
+    "schematics-utilities": "^1.1.3"
   }
 }

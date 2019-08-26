@@ -1,0 +1,9 @@
+{
+    "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
+    "schematics": {
+      "nest-add": {
+        "description": "Schematics to add In mempry DB module.",
+        "factory": "./nest-add/index"
+      }
+    }
+  }
