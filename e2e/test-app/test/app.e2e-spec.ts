@@ -1,8 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { of, Observable } from 'rxjs';
+import { User } from 'src/user';
 import * as request from 'supertest';
 import { AppModule } from './../src/app.module';
-import { User } from 'src/user';
 
 describe('AppController (e2e)', () => {
   let app;
@@ -77,7 +76,7 @@ describe('AppController (e2e)', () => {
         .post('/api/user/async')
         .send(user)
         .expect(201)
-        .expect(of(user));
+        .expect(user);
     });
     it('/api/user/1/async (PUT) - Updates User 1 Async', () => {
       user.firstName = 'Jane';
@@ -85,19 +84,19 @@ describe('AppController (e2e)', () => {
         .put('/api/user/1/async')
         .send(user)
         .expect(200)
-        .expect(of({}));
+        .expect({});
     });
     it('/api/user/1/async (GET) - Gets Updated User 1 Async', () => {
       return request(app.getHttpServer())
         .get('/api/user/1/async')
         .expect(200)
-        .expect(of(user));
+        .expect(user);
     });
     it('/api/user/1/async (DELETE) - Deletes User 1 Async', () => {
       return request(app.getHttpServer())
         .delete('/api/user/1/async')
         .expect(200)
-        .expect(of({}));
+        .expect({});
     });
   });
 
@@ -166,45 +165,45 @@ describe('AppController (e2e)', () => {
         .post('/api/users/async')
         .send([user1, user2, user3])
         .expect(201)
-        .expect(of([user1, user2, user3]));
+        .expect([user1, user2, user3]);
     });
     it('/api/users/firstName/Joe/async (GET) - Gets Users by First Name Joe Asyncronously', () => {
       return request(app.getHttpServer())
         .get('/api/users/firstName/Joe/async')
         .expect(200)
-        .expect(of([user3]));
+        .expect([user3]);
     });
     it('/api/users/lastName/Doe/async (GET) - Gets Users by Last Name Doe Asyncronously', () => {
       return request(app.getHttpServer())
         .get('/api/users/lastName/Doe/async')
         .expect(200)
-        .expect(of([user1, user2]));
+        .expect([user1, user2]);
     });
     it('/api/users/async (PUT) - Updates Users 1 and 2 Asyncronously', () => {
       return request(app.getHttpServer())
         .put('/api/users/async')
         .send([user1, user2])
         .expect(200)
-        .expect(of({}));
+        .expect({});
     });
     it('/api/users/async (GET) - Gets All 3 Users Async', () => {
       return request(app.getHttpServer())
         .get('/api/users/async')
         .expect(200)
-        .expect(of([user1, user2, user3]));
+        .expect([user1, user2, user3]);
     });
     it('/api/users/async (DELETE) - Deletes All 3 Users Asyncronously', () => {
       return request(app.getHttpServer())
         .delete('/api/users/async')
         .send([1, 2, 3])
         .expect(200)
-        .expect(of({}));
+        .expect({});
     });
     it('/api/users/async (GET) - Gets All Users Async = []', () => {
       return request(app.getHttpServer())
         .get('/api/users/async')
         .expect(200)
-        .expect(of([]));
+        .expect([]);
     });
   });
 });
