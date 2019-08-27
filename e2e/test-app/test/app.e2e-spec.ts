@@ -1,8 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { of, Observable } from 'rxjs';
+import { User } from 'src/user';
 import * as request from 'supertest';
 import { AppModule } from './../src/app.module';
-import { User } from 'src/user';
 
 describe('AppController (e2e)', () => {
   let app;
