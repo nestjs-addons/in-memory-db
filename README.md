@@ -50,7 +50,7 @@ import { InMemoryDBModule } from '@nestjs-addons/in-memory-db';
 
 @Module({
   ...
-  imports: [InMemoryDBModule.forRoot()],
+  imports: [InMemoryDBModule.forRoot({})],
   ...
 })
 export class AppModule {}
@@ -121,7 +121,7 @@ import { InMemoryDBModule } from '@nestjs-addons/in-memory-db';
 
 @Module({
   ...
-  imports: [InMemoryDBModule.forFeature('one')],
+  imports: [InMemoryDBModule.forFeature('one', {})],
   ...
 })
 export class FeatureOneModule {}
