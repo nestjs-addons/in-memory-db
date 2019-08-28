@@ -1,9 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { AppController } from './app.controller';
-import { User } from './user';
-import { InMemoryDBModule } from '@nestjs-addons/in-memory-db';
+import { User, AppController } from './';
+import { InMemoryDBModule } from '../../../lib';
 import { marbles } from 'rxjs-marbles';
-import { async } from 'rxjs/internal/scheduler/async';
 
 describe('AppController', () => {
   let appController: AppController;
