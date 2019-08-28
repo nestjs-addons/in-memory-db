@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1567033380870" clover="3.2.0">
+  <project timestamp="1567033380870" name="All files">
+    <metrics statements="53" coveredstatements="31" conditionals="0" coveredconditionals="0" methods="25" coveredmethods="1" elements="78" coveredelements="32" complexity="0" loc="53" ncloc="53" packages="1" files="3" classes="3"/>
+    <file name="app.controller.ts" path="/Users/jpowell/Desktop/in-memory-db/e2e/test-app/src/app.controller.ts">
+      <metrics statements="47" coveredstatements="25" conditionals="0" coveredconditionals="0" methods="25" coveredmethods="1"/>
+      <line num="1" count="1" type="stmt"/>
+      <line num="10" count="1" type="stmt"/>
+      <line num="12" count="1" type="stmt"/>
+      <line num="15" count="1" type="stmt"/>
+      <line num="16" count="21" type="stmt"/>
+      <line num="19" count="1" type="stmt"/>
+      <line num="20" count="0" type="stmt"/>
+      <line num="24" count="1" type="stmt"/>
+      <line num="25" count="0" type="stmt"/>
+      <line num="29" count="1" type="stmt"/>
+      <line num="30" count="0" type="stmt"/>
+      <line num="34" count="1" type="stmt"/>
+      <line num="35" count="0" type="stmt"/>
+      <line num="39" count="1" type="stmt"/>
+      <line num="40" count="0" type="stmt"/>
+      <line num="44" count="1" type="stmt"/>
+      <line num="47" count="0" type="stmt"/>
+      <line num="48" count="0" type="stmt"/>
+      <line num="53" count="1" type="stmt"/>
+      <line num="54" count="0" type="stmt"/>
+      <line num="58" count="1" type="stmt"/>
+      <line num="59" count="0" type="stmt"/>
+      <line num="60" count="0" type="stmt"/>
+      <line num="65" count="1" type="stmt"/>
+      <line num="66" count="0" type="stmt"/>
+      <line num="70" count="1" type="stmt"/>
+      <line num="71" count="0" type="stmt"/>
+      <line num="75" count="1" type="stmt"/>
+      <line num="76" count="0" type="stmt"/>
+      <line num="80" count="1" type="stmt"/>
+      <line num="81" count="0" type="stmt"/>
+      <line num="85" count="1" type="stmt"/>
+      <line num="86" count="0" type="stmt"/>
+      <line num="90" count="1" type="stmt"/>
+      <line num="91" count="0" type="stmt"/>
+      <line num="95" count="1" type="stmt"/>
+      <line num="96" count="0" type="stmt"/>
+      <line num="100" count="1" type="stmt"/>
+      <line num="101" count="0" type="stmt"/>
+      <line num="105" count="1" type="stmt"/>
+      <line num="106" count="0" type="stmt"/>
+      <line num="110" count="1" type="stmt"/>
+      <line num="111" count="0" type="stmt"/>
+      <line num="115" count="1" type="stmt"/>
+      <line num="116" count="0" type="stmt"/>
+      <line num="120" count="1" type="stmt"/>
+      <line num="121" count="0" type="stmt"/>
+    </file>
+    <file name="app.module.ts" path="/Users/jpowell/Desktop/in-memory-db/e2e/test-app/src/app.module.ts">
+      <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <line num="1" count="1" type="stmt"/>
+      <line num="2" count="1" type="stmt"/>
+      <line num="3" count="1" type="stmt"/>
+      <line num="10" count="1" type="stmt"/>
+    </file>
+    <file name="index.ts" path="/Users/jpowell/Desktop/in-memory-db/e2e/test-app/src/index.ts">
+      <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <line num="1" count="1" type="stmt"/>
+      <line num="3" count="1" type="stmt"/>
+    </file>
+  </project>
+</coverage>
