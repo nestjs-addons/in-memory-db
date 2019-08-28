@@ -61,29 +61,6 @@ As you can see we did the following:
 - Import `InMemoryDBModule` from `@nestjs-addons/in-memory-db`
 - Add `InMemoryDBModule` to the `imports` array in the `@Module` of your choice
 
-#### Registering a forFeature InMemoryDBService
-
-```typescript
-// feature-one.module.ts
-
-import { Module } from '@nestjs/common';
-import { InMemoryDBModule } from '@nestjs-addons/in-memory-db';
-...
-
-@Module({
-  ...
-  imports: [InMemoryDBModule.forFeature('one')],
-  ...
-})
-export class FeatureOneModule {}
-```
-
-As you can see we did the following:
-
-- Import `InMemoryDBModule` from `@nestjs-addons/in-memory-db`
-- Add `InMemoryDBModule` to the `imports` array in the `@Module` of your choice
-- Added the `forFeature` method call passing `one` as the feature name
-
 ### Define an interface for each InMemoryEntity
 
 An instance of `InMemoryDBService<T>` will be created for each `InMemoryEntity` entity `interface` defined. The `InMemoryEntity` adds an `id: number` property as the only required field. Additional fields can be defined by extending the `interface`.
