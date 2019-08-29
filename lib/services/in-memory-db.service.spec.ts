@@ -1,6 +1,7 @@
 import { marbles } from 'rxjs-marbles';
 import { InMemoryDBEntity } from '../interfaces';
 import { InMemoryDBService } from './in-memory-db.service';
+import { inMemoryDBServiceFactory } from '../factories';
 
 describe('In Memory DB Service', () => {
   interface TestEntity extends InMemoryDBEntity {
@@ -16,11 +17,11 @@ describe('In Memory DB Service', () => {
   ];
 
   beforeEach(() => {
-    service = new InMemoryDBService<TestEntity>();
+    service = inMemoryDBServiceFactory<TestEntity>()();
   });
 
   describe('get', () => {
-    it('should return expected record if given valid id', () => {
+    test('should return expected record if given valid id', () => {
       // arrange
       service.records = [...sampleRecords];
       const expectedRecord = sampleRecords[0];
@@ -32,7 +33,7 @@ describe('In Memory DB Service', () => {
       expect(actualRecord).toEqual(expectedRecord);
     });
 
-    it('should return undefined if given invalid id', () => {
+    test('should return undefined if given invalid id', () => {
       // arrange
       service.records = [...sampleRecords];
       const expectedRecord = undefined;
@@ -46,7 +47,7 @@ describe('In Memory DB Service', () => {
   });
 
   describe('getAsync', () => {
-    it(
+    test(
       'should return expected record as an observable if given valid id',
       marbles(m => {
         // arrange
@@ -61,7 +62,7 @@ describe('In Memory DB Service', () => {
       }),
     );
 
-    it(
+    test(
       'should return observable with no value given invalid id',
       marbles(m => {
         // arrange
@@ -78,7 +79,7 @@ describe('In Memory DB Service', () => {
   });
 
   describe('getMany', () => {
-    it('should return expected records if given valid ids', () => {
+    test('should return expected records if given valid ids', () => {
       // arrange
       service.records = [...sampleRecords];
       const expectedRecords = [...[sampleRecords[0], sampleRecords[1]]];
@@ -90,7 +91,7 @@ describe('In Memory DB Service', () => {
       expect(actualRecords).toEqual(expectedRecords);
     });
 
-    it('should return only expected records if given an invalid id', () => {
+    test('should return only expected records if given an invalid id', () => {
       // arrange
       service.records = [...sampleRecords];
       const expectedRecords = [sampleRecords[0]];
@@ -104,7 +105,7 @@ describe('In Memory DB Service', () => {
   });
 
   describe('getManyAsync', () => {
-    it(
+    test(
       'should return expected records as observable if given valid ids',
       marbles(m => {
         // arrange
@@ -121,7 +122,7 @@ describe('In Memory DB Service', () => {
       }),
     );
 
-    it(
+    test(
       'should return only expected records as observables if given an invalid id',
       marbles(m => {
         // arrange
@@ -138,7 +139,7 @@ describe('In Memory DB Service', () => {
   });
 
   describe('getAll', () => {
-    it('should return all expected records', () => {
+    test('should return all expected records', () => {
       // arrange
       service.records = [...sampleRecords];
       const expectedRecords = service.records;
@@ -149,7 +150,7 @@ describe('In Memory DB Service', () => {
       // assert
       expect(actualRecords).toEqual(expectedRecords);
     });
-    it('should return empty array if no records', () => {
+    test('should return empty array if no records', () => {
       // arrange
       service.records = [];
       const expectedRecords = [];
@@ -163,7 +164,7 @@ describe('In Memory DB Service', () => {
   });
 
   describe('getAllAsync', () => {
-    it(
+    test(
       'should return all expected records as observable',
       marbles(m => {
         // arrange
@@ -177,7 +178,7 @@ describe('In Memory DB Service', () => {
         m.expect(actualRecords).toBeObservable(expectedRecords);
       }),
     );
-    it(
+    test(
       'should return empty array as observable if no records',
       marbles(m => {
         // arrange
@@ -194,7 +195,7 @@ describe('In Memory DB Service', () => {
   });
 
   describe('create', () => {
-    it('should update records with correct items', () => {
+    test('should update records with correct items', () => {
       // arrange
       service.records = [];
       const itemToAdd: Partial<TestEntity> = { someField: 'Test' };
@@ -206,7 +207,7 @@ describe('In Memory DB Service', () => {
       // assert
       expect(service.records).toEqual(expectedRecords);
     });
-    it('should return generated id', () => {
+    test('should return generated id', () => {
       // arrange
       service.records = [];
       const itemToAdd: Partial<TestEntity> = { someField: 'Test' };
@@ -221,7 +222,7 @@ describe('In Memory DB Service', () => {
   });
 
   describe('createAsync', () => {
-    it(
+    test(
       'should update records with correct items asyncronously',
       marbles(m => {
         // arrange
@@ -237,7 +238,7 @@ describe('In Memory DB Service', () => {
         m.expect(actualRecords).toBeObservable(expectedRecords);
       }),
     );
-    it(
+    test(
       'should return generated id as observable',
       marbles(m => {
         // arrange
@@ -255,7 +256,7 @@ describe('In Memory DB Service', () => {
   });
 
   describe('createMany', () => {
-    it('should update records with correct items', () => {
+    test('should update records with correct items', () => {
       // arrange
       service.records = [];
       const item1ToAdd: Partial<TestEntity> = { someField: 'Test' };
@@ -271,7 +272,7 @@ describe('In Memory DB Service', () => {
       expect(service.records).toEqual(expectedRecords);
       expect(createdRecords).toEqual(expectedRecords);
     });
-    it('should return generated ids', () => {
+    test('should return generated ids', () => {
       // arrange
       service.records = [];
       const item1ToAdd: Partial<TestEntity> = { someField: 'Test' };
@@ -294,7 +295,7 @@ describe('In Memory DB Service', () => {
   });
 
   describe('createManyAsync', () => {
-    it(
+    test(
       'should update records with correct items asynchronously',
       marbles(m => {
         // arrange
@@ -317,7 +318,7 @@ describe('In Memory DB Service', () => {
         m.expect(createdRecords).toBeObservable(expectedRecords);
       }),
     );
-    it(
+    test(
       'should return generated ids asyncronously',
       marbles(m => {
         // arrange
@@ -345,7 +346,7 @@ describe('In Memory DB Service', () => {
   });
 
   describe('update', () => {
-    it('should update record as expected', () => {
+    test('should update record as expected', () => {
       // arrange
       const originalRecord: TestEntity = { id: 1, someField: 'AAA' };
       const expectedUpdatedRecord: TestEntity = { id: 1, someField: 'BBB' };
@@ -364,7 +365,7 @@ describe('In Memory DB Service', () => {
   });
 
   describe('updateAsync', () => {
-    it(
+    test(
       'should update record as expected asyncronously',
       marbles(m => {
         // arrange
@@ -388,7 +389,7 @@ describe('In Memory DB Service', () => {
   });
 
   describe('updateMany', () => {
-    it('should update records as expected', () => {
+    test('should update records as expected', () => {
       // arrange
       const originalRecords: TestEntity[] = [
         { id: 1, someField: 'AAA' },
@@ -414,7 +415,7 @@ describe('In Memory DB Service', () => {
   });
 
   describe('updateManyAsync', () => {
-    it(
+    test(
       'should update records as expected asynronously',
       marbles(m => {
         // arrange
@@ -447,7 +448,7 @@ describe('In Memory DB Service', () => {
   });
 
   describe('delete', () => {
-    it('should remove record as expected', () => {
+    test('should remove record as expected', () => {
       // arrange
       service.records = [
         { id: 1, someField: 'AAA' },
@@ -465,7 +466,7 @@ describe('In Memory DB Service', () => {
   });
 
   describe('deleteAsync', () => {
-    it('should remove record as expected asyncronously', () => {
+    test('should remove record as expected asyncronously', () => {
       // arrange
       service.records = [
         { id: 1, someField: 'AAA' },
@@ -483,7 +484,7 @@ describe('In Memory DB Service', () => {
   });
 
   describe('deleteMany', () => {
-    it('should remove records as expected', () => {
+    test('should remove records as expected', () => {
       // arrange
       service.records = [
         { id: 1, someField: 'AAA' },
@@ -502,7 +503,7 @@ describe('In Memory DB Service', () => {
   });
 
   describe('deleteManyAsync', () => {
-    it('should remove records as expected asyncronously', () => {
+    test('should remove records as expected asyncronously', () => {
       // arrange
       service.records = [
         { id: 1, someField: 'AAAA' },
@@ -521,7 +522,7 @@ describe('In Memory DB Service', () => {
   });
 
   describe('query', () => {
-    it('should return expected records for given predicate', () => {
+    test('should return expected records for given predicate', () => {
       // arrange
       service.records = [
         { id: 1, someField: 'AAA' },
@@ -538,7 +539,7 @@ describe('In Memory DB Service', () => {
   });
 
   describe('queryAsync', () => {
-    it(
+    test(
       'should return expected records for given predicate as observable',
       marbles(m => {
         // arrange
@@ -565,7 +566,14 @@ describe('In Memory DB Service', () => {
       someField: `${idx}`,
     });
 
-    it.each([[0, 0], [9, 9], [10, 10], [11, 11], [10, null], [10, undefined]])(
+    test.each([
+      [0, 0],
+      [9, 9],
+      [10, 10],
+      [11, 11],
+      [10, null],
+      [10, undefined],
+    ])(
       'should seed %p records given input amount of %p',
       (expectedAmount: number, inputAmount: number) => {
         // act
@@ -576,7 +584,14 @@ describe('In Memory DB Service', () => {
       },
     );
 
-    it.each([[0, 0], [9, 9], [10, 10], [11, 11], [10, null], [10, undefined]])(
+    test.each([
+      [0, 0],
+      [9, 9],
+      [10, 10],
+      [11, 11],
+      [10, null],
+      [10, undefined],
+    ])(
       'should generate correct seed records of %p given input amount of %p',
       (expectedAmount: number, inputAmount: number) => {
         // arrange
