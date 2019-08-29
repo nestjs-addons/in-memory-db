@@ -12,19 +12,16 @@
     "format:verify": "prettier lib/**/*.ts --check",
     "lint": "npx tslint -p tsconfig.json -c tslint.json \"lib/**/*.ts\" -e \"*.spec.ts\" --force",
     "test": "jest --config jest.json",
-    "semantic-release": "semantic-release",
-    "commit": "npx git-cz"
+    "semantic-release": "semantic-release"
   },
   "devDependencies": {
     "@nestjs/common": "6.6.2",
     "@nestjs/core": "6.6.2",
+    "rxjs": "6.5.2",
     "@semantic-release/changelog": "3.0.4",
     "@types/jest": "24.0.18",
     "@types/node": "11.13.19",
-    "cz-conventional-changelog": "3.0.2",
-    "husky": "3.0.4",
     "jest": "24.9.0",
-    "lint-staged": "9.2.5",
     "prettier": "1.18.2",
     "reflect-metadata": "0.1.13",
     "rxjs-marbles": "5.0.2",
@@ -35,32 +32,13 @@
     "tslint": "5.19.0"
   },
   "peerDependencies": {
-    "@nestjs/common": "^6.0.0",
-    "@nestjs/core": "^6.0.0",
-    "reflect-metadata": "^0.1.12"
-  },
-  "lint-staged": {
-    "*.ts": [
-      "prettier --write",
-      "git add -f"
-    ],
-    "*.ts,!*.spec.ts": [
-      "npm run lint"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "prepare-commit-msg": "exec < /dev/tty && git cz --hook"
-    }
+    "@nestjs/common": "6.6.2",
+    "@nestjs/core": "6.6.2",
+    "reflect-metadata": "^0.1.12",
+    "rxjs": "6.5.2"
   },
   "publishConfig": {
     "access": "public"
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
   },
   "release": {
     "plugins": [
