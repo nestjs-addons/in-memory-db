@@ -49,5 +49,18 @@
       "@semantic-release/github"
     ]
   },
-  "dependencies": {}
+  "dependencies": {},
+  "keywords": [
+    "nestjs",
+    "nest",
+    "api",
+    "in-memory db",
+    "in-memory",
+    "prototyping",
+    "db",
+    "crud",
+    "rest",
+    "typescript",
+    "javascript"
+  ]
 }
