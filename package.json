@@ -17,21 +17,26 @@
   "devDependencies": {
     "@nestjs/common": "6.6.7",
     "@nestjs/core": "6.6.7",
+<<<<<<< HEAD
     "rxjs": "6.5.2",
+=======
+>>>>>>> chore: add supertest as dev dependency
     "@nestjs/testing": "^6.0.0",
     "@semantic-release/changelog": "3.0.4",
     "@types/jest": "24.0.18",
     "@types/node": "11.13.20",
+    "@types/supertest": "^2.0.7",
     "jest": "24.9.0",
     "prettier": "1.18.2",
     "reflect-metadata": "0.1.13",
+    "rxjs": "6.5.2",
     "rxjs-marbles": "5.0.2",
     "semantic-release": "15.13.24",
+    "supertest": "^4.0.2",
     "ts-jest": "24.0.2",
     "tsc-watch": "2.4.0",
-    "@types/supertest": "^2.0.7",
-    "typescript": "3.6.2",
-    "tslint": "5.19.0"
+    "tslint": "5.19.0",
+    "typescript": "3.6.2"
   },
   "peerDependencies": {
     "@nestjs/common": "^6.0.0",
