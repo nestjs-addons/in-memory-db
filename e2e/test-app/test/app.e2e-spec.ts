@@ -1,14 +1,16 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
 import { AppModule, User } from '../src';
+import { INestApplication } from '@nestjs/common';
 
 describe('AppController (e2e)', () => {
-  let app;
+  let app: INestApplication;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
-    }).compile();
+    })
+    .compile();
 
     app = moduleFixture.createNestApplication();
     await app.init();
@@ -47,23 +49,13 @@ describe('AppController (e2e)', () => {
         .expect(200)
         .expect({});
     });
-    it('/api/user/1 (GET) - Get User 1', (done) => {
-      request(app.getHttpServer())
-        .post('/api/user')
-        .send(user)
-        .expect(201)
-        .expect(user, done);
+    it('/api/user/1 (GET) - Get User 1', () => {
       return request(app.getHttpServer())
         .get('/api/user/1')
         .expect(200)
         .expect(user);
     });
-    it('/api/user/1 (DELETE) - Delete User 1', (done) => {
-      request(app.getHttpServer())
-        .post('/api/user')
-        .send(user)
-        .expect(201)
-        .expect(user, done);
+    it('/api/user/1 (DELETE) - Delete User 1', () => {
       return request(app.getHttpServer())
         .delete('/api/user/1')
         .expect(200)
@@ -95,12 +87,7 @@ describe('AppController (e2e)', () => {
         .expect(200)
         .expect({});
     });
-    it('/api/user/1/async (GET) - Gets Updated User 1 Async', (done) => {
-      request(app.getHttpServer())
-        .post('/api/user')
-        .send(user)
-        .expect(201)
-        .expect(user, done);
+    it('/api/user/1/async (GET) - Gets Updated User 1 Async', () => {
       return request(app.getHttpServer())
         .get('/api/user/1/async')
         .expect(200)
@@ -119,35 +106,20 @@ describe('AppController (e2e)', () => {
     const user2: User = { id: 2, firstName: 'Jane', lastName: 'Doe' };
     const user3: User = { id: 3, firstName: 'Joe', lastName: 'Shmoe' };
 
-    it('/api/users (POST) - Create 3 Users', (done) => {
-      request(app.getHttpServer())
-        .post('/api/user')
-        .send(user1)
-        .expect(201)
-        .expect(user1, done);
+    it('/api/users (POST) - Create 3 Users', () => {
       return request(app.getHttpServer())
-        .post('/api/users')
-        .send([user2, user3])
-        .expect(201)
-        .expect([user1, user2, user3]);
-    });
-    it('/api/users/firstName/Joe (GET) - Gets Users by First Name Joe', (done) => {
-      request(app.getHttpServer())
         .post('/api/users')
         .send([user1, user2, user3])
         .expect(201)
-        .expect([user1, user2, user3], done);
+        .expect([user1, user2, user3]);
+    });
+    it('/api/users/firstName/Joe (GET) - Gets Users by First Name Joe', () => {
       return request(app.getHttpServer())
         .get('/api/users/firstName/Joe')
         .expect(200)
         .expect([user3]);
     });
-    it('/api/users/lastName/Doe (GET) - Gets Users by Last Name Doe', (done) => {
-      request(app.getHttpServer())
-        .post('/api/users')
-        .send([user1, user2, user3])
-        .expect(201)
-        .expect([user1, user2, user3], done);
+    it('/api/users/lastName/Doe (GET) - Gets Users by Last Name Doe', () => {
       return request(app.getHttpServer())
         .get('/api/users/lastName/Doe')
         .expect(200)
@@ -163,12 +135,7 @@ describe('AppController (e2e)', () => {
         .expect(200)
         .expect({});
     });
-    it('/api/users (GET) - Gets All 3 Users', (done) => {
-      request(app.getHttpServer())
-        .post('/api/users')
-        .send([user1, user2, user3])
-        .expect(201)
-        .expect([user1, user2, user3], done);
+    it('/api/users (GET) - Gets All 3 Users', () => {
       return request(app.getHttpServer())
         .get('/api/users')
         .expect(200)
@@ -201,23 +168,13 @@ describe('AppController (e2e)', () => {
         .expect(201)
         .expect([user1, user2, user3]);
     });
-    it('/api/users/firstName/Joe/async (GET) - Gets Users by First Name Joe Asyncronously', (done) => {
-      request(app.getHttpServer())
-        .post('/api/users')
-        .send([user1, user2, user3])
-        .expect(201)
-        .expect([user1, user2, user3], done);
+    it('/api/users/firstName/Joe/async (GET) - Gets Users by First Name Joe Asyncronously', () => {
       return request(app.getHttpServer())
         .get('/api/users/firstName/Joe/async')
         .expect(200)
         .expect([user3]);
     });
-    it('/api/users/lastName/Doe/async (GET) - Gets Users by Last Name Doe Asyncronously', (done) => {
-      request(app.getHttpServer())
-        .post('/api/users')
-        .send([user1, user2, user3])
-        .expect(201)
-        .expect([user1, user2, user3], done);
+    it('/api/users/lastName/Doe/async (GET) - Gets Users by Last Name Doe Asyncronously', () => {
       return request(app.getHttpServer())
         .get('/api/users/lastName/Doe/async')
         .expect(200)
@@ -230,12 +187,7 @@ describe('AppController (e2e)', () => {
         .expect(200)
         .expect({});
     });
-    it('/api/users/async (GET) - Gets All 3 Users Async', (done) => {
-      request(app.getHttpServer())
-        .post('/api/users')
-        .send([user1, user2, user3])
-        .expect(201)
-        .expect([user1, user2, user3], done);
+    it('/api/users/async (GET) - Gets All 3 Users Async', () => {
       return request(app.getHttpServer())
         .get('/api/users/async')
         .expect(200)
@@ -254,5 +206,9 @@ describe('AppController (e2e)', () => {
         .expect(200)
         .expect([]);
     });
+  });
+
+  afterAll(async () => {
+    await app.close();
   });
 });
