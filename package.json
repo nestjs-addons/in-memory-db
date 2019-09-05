@@ -17,11 +17,7 @@
   "devDependencies": {
     "@nestjs/common": "6.6.7",
     "@nestjs/core": "6.6.7",
-<<<<<<< HEAD
-    "rxjs": "6.5.2",
-=======
->>>>>>> chore: add supertest as dev dependency
-    "@nestjs/testing": "^6.0.0",
+    "@nestjs/testing": "^6.6.7",
     "@semantic-release/changelog": "3.0.4",
     "@types/jest": "24.0.18",
     "@types/node": "11.13.20",
