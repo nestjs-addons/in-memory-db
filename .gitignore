@@ -15,7 +15,9 @@ npm-debug.log
 /test
 /coverage
 /.nyc_output
+/e2e/test-app/coverage
 
 # dist
 dist
 node_modules
+/e2e/test-app/dist
