@@ -1,7 +1,7 @@
 import 'module-alias/register';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
-import { InMemoryDBModule } from '../../../lib';
+import { InMemoryDBModule } from '@nestjs-addons/in-memory-db';
 
 @Module({
   imports: [InMemoryDBModule.forRoot()],
