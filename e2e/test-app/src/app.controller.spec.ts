@@ -17,7 +17,7 @@ describe('AppController', () => {
   });
 
   describe('root', () => {
-    it('can create instance', () => {
+    test('can create instance', () => {
       // asert
       expect(appController).toBeTruthy();
     });
@@ -25,7 +25,7 @@ describe('AppController', () => {
     describe('POSTs', () => {
       const user: User = { id: 1, firstName: 'John', lastName: 'Doe' };
 
-      it('createUser', () => {
+      test('createUser', () => {
         // arrange
         const expectedResult = user;
 
@@ -37,7 +37,7 @@ describe('AppController', () => {
         // assert
         expect(appController.createUser(user)).toBe(expectedResult);
       });
-      it(
+      test(
         'createUserAsync',
         marbles(m => {
           // arrange
@@ -54,7 +54,7 @@ describe('AppController', () => {
           );
         }),
       );
-      it('creatUsers', () => {
+      test('creatUsers', () => {
         // arrange
         const user2: User = { id: 2, firstName: 'Jane', lastName: 'Doe' };
         const user3: User = { id: 3, firstName: 'Joe', lastName: 'Schmoe' };
@@ -68,7 +68,7 @@ describe('AppController', () => {
         // assert
         expect(appController.createUsers([user2, user3])).toBe(expectedResults);
       });
-      it(
+      test(
         'createUsersAsync',
         marbles(m => {
           // arrange
@@ -95,7 +95,7 @@ describe('AppController', () => {
       const user4: User = { id: 4, firstName: '', lastName: '' };
       const user5: User = { id: 5, firstName: '', lastName: '' };
 
-      it('updateUser', () => {
+      test('updateUser', () => {
         // arrange
         user4.firstName = 'Baker';
         user4.lastName = 'Mayfield';
@@ -109,7 +109,7 @@ describe('AppController', () => {
         // assert
         expect(appController.updateUser(user4)).toBe(expectedResult);
       });
-      it(
+      test(
         'updateUserAsync',
         marbles(m => {
           // arrange
@@ -128,7 +128,7 @@ describe('AppController', () => {
           );
         }),
       );
-      it('updateUsers', () => {
+      test('updateUsers', () => {
         // arrange
         user2.firstName = 'Myles';
         user2.lastName = 'Garrett';
@@ -144,7 +144,7 @@ describe('AppController', () => {
         // assert
         expect(appController.updateUsers([user2, user3])).toBe(expectedResults);
       });
-      it(
+      test(
         'updateUsersAsync',
         marbles(m => {
           // arrange
@@ -174,7 +174,7 @@ describe('AppController', () => {
       const user4: User = { id: 4, firstName: 'Baker', lastName: 'Mayfield' };
       const user5: User = { id: 5, firstName: 'Odell', lastName: 'Beckham Jr' };
 
-      it('getUser', () => {
+      test('getUser', () => {
         // arrange
         const expectedResult = user4;
 
@@ -186,7 +186,7 @@ describe('AppController', () => {
         // assert
         expect(appController.getUser(4)).toBe(expectedResult);
       });
-      it(
+      test(
         'getUserAsync',
         marbles(m => {
           // arrange
@@ -203,7 +203,7 @@ describe('AppController', () => {
           );
         }),
       );
-      it('getUsers', () => {
+      test('getUsers', () => {
         // arrange
         const expectedResult = [user, user2, user3, user4, user5];
 
@@ -215,7 +215,7 @@ describe('AppController', () => {
         // assert
         expect(appController.getUsers()).toBe(expectedResult);
       });
-      it(
+      test(
         'getUsersAsync',
         marbles(m => {
           // arrange
@@ -238,7 +238,7 @@ describe('AppController', () => {
           );
         }),
       );
-      it('getByFirstName', () => {
+      test('getByFirstName', () => {
         // arrange
         const expectedResults = [user];
 
@@ -250,7 +250,7 @@ describe('AppController', () => {
         // assert
         expect(appController.getByFirstName('John')).toBe(expectedResults);
       });
-      it(
+      test(
         'getByFirstNameAsync',
         marbles(m => {
           // arrange
@@ -267,7 +267,7 @@ describe('AppController', () => {
           );
         }),
       );
-      it('getByLastName', () => {
+      test('getByLastName', () => {
         // arrange
         const expectedResults = [user4];
 
@@ -279,7 +279,7 @@ describe('AppController', () => {
         // assert
         expect(appController.getByLastName('Mayfield')).toBe(expectedResults);
       });
-      it(
+      test(
         'getByLastNameAsync',
         marbles(m => {
           // arrange
@@ -299,7 +299,7 @@ describe('AppController', () => {
     });
 
     describe('DELETEs', () => {
-      it('deleteUser', () => {
+      test('deleteUser', () => {
         // arrange
         const expectedResult = null;
 
@@ -311,7 +311,7 @@ describe('AppController', () => {
         // assert
         expect(appController.deleteUser(4)).toBe(expectedResult);
       });
-      it(
+      test(
         'deleteUserAsync',
         marbles(m => {
           // arrange
@@ -328,7 +328,7 @@ describe('AppController', () => {
           );
         }),
       );
-      it('deleteUsers', () => {
+      test('deleteUsers', () => {
         // arrange
         const expectedResult = null;
 
@@ -340,7 +340,7 @@ describe('AppController', () => {
         // assert
         expect(appController.deleteUsers([1, 2])).toBe(expectedResult);
       });
-      it(
+      test(
         'dleteUsersAsync',
         marbles(m => {
           // arrange

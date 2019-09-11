@@ -7,4 +7,4 @@ import { CustomerController } from './customer.controller';
     controllers: [CustomerController],
     providers: [],
 })
-export class FeatureModule {}
+export class CustomerModule {}

@@ -17,13 +17,13 @@ describe('AppController (e2e)', () => {
   });
 
   describe('Verifies their are no records on creation', () => {
-    it('/api/users (GET) - Get All Users = []', () => {
+    test('/api/users (GET) - Get All Users = []', () => {
       return request(app.getHttpServer())
         .get('/api/users')
         .expect(200)
         .expect([]);
     });
-    it('/api/user/:id (GET) Get User 1 = {}', () => {
+    test('/api/user/:id (GET) Get User 1 = {}', () => {
       return request(app.getHttpServer())
         .get('/api/user/1')
         .expect(200)
@@ -34,14 +34,14 @@ describe('AppController (e2e)', () => {
   describe('Create, Update, Read and Delete User', () => {
     const user: User = { id: 1, firstName: 'John', lastName: 'Doe' };
 
-    it('/api/user (POST) - Create New User', () => {
+    test('/api/user (POST) - Create New User', () => {
       return request(app.getHttpServer())
         .post('/api/user')
         .send(user)
         .expect(201)
         .expect(user);
     });
-    it('/api/user/1 (PUT) - Update User 1', () => {
+    test('/api/user/1 (PUT) - Update User 1', () => {
       user.firstName = 'Jane';
       return request(app.getHttpServer())
         .put('/api/user/1')
@@ -49,19 +49,19 @@ describe('AppController (e2e)', () => {
         .expect(200)
         .expect({});
     });
-    it('/api/user/1 (GET) - Get User 1', () => {
+    test('/api/user/1 (GET) - Get User 1', () => {
       return request(app.getHttpServer())
         .get('/api/user/1')
         .expect(200)
         .expect(user);
     });
-    it('/api/user/1 (DELETE) - Delete User 1', () => {
+    test('/api/user/1 (DELETE) - Delete User 1', () => {
       return request(app.getHttpServer())
         .delete('/api/user/1')
         .expect(200)
         .expect({});
     });
-    it('/api/users (GET) - Get All Users = []', () => {
+    test('/api/users (GET) - Get All Users = []', () => {
       return request(app.getHttpServer())
         .get('/api/users')
         .expect(200)
@@ -72,14 +72,14 @@ describe('AppController (e2e)', () => {
   describe('Create, Update, Read, Delete Users Asyncronously', () => {
     const user: User = { id: 1, firstName: 'John', lastName: 'Doe' };
 
-    it('/api/user/async (POST) - Create New User Async', () => {
+    test('/api/user/async (POST) - Create New User Async', () => {
       return request(app.getHttpServer())
         .post('/api/user/async')
         .send(user)
         .expect(201)
         .expect(user);
     });
-    it('/api/user/1/async (PUT) - Updates User 1 Async', () => {
+    test('/api/user/1/async (PUT) - Updates User 1 Async', () => {
       user.firstName = 'Jane';
       return request(app.getHttpServer())
         .put('/api/user/1/async')
@@ -87,13 +87,13 @@ describe('AppController (e2e)', () => {
         .expect(200)
         .expect({});
     });
-    it('/api/user/1/async (GET) - Gets Updated User 1 Async', () => {
+    test('/api/user/1/async (GET) - Gets Updated User 1 Async', () => {
       return request(app.getHttpServer())
         .get('/api/user/1/async')
         .expect(200)
         .expect(user);
     });
-    it('/api/user/1/async (DELETE) - Deletes User 1 Async', () => {
+    test('/api/user/1/async (DELETE) - Deletes User 1 Async', () => {
       return request(app.getHttpServer())
         .delete('/api/user/1/async')
         .expect(200)
@@ -106,26 +106,26 @@ describe('AppController (e2e)', () => {
     const user2: User = { id: 2, firstName: 'Jane', lastName: 'Doe' };
     const user3: User = { id: 3, firstName: 'Joe', lastName: 'Shmoe' };
 
-    it('/api/users (POST) - Create 3 Users', () => {
+    test('/api/users (POST) - Create 3 Users', () => {
       return request(app.getHttpServer())
         .post('/api/users')
         .send([user1, user2, user3])
         .expect(201)
         .expect([user1, user2, user3]);
     });
-    it('/api/users/firstName/Joe (GET) - Gets Users by First Name Joe', () => {
+    test('/api/users/firstName/Joe (GET) - Gets Users by First Name Joe', () => {
       return request(app.getHttpServer())
         .get('/api/users/firstName/Joe')
         .expect(200)
         .expect([user3]);
     });
-    it('/api/users/lastName/Doe (GET) - Gets Users by Last Name Doe', () => {
+    test('/api/users/lastName/Doe (GET) - Gets Users by Last Name Doe', () => {
       return request(app.getHttpServer())
         .get('/api/users/lastName/Doe')
         .expect(200)
         .expect([user1, user2]);
     });
-    it('/api/users (PUT) - Update Users 1 and 2', () => {
+    test('/api/users (PUT) - Update Users 1 and 2', () => {
       user1.lastName = 'Buck';
       user2.lastName = 'Buck';
 
@@ -135,20 +135,20 @@ describe('AppController (e2e)', () => {
         .expect(200)
         .expect({});
     });
-    it('/api/users (GET) - Gets All 3 Users', () => {
+    test('/api/users (GET) - Gets All 3 Users', () => {
       return request(app.getHttpServer())
         .get('/api/users')
         .expect(200)
         .expect([user1, user2, user3]);
     });
-    it('/api/users (DELETE) - Deletes All 3 Users', () => {
+    test('/api/users (DELETE) - Deletes All 3 Users', () => {
       return request(app.getHttpServer())
         .delete('/api/users')
         .send([1, 2, 3])
         .expect(200)
         .expect({});
     });
-    it('/api/users (GET) - Gets All Users = []', () => {
+    test('/api/users (GET) - Gets All Users = []', () => {
       return request(app.getHttpServer())
         .get('/api/users')
         .expect(200)
@@ -161,46 +161,46 @@ describe('AppController (e2e)', () => {
     const user2: User = { id: 2, firstName: 'Jane', lastName: 'Doe' };
     const user3: User = { id: 3, firstName: 'Joe', lastName: 'Shmoe' };
 
-    it('/api/users/async (POST) - Create 3 Users Asyncronously', () => {
+    test('/api/users/async (POST) - Create 3 Users Asyncronously', () => {
       return request(app.getHttpServer())
         .post('/api/users/async')
         .send([user1, user2, user3])
         .expect(201)
         .expect([user1, user2, user3]);
     });
-    it('/api/users/firstName/Joe/async (GET) - Gets Users by First Name Joe Asyncronously', () => {
+    test('/api/users/firstName/Joe/async (GET) - Gets Users by First Name Joe Asyncronously', () => {
       return request(app.getHttpServer())
         .get('/api/users/firstName/Joe/async')
         .expect(200)
         .expect([user3]);
     });
-    it('/api/users/lastName/Doe/async (GET) - Gets Users by Last Name Doe Asyncronously', () => {
+    test('/api/users/lastName/Doe/async (GET) - Gets Users by Last Name Doe Asyncronously', () => {
       return request(app.getHttpServer())
         .get('/api/users/lastName/Doe/async')
         .expect(200)
         .expect([user1, user2]);
     });
-    it('/api/users/async (PUT) - Updates Users 1 and 2 Asyncronously', () => {
+    test('/api/users/async (PUT) - Updates Users 1 and 2 Asyncronously', () => {
       return request(app.getHttpServer())
         .put('/api/users/async')
         .send([user1, user2])
         .expect(200)
         .expect({});
     });
-    it('/api/users/async (GET) - Gets All 3 Users Async', () => {
+    test('/api/users/async (GET) - Gets All 3 Users Async', () => {
       return request(app.getHttpServer())
         .get('/api/users/async')
         .expect(200)
         .expect([user1, user2, user3]);
     });
-    it('/api/users/async (DELETE) - Deletes All 3 Users Asyncronously', () => {
+    test('/api/users/async (DELETE) - Deletes All 3 Users Asyncronously', () => {
       return request(app.getHttpServer())
         .delete('/api/users/async')
         .send([1, 2, 3])
         .expect(200)
         .expect({});
     });
-    it('/api/users/async (GET) - Gets All Users Async = []', () => {
+    test('/api/users/async (GET) - Gets All Users Async = []', () => {
       return request(app.getHttpServer())
         .get('/api/users/async')
         .expect(200)
