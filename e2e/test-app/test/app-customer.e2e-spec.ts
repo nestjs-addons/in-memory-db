@@ -52,6 +52,13 @@ describe('CustomerController (e2e)', () => {
                 .expect(customer);
         });
 
+        test('/api/customers (GET) - Get All Customers', () => {
+            return request(app.getHttpServer())
+                .get('/api/customers')
+                .expect(200)
+                .expect([customer]);
+        });
+
         test('/api/customers/1 (DELETE) - Delete Customer 1', () => {
             return request(app.getHttpServer())
                 .delete('/api/customers/1')
@@ -65,5 +72,9 @@ describe('CustomerController (e2e)', () => {
                 .expect(200)
                 .expect([]);
         });
+    });
+
+    afterAll(async () => {
+        await app.close();
     });
 });

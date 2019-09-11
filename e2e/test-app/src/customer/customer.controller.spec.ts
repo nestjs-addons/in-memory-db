@@ -71,16 +71,16 @@ describe('Customer Controller', () => {
       expect(controller.deleteCustomer(1)).toBe(expectedResult);
     });
 
-    test('getCustomer', () => {
+    test('getCustomers', () => {
       // arrange
-      const expectResult = customer;
+      const expectResult = [];
 
       // act
-      jest.spyOn(controller, 'getCustomer')
+      jest.spyOn(controller, 'getCustomers')
         .mockImplementation(() => expectResult);
 
       // assert
-      expect(controller.getCustomer(1)).toBe(expectResult);
+      expect(controller.getCustomers()).toBe(expectResult);
     });
   });
 });

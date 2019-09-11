@@ -180,7 +180,7 @@ describe('AppController (e2e)', () => {
         .expect(200)
         .expect([user1, user2]);
     });
-    test('/api/users/async (PUT) - Updates Users 1 and 2 Asyncronously', () => {
+    test('/api/users/async (PUT) - Updates Users 1 and 2 Async', () => {
       return request(app.getHttpServer())
         .put('/api/users/async')
         .send([user1, user2])
@@ -193,7 +193,7 @@ describe('AppController (e2e)', () => {
         .expect(200)
         .expect([user1, user2, user3]);
     });
-    test('/api/users/async (DELETE) - Deletes All 3 Users Asyncronously', () => {
+    test('/api/users/async (DELETE) - Deletes All 3 Users Async', () => {
       return request(app.getHttpServer())
         .delete('/api/users/async')
         .send([1, 2, 3])
