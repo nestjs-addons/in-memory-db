@@ -27,7 +27,7 @@
     "rxjs-marbles": "5.0.2",
     "semantic-release": "15.13.24",
     "ts-jest": "24.1.0",
-    "tsc-watch": "2.4.0",
+    "tsc-watch": "3.0.1",
     "typescript": "3.6.2",
     "tslint": "5.19.0"
   },
