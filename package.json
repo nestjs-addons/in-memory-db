@@ -29,7 +29,7 @@
     "semantic-release": "15.13.24",
     "ts-jest": "24.1.0",
     "tsc-watch": "3.0.1",
-    "typescript": "3.6.2",
+    "typescript": "3.6.3",
     "tslint": "5.19.0"
   },
   "peerDependencies": {
