@@ -25,7 +25,7 @@
     "jest": "24.9.0",
     "prettier": "1.18.2",
     "reflect-metadata": "0.1.13",
-    "rxjs-marbles": "5.0.2",
+    "rxjs-marbles": "5.0.3",
     "semantic-release": "15.13.24",
     "ts-jest": "24.1.0",
     "tsc-watch": "3.0.1",
