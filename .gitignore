@@ -18,3 +18,7 @@ npm-debug.log
 # dist
 dist
 node_modules
+
+# schematics
+schematics/**/*.js
+schematics/**/*.d.ts

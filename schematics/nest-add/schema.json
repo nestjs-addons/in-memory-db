@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "SchematicsInMemoryDB",
+  "title": "In-Memory DB Options Schema",
+  "type": "object",
+  "properties": {
+    "skipImport": {
+      "description": "Flag to skip the module import.",
+      "default": false
+    },
+    "module": {
+      "type": "string",
+      "description": "Allows specification of the declaring module.",
+      "alias": "m"
+    }
+  }
+}
