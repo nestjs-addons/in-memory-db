@@ -3,7 +3,8 @@
     "schematics": {
       "nest-add": {
         "description": "Schematics to add In memory DB module.",
-        "factory": "./nest-add/"
+        "factory": "./nest-add/",
+        "schema": "./nest-add/schema.json"
       }
     }
   }

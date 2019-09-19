@@ -48,10 +48,9 @@ describe('nest add function', () => {
         tree.create('/src/app.module.ts', APP_MODULE_CONTENT);
         runner = new SchematicTestRunner('schematics', collectionPath);
     })
-    it('should add pckage to module', () => {
+    it('should add package to module', () => {
         const ngAddTree = runner.runSchematic('nest-add', '', tree);
         const module = ngAddTree.readContent('/src/app.module.ts');
-        expect(module).toContain("InMemoryDBModule.forRoot()");
-        expect(module).toContain("import { InMemoryDBModule } from '@nestjs-addons/in-memory-db'");
+        expect(module).toMatchSnapshot();
     });
 })

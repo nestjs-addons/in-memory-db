@@ -1,6 +1,6 @@
 export interface NgAddOptions {
   /**
-   * Directive to insert declaration in module.
+   * Skip import parameter
    */
   skipImport?: boolean;
 

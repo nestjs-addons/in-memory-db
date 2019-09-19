@@ -18,30 +18,6 @@ import * as ts from 'typescript';
 import { addImportToModule, insertImport } from '../utils/ast-utils';
 import { InsertChange } from '../utils/change';
 
-// function addPackageJsonDependencies(options: NgAddOptions): Rule {
-//   return (host: Tree, context: SchematicContext) => {
-//     const dependencies: NodeDependency[] = [
-//       {
-//         type: NodeDependencyType.Default,
-//         version: '~0.0.0',
-//         name: '@nestjs-addons/in-memory-db',
-//       },
-//     ];
-
-//     const { path, workspace } = getWorkspace(host);
-//     options.projectRoot = workspace.sourceRoot;
-
-//     dependencies.forEach(dependency => {
-//       addPackageJsonDependency(host, dependency);
-//       context.logger.log(
-//         'info',
-//         `✅️ Added "${dependency.name}" into ${dependency.type}`,
-//       );
-//     });
-
-//     return host;
-//   };
-// }
 
 function getWorkspace(tree: Tree): { path: string; workspace: any } {
   const possibleFiles = ['/nest-cli.json'];
@@ -69,12 +45,11 @@ function getWorkspace(tree: Tree): { path: string; workspace: any } {
 function addDeclarationToModule(options: NgAddOptions): Rule {
   return (tree: Tree) => {
 
-
-    const { path, workspace } = getWorkspace(tree);
-
     if (options.skipImport !== undefined && options.skipImport) {
       return tree;
     }
+
+    const { path, workspace } = getWorkspace(tree);
 
     options.module = new ModuleFinder(tree).find({
       name: options.module ? options.module : 'app',
@@ -127,7 +102,7 @@ function addDeclarationToModule(options: NgAddOptions): Rule {
   };
 }
 
-export default function(options: NgAddOptions): Rule {
+export default function (options: NgAddOptions): Rule {
   return branchAndMerge(
     chain([
       addDeclarationToModule(options)
