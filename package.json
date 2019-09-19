@@ -1,5 +1,5 @@
 {
-  "name": "@nestjs-addons/in-memory-db-test",
+  "name": "@nestjs-addons/in-memory-db",
   "version": "0.0.0-development",
   "description": "Simple In-Memory DB Service for NestJS projects",
   "author": "Wes Grimes",
