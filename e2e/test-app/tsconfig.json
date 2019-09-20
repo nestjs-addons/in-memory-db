@@ -10,7 +10,7 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "paths": {
-      "@nestjs-addons/in-memory-db": ["lib/*"]
+      "@nestjs-addons/in-memory-db": ["../../lib/index.ts"]
     }
 
   },
