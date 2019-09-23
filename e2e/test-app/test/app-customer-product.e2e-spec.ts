@@ -76,12 +76,12 @@ describe('ProductController & CustomerController (e2e)', () => {
         });
 
         describe('Get', () => {
-            // test('/api/products/1 (GET) - Get Product 1', () => {
-            //     return request(app.getHttpServer())
-            //         .get('/api/products/1')
-            //         .expect(200)
-            //         .expect(product);
-            // });
+            test('/api/products/1 (GET) - Get Product 1', () => {
+                return request(app.getHttpServer())
+                    .get('/api/products/1')
+                    .expect(200)
+                    .expect(product);
+            });
 
             test('/api/customers/1 (GET) - Get Customer 1', () => {
                 return request(app.getHttpServer())
@@ -90,12 +90,12 @@ describe('ProductController & CustomerController (e2e)', () => {
                     .expect(customer);
             });
 
-            // test('/api/products (GET) - Get All Products', () => {
-            //     return request(app.getHttpServer())
-            //         .get('/api/products')
-            //         .expect(200)
-            //         .expect([product]);
-            // });
+            test('/api/products (GET) - Get All Products', () => {
+                return request(app.getHttpServer())
+                    .get('/api/products')
+                    .expect(200)
+                    .expect([product]);
+            });
 
             test('/api/customers (GET) - Get All Customers', () => {
                 return request(app.getHttpServer())

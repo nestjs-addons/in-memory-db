@@ -6,7 +6,13 @@ import { ProductModule } from './product/product.module';
 import { CustomerProductModule } from './customer-product/customer-product.module';
 
 @Module({
-  imports: [InMemoryDBModule.forRoot(), ProductModule, CustomerProductModule],
+  imports: [
+    InMemoryDBModule.forFeature('product'),
+    InMemoryDBModule.forFeature('customer'),
+    InMemoryDBModule.forRoot(),
+    ProductModule,
+    CustomerProductModule,
+  ],
   controllers: [AppController, ProductController],
   providers: [],
 })

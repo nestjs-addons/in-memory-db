@@ -1,10 +1,10 @@
 import { Controller, Get, Param, Post, Body, Put, Delete } from '@nestjs/common';
-import { InMemoryDBService } from '../../../../lib';
+import { InMemoryDBService, InjectInMemoryDBService } from '../../../../lib';
 import { Product } from './product';
 
 @Controller('api/')
 export class ProductController {
-    constructor(private readonly inMemoryDBService: InMemoryDBService<Product>) { }
+    constructor(@InjectInMemoryDBService('product') private readonly inMemoryDBService: InMemoryDBService<Product>) { }
 
     @Get('products')
     getProducts(): Product[] {
