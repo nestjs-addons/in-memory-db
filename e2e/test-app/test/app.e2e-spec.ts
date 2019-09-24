@@ -1,14 +1,16 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
 import { AppModule, User } from '../src';
+import { INestApplication } from '@nestjs/common';
 
 describe('AppController (e2e)', () => {
-  let app;
+  let app: INestApplication;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
-    }).compile();
+    })
+    .compile();
 
     app = moduleFixture.createNestApplication();
     await app.init();
@@ -107,7 +109,7 @@ describe('AppController (e2e)', () => {
     test('/api/users (POST) - Create 3 Users', () => {
       return request(app.getHttpServer())
         .post('/api/users')
-        .send([user2, user3])
+        .send([user1, user2, user3])
         .expect(201)
         .expect([user1, user2, user3]);
     });
