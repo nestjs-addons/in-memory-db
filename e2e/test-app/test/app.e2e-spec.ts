@@ -109,7 +109,7 @@ describe('AppController (e2e)', () => {
     test('/api/users (POST) - Create 3 Users', () => {
       return request(app.getHttpServer())
         .post('/api/users')
-        .send([user2, user3])
+        .send([user1, user2, user3])
         .expect(201)
         .expect([user1, user2, user3]);
     });
