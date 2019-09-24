@@ -1,46 +1,47 @@
 import {
-  Body,
   Controller,
-  Delete,
   Get,
   Param,
   Post,
+  Body,
   Put,
+  Delete,
 } from '@nestjs/common';
-import { InMemoryDBService } from '../../../lib';
-import { User } from './';
+import { InMemoryDBService } from '@nestjs-addons/in-memory-db';
+import { User } from './user';
 import { Observable } from 'rxjs';
+import { userInfo } from 'os';
 
-@Controller('api/')
+@Controller()
 export class AppController {
   constructor(private readonly inMemoryDBService: InMemoryDBService<User>) {}
 
-  @Get('user/:id')
+  @Get(':id')
   getUser(@Param('id') id: number): User {
     return this.inMemoryDBService.get(id);
   }
 
-  @Get('user/:id/async')
+  @Get(':id')
   getUserAsync(@Param('id') id: number): Observable<User> {
     return this.inMemoryDBService.getAsync(id);
   }
 
-  @Get('users')
+  @Get()
   getUsers(): User[] {
     return this.inMemoryDBService.getAll();
   }
 
-  @Get('users/async')
+  @Get()
   getUsersAsync(): Observable<User[]> {
     return this.inMemoryDBService.getAllAsync();
   }
 
-  @Get('users/firstName/:firstName')
+  @Get(':firstName')
   getByFirstName(@Param('firstName') firstName: string): User[] {
     return this.inMemoryDBService.query(user => user.firstName === firstName);
   }
 
-  @Get('users/firstName/:firstName/async')
+  @Get(':firstName')
   getByFirstNameAsync(
     @Param('firstName') firstName: string,
   ): Observable<User[]> {
@@ -49,74 +50,74 @@ export class AppController {
     );
   }
 
-  @Get('users/lastname/:lastName')
+  @Get(':lastName')
   getByLastName(@Param('lastName') lastName: string): User[] {
     return this.inMemoryDBService.query(user => user.lastName === lastName);
   }
 
-  @Get('users/lastName/:lastName/async')
+  @Get(':lastName')
   getByLastNameAsync(@Param('lastName') lastName: string): Observable<User[]> {
     return this.inMemoryDBService.queryAsync(
       user => user.lastName === lastName,
     );
   }
 
-  @Post('user')
+  @Post()
   createUser(@Body() user: User): User {
     return this.inMemoryDBService.create(user);
   }
 
-  @Post('user/async')
+  @Post()
   createUserAsync(@Body() user: User): Observable<User> {
     return this.inMemoryDBService.createAsync(user);
   }
 
-  @Post('users')
+  @Post()
   createUsers(@Body() users: User[]): User[] {
     return this.inMemoryDBService.createMany(users);
   }
 
-  @Post('users/async')
+  @Post()
   createUsersAsync(@Body() users: User[]): Observable<User[]> {
     return this.inMemoryDBService.createManyAsync(users);
   }
 
-  @Put('user/:id')
+  @Put()
   updateUser(@Body() user: User): void {
     return this.inMemoryDBService.update(user);
   }
 
-  @Put('user/:id/async')
+  @Put()
   updateUserAsync(@Body() user: User): Observable<void> {
     return this.inMemoryDBService.updateAsync(user);
   }
 
-  @Put('users')
+  @Put()
   updateUsers(@Body() users: User[]): void {
     return this.inMemoryDBService.updateMany(users);
   }
 
-  @Put('users/async')
+  @Put()
   updateUsersAsync(@Body() users: User[]): Observable<void> {
     return this.inMemoryDBService.updateManyAsync(users);
   }
 
-  @Delete('user/:id')
+  @Delete(':id')
   deleteUser(@Param('id') id: number): void {
     return this.inMemoryDBService.delete(id);
   }
 
-  @Delete('user/:id/async')
+  @Delete(':id')
   deleteUserAsync(@Param('id') id: number): Observable<void> {
     return this.inMemoryDBService.deleteAsync(id);
   }
 
-  @Delete('users')
+  @Delete()
   deleteUsers(@Body() ids: number[]): void {
     return this.inMemoryDBService.deleteMany(ids);
   }
 
-  @Delete('users/async')
+  @Delete()
   deleteUsersAsync(@Body() ids: number[]): Observable<void> {
     return this.inMemoryDBService.deleteManyAsync(ids);
   }

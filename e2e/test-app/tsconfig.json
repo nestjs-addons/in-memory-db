@@ -7,7 +7,12 @@
     "experimentalDecorators": true,
     "target": "es6",
     "sourceMap": true,
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "paths": {
+      "@nestjs-addons/in-memory-db": ["../../lib"]
+    }
+
   },
   "exclude": ["node_modules"]
 }
