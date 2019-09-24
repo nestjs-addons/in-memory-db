@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { of } from 'rxjs';
+import { of, Observable } from 'rxjs';
 import * as request from 'supertest';
 import { AppModule } from './../src/app.module';
 import { User } from 'src/user';
