@@ -1,4 +1,3 @@
-import 'module-alias/register';
 import { Module } from '@nestjs/common';
 import { InMemoryDBModule } from '../../../lib';
 import { AppController } from './';
