@@ -7,8 +7,8 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { InMemoryDBService } from '@nestjs-addons/in-memory-db';
-import { User } from './user';
+import { InMemoryDBService } from '../../../lib';
+import { User } from './';
 import { Observable } from 'rxjs';
 
 @Controller('api/')
