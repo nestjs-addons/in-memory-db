@@ -16,9 +16,11 @@ npm-debug.log
 /.nyc_output
 
 # dist
-dist
-node_modules
+/dist
 
 # schematics
-schematics/**/*.js
-schematics/**/*.d.ts
+/schematics/**/*.js
+/schematics/**/*.d.ts
+
+# jest snapshots
+__snapshots__/

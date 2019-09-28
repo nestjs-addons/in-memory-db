@@ -5,7 +5,7 @@ import { FactoryProvider } from '@nestjs/common/interfaces';
 
 export function createInMemoryDBForFeatureProviders(
   featureName: string,
-  featureConfig: Partial<InMemoryDBConfig> = {},
+  featureConfig: Partial<InMemoryDBConfig>,
 ) {
   const providers: FactoryProvider[] = [
     {
