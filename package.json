@@ -5,9 +5,13 @@
   "author": "Wes Grimes",
   "license": "MIT",
   "repository": "https://github.com/nestjs-addons/in-memory-db",
+  "schematics": "./dist/schematics/collection.json",
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "tsc -p tsconfig.json && npm run build:schematics",
     "build:dev": "tsc-watch -p tsconfig.json",
+    "build:schematics": "tsc -p tsconfig.schematics.json && npm run copy:files",
+    "copy:files": "copyfiles schematics/collection.json schematics/nest-add/schema.json dist",
+    "watch:schematics": "npm link && npm run build:schematics -- --watch",
     "format": "prettier lib/**/*.ts --write",
     "format:verify": "prettier lib/**/*.ts --check",
     "lint": "npx tslint -p tsconfig.json -c tslint.json \"lib/**/*.ts\" -e \"*.spec.ts\" --force",
@@ -28,7 +32,6 @@
     "semantic-release": "15.13.24",
     "ts-jest": "24.1.0",
     "tsc-watch": "4.0.0",
-    "typescript": "3.6.3",
     "tslint": "5.20.0"
   },
   "peerDependencies": {
@@ -36,6 +39,15 @@
     "@nestjs/core": "^6.0.0",
     "reflect-metadata": "^0.1.12",
     "rxjs": "^6.0.0"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "prettier --write",
+      "git add -f"
+    ],
+    "*.ts,!*.spec.ts": [
+      "npm run lint"
+    ]
   },
   "publishConfig": {
     "access": "public"
@@ -49,7 +61,12 @@
       "@semantic-release/github"
     ]
   },
-  "dependencies": {},
+  "dependencies": {
+    "@angular-devkit/core": "^8.2.2",
+    "copyfiles": "^2.1.1",
+    "schematics-utilities": "^1.1.3",
+    "typescript": "3.6.3"
+  },
   "keywords": [
     "nestjs",
     "nest",
