@@ -7,8 +7,9 @@
   "repository": "https://github.com/nestjs-addons/in-memory-db",
   "schematics": "./dist/schematics/collection.json",
   "scripts": {
-    "build": "tsc -p tsconfig.json && npm run build:schematics",
+    "build": "npm run build:lib && npm run build:schematics",
     "build:dev": "tsc-watch -p tsconfig.json",
+    "build:lib": "tsc -p tsconfig.json",
     "build:schematics": "tsc -p tsconfig.schematics.json && npm run copy:files",
     "copy:files": "copyfiles schematics/collection.json schematics/nest-add/schema.json dist",
     "watch:schematics": "npm link && npm run build:schematics -- --watch",

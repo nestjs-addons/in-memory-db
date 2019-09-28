@@ -1,23 +1,16 @@
-import {
-  Rule,
-  SchematicContext,
-  SchematicsException,
-  Tree,
-  chain,
-  branchAndMerge,
-} from '@angular-devkit/schematics';
 import { JsonParseMode, parseJson, Path } from '@angular-devkit/core';
 import {
-  addPackageJsonDependency,
-  NodeDependency,
-  NodeDependencyType,
-} from 'schematics-utilities';
-import { NgAddOptions } from './add.schema';
-import { ModuleFinder } from '../utils/module.finder';
+  branchAndMerge,
+  chain,
+  Rule,
+  SchematicsException,
+  Tree,
+} from '@angular-devkit/schematics';
 import * as ts from 'typescript';
 import { addImportToModule, insertImport } from '../utils/ast-utils';
 import { InsertChange } from '../utils/change';
-
+import { ModuleFinder } from '../utils/module.finder';
+import { NestAddOptions } from './schema';
 
 function getWorkspace(tree: Tree): { path: string; workspace: any } {
   const possibleFiles = ['/nest-cli.json'];
@@ -42,14 +35,13 @@ function getWorkspace(tree: Tree): { path: string; workspace: any } {
   };
 }
 
-function addDeclarationToModule(options: NgAddOptions): Rule {
+function addDeclarationToModule(options: NestAddOptions): Rule {
   return (tree: Tree) => {
-
     if (options.skipImport !== undefined && options.skipImport) {
       return tree;
     }
 
-    const { path, workspace } = getWorkspace(tree);
+    const { workspace } = getWorkspace(tree);
 
     options.module = new ModuleFinder(tree).find({
       name: options.module ? options.module : 'app',
@@ -57,7 +49,9 @@ function addDeclarationToModule(options: NgAddOptions): Rule {
     });
 
     if (!tree.exists(options.module)) {
-      throw new SchematicsException(`Could not find root module, please use --module flag to specify the root module path.`);
+      throw new SchematicsException(
+        `Could not find root module, please use --module flag to specify the root module path.`,
+      );
     }
 
     const content = tree.read(options.module).toString();
@@ -102,10 +96,6 @@ function addDeclarationToModule(options: NgAddOptions): Rule {
   };
 }
 
-export default function (options: NgAddOptions): Rule {
-  return branchAndMerge(
-    chain([
-      addDeclarationToModule(options)
-    ]),
-  );
+export default function(options: NestAddOptions): Rule {
+  return branchAndMerge(chain([addDeclarationToModule(options)]));
 }

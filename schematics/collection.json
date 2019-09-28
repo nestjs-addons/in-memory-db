@@ -1,10 +1,10 @@
 {
-    "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
-    "schematics": {
-      "nest-add": {
-        "description": "Schematics to add In memory DB module.",
-        "factory": "./nest-add/",
-        "schema": "./nest-add/schema.json"
-      }
+  "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
+  "schematics": {
+    "nest-add": {
+      "description": "Schematics to add In-Memory DB Module.",
+      "factory": "./nest-add",
+      "schema": "./nest-add/schema.json"
     }
   }
+}
