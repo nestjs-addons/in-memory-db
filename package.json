@@ -16,12 +16,13 @@
     "format": "prettier lib/**/*.ts --write",
     "format:verify": "prettier lib/**/*.ts --check",
     "lint": "npx tslint -p tsconfig.json -c tslint.json \"lib/**/*.ts\" -e \"*.spec.ts\" --force",
-    "test": "jest --config jest.json",
+    "test": "jest",
     "semantic-release": "semantic-release"
   },
   "devDependencies": {
     "@nestjs/common": "6.7.2",
     "@nestjs/core": "6.7.2",
+    "@nestjs/testing": "6.7.2",
     "rxjs": "6.5.3",
     "@semantic-release/changelog": "3.0.4",
     "@types/jest": "24.0.18",
