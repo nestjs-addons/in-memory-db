@@ -5,10 +5,5 @@
   "testRegex": ".spec.ts$",
   "transform": {
     "^.+\\.(t|j)s$": "ts-jest"
-  },
-  "testPathIgnorePatterns": [
-    "<rootDir>/build/",
-    "<rootDir>/node_modules/",
-    "<rootDir>/e2e/"
-  ]
+  }
 }

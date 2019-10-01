@@ -12,6 +12,7 @@
     "format:verify": "prettier lib/**/*.ts --check",
     "lint": "npx tslint -p tsconfig.json -c tslint.json \"lib/**/*.ts\" -e \"*.spec.ts\" --force",
     "test": "jest --config jest.json",
+    "e2e": "jest --config e2e/jest.json",
     "semantic-release": "semantic-release"
   },
   "devDependencies": {
