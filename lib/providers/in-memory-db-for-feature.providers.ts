@@ -1,7 +1,7 @@
-import { InMemoryDBConfig } from '../interfaces';
+import { FactoryProvider } from '@nestjs/common/interfaces';
 import { getInMemoryDBServiceToken } from '../common';
 import { inMemoryDBServiceFactory } from '../factories';
-import { FactoryProvider } from '@nestjs/common/interfaces';
+import { InMemoryDBConfig } from '../interfaces';
 
 export function createInMemoryDBForFeatureProviders(
   featureName: string,
@@ -11,7 +11,7 @@ export function createInMemoryDBForFeatureProviders(
     {
       provide: getInMemoryDBServiceToken(featureName),
       useFactory: inMemoryDBServiceFactory(featureConfig, featureName),
-    },
+    }
   ];
   return providers;
 }

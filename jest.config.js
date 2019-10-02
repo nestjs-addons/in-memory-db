@@ -20,4 +20,9 @@ module.exports = {
       lines: 80,
     },
   },
+  "testPathIgnorePatterns": [
+    "<rootDir>/build/",
+    "<rootDir>/node_modules/",
+    "<rootDir>/e2e/"
+  ],
 };

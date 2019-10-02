@@ -1,4 +1,4 @@
-name: master
+name: Master
 
 on:
   push:
@@ -26,8 +26,18 @@ jobs:
       - run: npm ci
       - run: npm run test
 
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 10
+      - run: npm ci
+      - run: npm run e2e
+
   publish:
-    needs: [test-8, test-10]
+    needs: [test-8, test-10, e2e]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1

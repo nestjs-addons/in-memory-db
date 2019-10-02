@@ -1,17 +1,25 @@
-# NestJS Addons: In-Memory DB Service
+# NestJS Addons: In-Memory DB
 
 [![npm version](https://badge.fury.io/js/%40nestjs-addons%2Fin-memory-db.svg)](https://badge.fury.io/js/%40nestjs-addons%2Fin-memory-db)
 [![npm downloads](https://img.shields.io/npm/dt/@nestjs-addons/in-memory-db?label=npm%20downloads)](https://www.npmjs.com/package/@nestjs-addons/in-memory-db)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 [![CI Status](https://github.com/nestjs-addons/in-memory-db/workflows/master/badge.svg)](#)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
-[![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors)
 
 ## Description
 
 `@nestjs-addons/in-memory-db` provides a ridiculously simple, no configuration needed, way to create a simple in-memory database for use in your `nestjs` applications. You simply define an `interface` that extends the `interface InMemoryEntity`, inject the `InMemoryDBService<T>` into your controllers and/or services, and immediately profit. The records are stored in-memory, as a singleton, for each interface, for the life of the service.
 
 This provides a great way to quickly get up and running with prototypes and mock backends.
+
+## Table of Contents
+
+- [Installation](#installation)
+- [Quick Start](#quick-start)
+- [Feature Modules](#feature-modules---registering-multiple-instances-using-forfeature)
+- [Entity Controller](#entity-controller)
+
 
 ## Installation
 
@@ -48,7 +56,7 @@ To get started, let's first update our `app.module.ts` to include the necessary 
 
 > While we are importing to the AppModule in this example, InMemoryDBModule could be imported in Feature modules just as well.
 
-#### Registering a forRoot InMemoryDBService
+#### Registering a forRoot InMemoryDBModule
 
 ```typescript
 // app.module.ts
@@ -91,7 +99,7 @@ Now we can make use of our new `interface` when injecting the `InMemoryDBService
 
 In order to use the `InMemoryDBService<T>` we need to do the following:
 
-- Add `private readonly inMemoryDb: InMemoryDBService<T>` to the `constructor` of each controller and/or service that you would like to use it in.
+- Add `private readonly inMemoryDB: InMemoryDBService<T>` to the `constructor` of each controller and/or service that you would like to use it in.
 - Begin using `InMemoryDBService` as expected.
 
 An example of injecting `InMemoryDBService` into a `UserController` for the `UserEntity` we defined earlier would look something like this:
@@ -160,6 +168,42 @@ export class FeatureOneController {
 
 Using this decorator ensures that the correct instance is injected.
 
+
+## Entity Controller
+
+In order to prevent code duplication and boilerplate for each controller, we have created two base entity controllers `InMemoryDBEntityController` and `InMemoryDBEntityAsyncController`. This allows you to quickly provide endpoints to make requests without having to manually implement each action.
+
+
+To use the controllers, simply create a new controller and extend it with one of the provided base controllers.
+
+
+```typescript
+@Controller('api/users')
+class UsersController extends InMemoryDBEntityController<UserEntity> {
+
+  constructor(protected dbService: InMemoryDBService<UserEntity>) {
+    super(dbService);
+  }
+
+}
+
+```
+
+In order to have an Entity Controller use a feature-specific instance of the service, use the decorator `InjectInMemoryDBService` in the controller's provided by this library as shown below:
+
+```typescript
+@Controller('api/users')
+class UsersController extends InMemoryDBEntityController<UserEntity> {
+
+  constructor(@InjectInMemoryDBService('customer') protected readonly inMemoryDBService: InMemoryDBService<UserEntity>) {
+    super(inMemoryDBService);
+  }
+
+}
+
+```
+
+
 ## Docs
 
 [Click here for more detailed API Documentation](API.md)
@@ -183,6 +227,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/wescopeland"><img src="https://avatars0.githubusercontent.com/u/3984985?v=4" width="100px;" alt="Wes Copeland"/><br /><sub><b>Wes Copeland</b></sub></a><br /><a href="https://github.com/nestjs-addons/in-memory-db/commits?author=wescopeland" title="Code">💻</a> <a href="https://github.com/nestjs-addons/in-memory-db/commits?author=wescopeland" title="Tests">⚠️</a></td>
     <td align="center"><a href="http://hirejordanpowell.com"><img src="https://avatars0.githubusercontent.com/u/3605268?v=4" width="100px;" alt="Jordan"/><br /><sub><b>Jordan</b></sub></a><br /><a href="https://github.com/nestjs-addons/in-memory-db/commits?author=jordanpowell88" title="Code">💻</a> <a href="https://github.com/nestjs-addons/in-memory-db/commits?author=jordanpowell88" title="Tests">⚠️</a></td>
     <td align="center"><a href="https://www.santoshyadav.dev"><img src="https://avatars3.githubusercontent.com/u/11923975?v=4" width="100px;" alt="Santosh Yadav"/><br /><sub><b>Santosh Yadav</b></sub></a><br /><a href="https://github.com/nestjs-addons/in-memory-db/commits?author=santoshyadav198613" title="Code">💻</a> <a href="https://github.com/nestjs-addons/in-memory-db/commits?author=santoshyadav198613" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://github.com/itayod"><img src="https://avatars2.githubusercontent.com/u/6719615?v=4" width="100px;" alt="Itay Oded"/><br /><sub><b>Itay Oded</b></sub></a><br /><a href="https://github.com/nestjs-addons/in-memory-db/commits?author=itayod" title="Code">💻</a> <a href="https://github.com/nestjs-addons/in-memory-db/commits?author=itayod" title="Tests">⚠️</a></td>
   </tr>
 </table>
 

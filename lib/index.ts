@@ -4,4 +4,5 @@ import { InjectInMemoryDBService } from './common';
 export * from './in-memory-db.module';
 export * from './interfaces';
 export * from './services';
+export * from './controllers';
 export { InjectInMemoryDBService };
