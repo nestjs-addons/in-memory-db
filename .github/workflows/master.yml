@@ -37,7 +37,7 @@ jobs:
       - run: npm run e2e
 
   publish:
-    needs: [test-8, test-10, test-12]
+    needs: [test-8, test-10, e2e]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
