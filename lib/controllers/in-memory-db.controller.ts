@@ -19,8 +19,7 @@ import { Observable } from 'rxjs';
  * ```
  */
 export abstract class InMemoryDbEntityController<T extends InMemoryDBEntity> {
-
-  constructor(private readonly dbService: InMemoryDBService<T>) {}
+  constructor(protected readonly dbService: InMemoryDBService<T>) {}
 
   @Post()
   public createAsync(@Body() record: Partial<T>): Observable<T> {
@@ -33,8 +32,11 @@ export abstract class InMemoryDbEntityController<T extends InMemoryDBEntity> {
   }
 
   @Put(':id')
-  public updateAsync(@Param('id') id: T['id'], @Body() record: Partial<T>): Observable<void> {
-    return this.dbService.updateAsync({id, ...record} as T);
+  public updateAsync(
+    @Param('id') id: T['id'],
+    @Body() record: Partial<T>,
+  ): Observable<void> {
+    return this.dbService.updateAsync({ id, ...record } as T);
   }
 
   @Put()
@@ -66,5 +68,4 @@ export abstract class InMemoryDbEntityController<T extends InMemoryDBEntity> {
   public getAllAsync(): Observable<T[]> {
     return this.dbService.getAllAsync();
   }
-
 }
