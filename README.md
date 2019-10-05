@@ -1,4 +1,4 @@
-# NestJS Addons: In-Memory DB Service
+# NestJS Addons: In-Memory DB
 
 [![npm version](https://badge.fury.io/js/%40nestjs-addons%2Fin-memory-db.svg)](https://badge.fury.io/js/%40nestjs-addons%2Fin-memory-db)
 [![npm downloads](https://img.shields.io/npm/dt/@nestjs-addons/in-memory-db?label=npm%20downloads)](https://www.npmjs.com/package/@nestjs-addons/in-memory-db)
