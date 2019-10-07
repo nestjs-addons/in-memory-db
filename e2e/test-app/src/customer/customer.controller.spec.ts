@@ -19,68 +19,69 @@ describe('Customer Controller', () => {
     expect(controller).toBeTruthy();
   });
 
-  describe('CRUD Operations for Customer', () => {
+  describe('CRUD Operations for ', () => {
     const customer: Customer = { id: 1, firstName: 'Kamil', lastName: 'Myśliwiec', company: 'NestJs', title: 'Owner' };
 
-    test('createCustomer', () => {
+    test('create', () => {
       // arrange
       const expectedResult = customer;
 
       // act
-      jest.spyOn(controller, 'createCustomer')
+      jest.spyOn(controller, 'create')
         .mockImplementation(() => expectedResult);
 
       // assert
-      expect(controller.createCustomer(customer)).toBe(expectedResult);
+      expect(controller.create(customer)).toBe(expectedResult);
     });
 
-    test('getCustomers', () => {
+    test('getAll', () => {
       // arrange
       const expectedResult = [customer];
 
       // act
-      jest.spyOn(controller, 'getCustomers')
+      jest.spyOn(controller, 'getMany')
         .mockImplementation(() => expectedResult);
 
       // assert
-      expect(controller.getCustomers()).toBe(expectedResult);
+      expect(controller.getMany()).toBe(expectedResult);
     });
 
-    test('updateCustomer', () => {
+    test('get', () => {
+      // arrange
+      const expectResult = customer;
+
+      // act
+      jest.spyOn(controller, 'get')
+        .mockImplementation(() => expectResult);
+
+      // assert
+      expect(controller.get(1)).toBe(expectResult);
+    });
+
+    test('update', () => {
       // arrange
       customer.company = 'NestJS';
       const expectedResult = customer;
 
       // act
-      jest.spyOn(controller, 'updateCustomer')
+      jest.spyOn(controller, 'update')
         .mockImplementation(() => expectedResult);
 
       // assert
-      expect(controller.updateCustomer(customer)).toBe(expectedResult);
+      expect(controller.update(customer.id, {...customer})).toBe(expectedResult);
     });
 
-    test('deleteCustomer', () => {
+    test('delete', () => {
       // arrange
       const expectedResult = null;
 
       // act
-      jest.spyOn(controller, 'deleteCustomer')
+      jest.spyOn(controller, 'delete')
         .mockImplementation(() => expectedResult);
 
       // assert
-      expect(controller.deleteCustomer(1)).toBe(expectedResult);
+      expect(controller.delete(1)).toBe(expectedResult);
     });
 
-    test('getCustomers', () => {
-      // arrange
-      const expectResult = [];
-
-      // act
-      jest.spyOn(controller, 'getCustomers')
-        .mockImplementation(() => expectResult);
-
-      // assert
-      expect(controller.getCustomers()).toBe(expectResult);
-    });
   });
 });
