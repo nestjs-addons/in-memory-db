@@ -13,15 +13,12 @@
 
 This provides a great way to quickly get up and running with prototypes and mock backends.
 
-## Table of Content
+## Table of Contents
 
 - [Installation](#installation)
 - [Quick Start](#quick-start)
 - [Feature Modules](#feature-modules---registering-multiple-instances-using-forfeature)
-- [Translation in the Template](#translation-in-the-template)
-- [Programmatical Translation](#programmatical-translation)
-- [Service API](#service-api)
-- [Lazy Load Translation 
+- [Entity Controller](#entity-controller)
 
 
 ## Installation
@@ -174,9 +171,11 @@ Using this decorator ensures that the correct instance is injected.
 
 ## Entity Controller
 
-In order to prevent code duplication and boilerplate for each controller, we created two base entity controllers `InMemoryDbEntityController` and `InMemoryDbEntityAsyncController`.
+In order to prevent code duplication and boilerplate for each controller, we have created two base entity controllers `InMemoryDbEntityController` and `InMemoryDbEntityAsyncController`. This allows you to quickly provide endpoints to make requests without having to manually implement each action.
 
-To use the controllers, simply create a controller and extend it with one of the controllers.
+
+To use the controllers, simply create a new controller and extend it with one of the provided base controllers.
+
 
 ```typescript
 @Controller('api/users')
@@ -190,8 +189,7 @@ class UsersController extends InMemoryDbController<UserEntity> {
 
 ```
 
-Of course, it will also be possible to use an Entity Controller with a specific feature service by using the decorator `InjectInMemoryDBService`
-
+In order to have an Entity Controller use a feature-specific instance of the service, use the decorator `InjectInMemoryDBService` in the controller's provided by this library as shown below:
 
 ```typescript
 @Controller('api/users')
