@@ -13,6 +13,17 @@
 
 This provides a great way to quickly get up and running with prototypes and mock backends.
 
+## Table of Content
+
+- [Installation](#installation)
+- [Quick Start](#quick-start)
+- [Feature Modules](#feature-modules---registering-multiple-instances-using-forfeature)
+- [Translation in the Template](#translation-in-the-template)
+- [Programmatical Translation](#programmatical-translation)
+- [Service API](#service-api)
+- [Lazy Load Translation 
+
+
 ## Installation
 
 ### Option 1
@@ -48,7 +59,7 @@ To get started, let's first update our `app.module.ts` to include the necessary 
 
 > While we are importing to the AppModule in this example, InMemoryDBModule could be imported in Feature modules just as well.
 
-#### Registering a forRoot InMemoryDBService
+#### Registering a forRoot InMemoryDBModule
 
 ```typescript
 // app.module.ts
@@ -159,6 +170,41 @@ export class FeatureOneController {
 ```
 
 Using this decorator ensures that the correct instance is injected.
+
+
+## Entity Controller
+
+In order to prevent code duplication and boilerplate for each controller, we created two base entity controllers `InMemoryDbEntityController` and `InMemoryDbEntityAsyncController`.
+
+To use the controllers, simply create a controller and extend it with one of the controllers.
+
+```typescript
+@Controller('api/users')
+class UsersController extends InMemoryDbController<UserEntity> {
+
+  constructor(protected dbService: InMemoryDBService<UserEntity>) {
+    super(dbService);
+  }
+
+}
+
+```
+
+Of course, it will also be possible to use an Entity Controller with a specific feature service by using the decorator `InjectInMemoryDBService`
+
+
+```typescript
+@Controller('api/users')
+class UsersController extends InMemoryDbController<UserEntity> {
+
+  constructor(@InjectInMemoryDBService('customer') protected readonly inMemoryDBService: InMemoryDBService<UserEntity>) {
+    super(inMemoryDBService);
+  }
+
+}
+
+```
+
 
 ## Docs
 
