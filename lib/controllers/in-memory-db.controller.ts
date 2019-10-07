@@ -1,7 +1,6 @@
 import { Get, Post, Put, Delete, Body, Param } from '@nestjs/common';
 import { InMemoryDBService } from '../services';
 import { InMemoryDBEntity } from '../interfaces';
-import { Observable } from 'rxjs';
 
 /**
  * @example
@@ -10,7 +9,7 @@ import { Observable } from 'rxjs';
  * @Controller('api/user')
  * class UsersController extends InMemoryDbController<User> {
  *
- *   constructor(private dbService: InMemoryDBService<User>) {
+ *   constructor(protected dbService: InMemoryDBService<User>) {
  *     super(dbService);
  *   }
  *
@@ -22,50 +21,43 @@ export abstract class InMemoryDbEntityController<T extends InMemoryDBEntity> {
   constructor(protected readonly dbService: InMemoryDBService<T>) {}
 
   @Post()
-  public createAsync(@Body() record: Partial<T>): Observable<T> {
-    return this.dbService.createAsync(record);
-  }
-
-  @Post()
-  public createManyAsync(@Body() records: Array<Partial<T>>): Observable<T[]> {
-    return this.dbService.createManyAsync(records);
+  public create(@Body() record: Partial<T> | Array<Partial<T>>): T | T[] {
+    if (Array.isArray(record)) {
+      return this.dbService.createMany(record);
+    }
+    return this.dbService.create(record);
   }
 
   @Put(':id')
-  public updateAsync(
-    @Param('id') id: T['id'],
-    @Body() record: Partial<T>,
-  ): Observable<void> {
-    return this.dbService.updateAsync({ id, ...record } as T);
+  public update(@Param('id') id: T['id'], @Body() record: Partial<T>): void {
+    return this.dbService.update({ id, ...record } as T);
   }
 
   @Put()
-  public updateManyAsync(@Body() records: T[]): Observable<void> {
-    return this.dbService.updateManyAsync(records);
+  public updateMany(@Body() records: T[]): void {
+    return this.dbService.updateMany(records);
   }
 
   @Delete(':id')
-  public deleteAsync(@Param('id') id: T['id']): Observable<void> {
-    return this.dbService.deleteAsync(id);
+  public delete(@Param('id') id: T['id']): void {
+    return this.dbService.delete(id);
   }
 
   @Delete()
-  public deleteManyAsync(@Body() ids: Array<T['id']>): Observable<void> {
-    return this.dbService.deleteManyAsync(ids);
+  public deleteMany(@Body() ids: Array<T['id']>): void {
+    return this.dbService.deleteMany(ids);
   }
 
   @Get(':id')
-  public getAsync(@Param('id') id: T['id']): Observable<T> {
-    return this.dbService.getAsync(id);
+  public get(@Param('id') id: T['id']): T {
+    return this.dbService.get(id);
   }
 
   @Get()
-  public getManyAsync(@Body() ids: Array<T['id']>): Observable<T[]> {
-    return this.dbService.getManyAsync(ids);
-  }
-
-  @Get()
-  public getAllAsync(): Observable<T[]> {
-    return this.dbService.getAllAsync();
+  public getMany(@Body() ids?: Array<T['id']>): T[] {
+    if (ids && Array.isArray(ids)) {
+      return this.dbService.getMany(ids);
+    }
+    return this.dbService.getAll();
   }
 }

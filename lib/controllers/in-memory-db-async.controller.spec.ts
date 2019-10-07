@@ -1,14 +1,14 @@
 import { InMemoryDBEntity } from '../interfaces';
 import { inMemoryDBServiceFactory } from '../factories';
-import { InMemoryDbEntityController } from './in-memory-db.controller';
+import { InMemoryDbEntityAsyncController } from './in-memory-db-async.controller';
 import { InMemoryDBService } from '../services';
 
-describe('In Memory DB Controller', () => {
+describe('In Memory DB Async Controller', () => {
   interface TestEntity extends InMemoryDBEntity {
     someField: string;
   }
 
-  let controller: InMemoryDbEntityController<TestEntity>;
+  let controller: InMemoryDbEntityAsyncController<TestEntity>;
   let service: InMemoryDBService<TestEntity>;
 
   const sampleRecords: TestEntity[] = [
@@ -17,7 +17,7 @@ describe('In Memory DB Controller', () => {
     { id: 3, someField: 'CCC' },
   ];
 
-  class MockController extends InMemoryDbEntityController<TestEntity> {
+  class MockController extends InMemoryDbEntityAsyncController<TestEntity> {
     constructor(protected dbService: InMemoryDBService<TestEntity>) {
       super(dbService);
     }
@@ -32,10 +32,10 @@ describe('In Memory DB Controller', () => {
     let spy;
 
     beforeEach(() => {
-      spy = jest.spyOn(service, 'get');
+      spy = jest.spyOn(service, 'getAsync');
     });
 
-    test('should call service get spy when given valid id', () => {
+    test('should call service getAsync spy when given valid id', () => {
       // act
       controller.get(1);
       // assert
@@ -44,9 +44,9 @@ describe('In Memory DB Controller', () => {
   });
 
   describe('getMany', () => {
-    test('should call service getMany spy when given list of ids', () => {
+    test('should call service getManyAsync spy when given list of ids', () => {
       // arrange
-      const spy = spyOn(service, 'getMany');
+      const spy = spyOn(service, 'getManyAsync');
       const testEntityMock = [1, 2, 3];
       // act
       controller.getMany(testEntityMock);
@@ -54,9 +54,9 @@ describe('In Memory DB Controller', () => {
       expect(spy).toHaveBeenCalledWith(testEntityMock);
     });
 
-    test('should call service getAll spy when no ids have been given', () => {
+    test('should call service getAllAsync spy when no ids have been given', () => {
       // arrange
-      const spy = spyOn(service, 'getAll');
+      const spy = spyOn(service, 'getAllAsync');
       // act
       controller.getMany();
       // assert
@@ -65,9 +65,9 @@ describe('In Memory DB Controller', () => {
   });
 
   describe('create', () => {
-    test('should call create when given a valid record', () => {
+    test('should call createAsync when given a valid record', () => {
       // arrange
-      const spy = jest.spyOn(service, 'create');
+      const spy = jest.spyOn(service, 'createAsync');
       const testEntityMock = sampleRecords[0];
       // act
       controller.create(testEntityMock);
@@ -75,9 +75,9 @@ describe('In Memory DB Controller', () => {
       expect(spy).toHaveBeenCalledWith(testEntityMock);
     });
 
-    test('should call create many when given valid records list', () => {
+    test('should call createManyAsync when given valid records list', () => {
       // arrange
-      const spy = jest.spyOn(service, 'createMany');
+      const spy = jest.spyOn(service, 'createManyAsync');
       // act
       controller.create(sampleRecords);
       // assert
@@ -89,10 +89,10 @@ describe('In Memory DB Controller', () => {
     let spy;
 
     beforeEach(() => {
-      spy = jest.spyOn(service, 'update');
+      spy = jest.spyOn(service, 'updateAsync');
     });
 
-    test('should call update when given a valid record and id', () => {
+    test('should call updateAsync when given a valid record and id', () => {
       // arrange
       const testEntityMock = { someField: 'DDD' };
       // act
@@ -106,10 +106,10 @@ describe('In Memory DB Controller', () => {
     let spy;
 
     beforeEach(() => {
-      spy = jest.spyOn(service, 'updateMany');
+      spy = jest.spyOn(service, 'updateManyAsync');
     });
 
-    test('should call update many when given valid records list', () => {
+    test('should call updateManyAsync when given valid records list', () => {
       // arrange
       const testEntityMock = sampleRecords;
       // act
@@ -123,10 +123,10 @@ describe('In Memory DB Controller', () => {
     let spy;
 
     beforeEach(() => {
-      spy = jest.spyOn(service, 'delete');
+      spy = jest.spyOn(service, 'deleteAsync');
     });
 
-    test('should call delete when give a valid id', () => {
+    test('should call deleteAsync when give a valid id', () => {
       // act
       controller.delete(1);
       // assert
@@ -138,10 +138,10 @@ describe('In Memory DB Controller', () => {
     let spy;
 
     beforeEach(() => {
-      spy = jest.spyOn(service, 'deleteMany');
+      spy = jest.spyOn(service, 'deleteManyAsync');
     });
 
-    test('should call delete many when given valid ids list', () => {
+    test('should call deleteManyAsync when given valid ids list', () => {
       // arrange
       const testEntityMock = [1, 2, 3];
       // act
