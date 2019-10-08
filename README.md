@@ -179,7 +179,7 @@ To use the controllers, simply create a new controller and extend it with one of
 
 ```typescript
 @Controller('api/users')
-class UsersController extends InMemoryDbController<UserEntity> {
+class UsersController extends InMemoryDbEntityController<UserEntity> {
 
   constructor(protected dbService: InMemoryDBService<UserEntity>) {
     super(dbService);
