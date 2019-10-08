@@ -1,6 +1,6 @@
 import { InMemoryDBEntity } from '../interfaces';
 import { inMemoryDBServiceFactory } from '../factories';
-import { InMemoryDbEntityAsyncController } from './in-memory-db-async.controller';
+import { InMemoryDBEntityAsyncController } from './in-memory-db-async.controller';
 import { InMemoryDBService } from '../services';
 
 describe('In Memory DB Async Controller', () => {
@@ -8,7 +8,7 @@ describe('In Memory DB Async Controller', () => {
     someField: string;
   }
 
-  let controller: InMemoryDbEntityAsyncController<TestEntity>;
+  let controller: InMemoryDBEntityAsyncController<TestEntity>;
   let service: InMemoryDBService<TestEntity>;
 
   const sampleRecords: TestEntity[] = [
@@ -17,7 +17,7 @@ describe('In Memory DB Async Controller', () => {
     { id: 3, someField: 'CCC' },
   ];
 
-  class MockController extends InMemoryDbEntityAsyncController<TestEntity> {
+  class MockController extends InMemoryDBEntityAsyncController<TestEntity> {
     constructor(protected dbService: InMemoryDBService<TestEntity>) {
       super(dbService);
     }

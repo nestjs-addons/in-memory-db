@@ -99,7 +99,7 @@ Now we can make use of our new `interface` when injecting the `InMemoryDBService
 
 In order to use the `InMemoryDBService<T>` we need to do the following:
 
-- Add `private readonly inMemoryDb: InMemoryDBService<T>` to the `constructor` of each controller and/or service that you would like to use it in.
+- Add `private readonly inMemoryDB: InMemoryDBService<T>` to the `constructor` of each controller and/or service that you would like to use it in.
 - Begin using `InMemoryDBService` as expected.
 
 An example of injecting `InMemoryDBService` into a `UserController` for the `UserEntity` we defined earlier would look something like this:
@@ -171,7 +171,7 @@ Using this decorator ensures that the correct instance is injected.
 
 ## Entity Controller
 
-In order to prevent code duplication and boilerplate for each controller, we have created two base entity controllers `InMemoryDbEntityController` and `InMemoryDbEntityAsyncController`. This allows you to quickly provide endpoints to make requests without having to manually implement each action.
+In order to prevent code duplication and boilerplate for each controller, we have created two base entity controllers `InMemoryDBEntityController` and `InMemoryDBEntityAsyncController`. This allows you to quickly provide endpoints to make requests without having to manually implement each action.
 
 
 To use the controllers, simply create a new controller and extend it with one of the provided base controllers.
@@ -179,7 +179,7 @@ To use the controllers, simply create a new controller and extend it with one of
 
 ```typescript
 @Controller('api/users')
-class UsersController extends InMemoryDbController<UserEntity> {
+class UsersController extends InMemoryDBEntityController<UserEntity> {
 
   constructor(protected dbService: InMemoryDBService<UserEntity>) {
     super(dbService);
@@ -193,7 +193,7 @@ In order to have an Entity Controller use a feature-specific instance of the ser
 
 ```typescript
 @Controller('api/users')
-class UsersController extends InMemoryDbController<UserEntity> {
+class UsersController extends InMemoryDBEntityController<UserEntity> {
 
   constructor(@InjectInMemoryDBService('customer') protected readonly inMemoryDBService: InMemoryDBService<UserEntity>) {
     super(inMemoryDBService);

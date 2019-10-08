@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
  *
  * ```ts
  * @Controller('api/user')
- * class UsersController extends InMemoryDbEntityAsyncController<User> {
+ * class UsersController extends InMemoryDBEntityAsyncController<User> {
  *
  *   constructor(protected dbService: InMemoryDBService<User>) {
  *     super(dbService);
@@ -18,7 +18,7 @@ import { Observable } from 'rxjs';
  *
  * ```
  */
-export abstract class InMemoryDbEntityAsyncController<
+export abstract class InMemoryDBEntityAsyncController<
   T extends InMemoryDBEntity
 > {
   constructor(protected readonly dbService: InMemoryDBService<T>) {}

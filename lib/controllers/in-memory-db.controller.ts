@@ -7,7 +7,7 @@ import { InMemoryDBEntity } from '../interfaces';
  *
  * ```ts
  * @Controller('api/user')
- * class UsersController extends InMemoryDbController<User> {
+ * class UsersController extends InMemoryDBController<User> {
  *
  *   constructor(protected dbService: InMemoryDBService<User>) {
  *     super(dbService);
@@ -17,7 +17,7 @@ import { InMemoryDBEntity } from '../interfaces';
  *
  * ```
  */
-export abstract class InMemoryDbEntityController<T extends InMemoryDBEntity> {
+export abstract class InMemoryDBEntityController<T extends InMemoryDBEntity> {
   constructor(protected readonly dbService: InMemoryDBService<T>) {}
 
   @Post()
