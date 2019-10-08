@@ -179,7 +179,7 @@ To use the controllers, simply create a new controller and extend it with one of
 
 ```typescript
 @Controller('api/users')
-class UsersController extends InMemoryDBController<UserEntity> {
+class UsersController extends InMemoryDBEntityController<UserEntity> {
 
   constructor(protected dbService: InMemoryDBService<UserEntity>) {
     super(dbService);
@@ -193,7 +193,7 @@ In order to have an Entity Controller use a feature-specific instance of the ser
 
 ```typescript
 @Controller('api/users')
-class UsersController extends InMemoryDBController<UserEntity> {
+class UsersController extends InMemoryDBEntityController<UserEntity> {
 
   constructor(@InjectInMemoryDBService('customer') protected readonly inMemoryDBService: InMemoryDBService<UserEntity>) {
     super(inMemoryDBService);
