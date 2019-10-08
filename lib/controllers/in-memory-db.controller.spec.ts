@@ -1,6 +1,6 @@
 import { InMemoryDBEntity } from '../interfaces';
 import { inMemoryDBServiceFactory } from '../factories';
-import { InMemoryDbEntityController } from './in-memory-db.controller';
+import { InMemoryDBEntityController } from './in-memory-db.controller';
 import { InMemoryDBService } from '../services';
 
 describe('In Memory DB Controller', () => {
@@ -8,7 +8,7 @@ describe('In Memory DB Controller', () => {
     someField: string;
   }
 
-  let controller: InMemoryDbEntityController<TestEntity>;
+  let controller: InMemoryDBEntityController<TestEntity>;
   let service: InMemoryDBService<TestEntity>;
 
   const sampleRecords: TestEntity[] = [
@@ -17,7 +17,7 @@ describe('In Memory DB Controller', () => {
     { id: 3, someField: 'CCC' },
   ];
 
-  class MockController extends InMemoryDbEntityController<TestEntity> {
+  class MockController extends InMemoryDBEntityController<TestEntity> {
     constructor(protected dbService: InMemoryDBService<TestEntity>) {
       super(dbService);
     }

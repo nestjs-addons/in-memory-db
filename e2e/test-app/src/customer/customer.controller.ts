@@ -1,9 +1,9 @@
 import { Controller } from '@nestjs/common';
-import { InMemoryDBService, InjectInMemoryDBService, InMemoryDbEntityController } from '../../../../lib';
+import { InMemoryDBService, InjectInMemoryDBService, InMemoryDBEntityController as InMemoryDBEntityController } from '../../../../lib';
 import { Customer } from './customer';
 
 @Controller('api/customers')
-export class CustomerController extends InMemoryDbEntityController<Customer> {
+export class CustomerController extends InMemoryDBEntityController<Customer> {
 
   constructor(
     @InjectInMemoryDBService('customer') protected readonly inMemoryDBService: InMemoryDBService<Customer>
