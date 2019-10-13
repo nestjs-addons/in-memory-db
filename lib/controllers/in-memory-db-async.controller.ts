@@ -22,9 +22,7 @@ import { InMemoryDBService } from '../services';
 export abstract class InMemoryDBEntityAsyncController<
   T extends InMemoryDBEntity
 > {
-  constructor(
-    protected readonly dbService: InMemoryDBService<T>
-  ) {}
+  constructor(protected readonly dbService: InMemoryDBService<T>) {}
 
   @Post()
   public create(

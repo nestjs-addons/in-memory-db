@@ -11,7 +11,7 @@ export function createInMemoryDBForFeatureProviders(
     {
       provide: getInMemoryDBServiceToken(featureName),
       useFactory: inMemoryDBServiceFactory(featureConfig, featureName),
-    }
+    },
   ];
   return providers;
 }

@@ -10,7 +10,7 @@ export function createInMemoryDBForRootProviders(
     {
       provide: getInMemoryDBServiceToken(),
       useFactory: inMemoryDBServiceFactory(featureConfig),
-    }
+    },
   ];
   return providers;
 }

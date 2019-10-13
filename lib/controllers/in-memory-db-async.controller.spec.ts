@@ -18,9 +18,7 @@ describe('In Memory DB Async Controller', () => {
   ];
 
   class MockController extends InMemoryDBEntityAsyncController<TestEntity> {
-    constructor(
-      protected dbService: InMemoryDBService<TestEntity>,
-    ) {
+    constructor(protected dbService: InMemoryDBService<TestEntity>) {
       super(dbService);
     }
   }
