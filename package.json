@@ -35,7 +35,7 @@
     "rxjs-marbles": "5.0.3",
     "semantic-release": "15.13.31",
     "supertest": "4.0.2",
-    "ts-jest": "24.1.0",
+    "ts-jest": "24.2.0",
     "tsc-watch": "4.0.0",
     "tslint": "5.20.1"
   },
