@@ -21,23 +21,23 @@
     "semantic-release": "semantic-release"
   },
   "devDependencies": {
-    "@nestjs/common": "6.8.3",
-    "@nestjs/core": "6.8.3",
-    "@nestjs/platform-express": "6.8.3",
-    "@nestjs/testing": "6.8.3",
-    "@semantic-release/changelog": "3.0.4",
-    "@types/jest": "24.0.18",
-    "@types/node": "11.13.22",
+    "@nestjs/common": "6.10.5",
+    "@nestjs/core": "6.10.5",
+    "@nestjs/platform-express": "6.10.5",
+    "@nestjs/testing": "6.10.5",
+    "@semantic-release/changelog": "3.0.6",
+    "@types/jest": "24.0.23",
+    "@types/node": "11.15.3",
     "jest": "24.9.0",
-    "prettier": "1.18.2",
+    "prettier": "1.19.1",
     "reflect-metadata": "0.1.13",
     "rxjs": "6.5.3",
     "rxjs-marbles": "5.0.3",
-    "semantic-release": "15.13.24",
+    "semantic-release": "15.13.31",
     "supertest": "4.0.2",
-    "ts-jest": "24.1.0",
+    "ts-jest": "24.2.0",
     "tsc-watch": "4.0.0",
-    "tslint": "5.20.0"
+    "tslint": "5.20.1"
   },
   "peerDependencies": {
     "@nestjs/common": "^6.0.0",
@@ -67,10 +67,10 @@
     ]
   },
   "dependencies": {
-    "@angular-devkit/core": "8.3.9",
+    "@angular-devkit/core": "8.3.20",
     "copyfiles": "2.1.1",
     "schematics-utilities": "2.0.0",
-    "typescript": "3.6.4"
+    "typescript": "3.7.2"
   },
   "keywords": [
     "nestjs",
