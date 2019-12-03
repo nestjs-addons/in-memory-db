@@ -262,7 +262,10 @@ describe('In Memory DB Service', () => {
       const item1ToAdd: Partial<TestEntity> = { someField: 'Test' };
       const item2ToAdd: Partial<TestEntity> = { someField: 'Another' };
       const expectedRecords = [
-        ...[{ ...item1ToAdd, id: 1 }, { ...item2ToAdd, id: 2 }],
+        ...[
+          { ...item1ToAdd, id: 1 },
+          { ...item2ToAdd, id: 2 },
+        ],
       ];
 
       // act
@@ -303,7 +306,10 @@ describe('In Memory DB Service', () => {
         const item1ToAdd: Partial<TestEntity> = { someField: 'Test' };
         const item2ToAdd: Partial<TestEntity> = { someField: 'Another' };
         const expectedRecords = m.cold('a|', [
-          ...[{ ...item1ToAdd, id: 1 }, { ...item2ToAdd, id: 2 }],
+          ...[
+            { ...item1ToAdd, id: 1 },
+            { ...item2ToAdd, id: 2 },
+          ],
         ]);
 
         // act
