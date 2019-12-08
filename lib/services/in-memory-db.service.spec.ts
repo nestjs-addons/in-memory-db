@@ -23,7 +23,7 @@ describe('In Memory DB Service', () => {
   ]);
 
   beforeEach(() => {
-    service = inMemoryDBServiceFactory<TestEntity>();
+    service = inMemoryDBServiceFactory<TestEntity>()();
   });
 
   describe('get', () => {
