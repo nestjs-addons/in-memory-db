@@ -8,7 +8,7 @@ describe('In Memory DB Service', () => {
     someField: string;
   }
 
-  let service: InMemoryDBService<TestEntity>;
+  let service: InMemoryDBService<number, TestEntity>;
 
   const sampleRecords: TestEntity[] = [
     { id: 1, someField: 'AAA' },
@@ -16,8 +16,14 @@ describe('In Memory DB Service', () => {
     { id: 3, someField: 'CCC' },
   ];
 
+  const sampleMap = new Map<number, TestEntity>([
+    [1, { id: 1, someField: 'AAA' }],
+    [2, { id: 2, someField: 'BBB' }],
+    [3, { id: 3, someField: 'CCC' }],
+  ]);
+
   beforeEach(() => {
-    service = inMemoryDBServiceFactory<TestEntity>()();
+    service = inMemoryDBServiceFactory<TestEntity>();
   });
 
   describe('get', () => {
