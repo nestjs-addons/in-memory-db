@@ -33,7 +33,7 @@
     "reflect-metadata": "0.1.13",
     "rxjs": "6.5.3",
     "rxjs-marbles": "5.0.4",
-    "semantic-release": "15.13.31",
+    "semantic-release": "15.14.0",
     "supertest": "4.0.2",
     "ts-jest": "24.2.0",
     "tsc-watch": "4.0.0",
