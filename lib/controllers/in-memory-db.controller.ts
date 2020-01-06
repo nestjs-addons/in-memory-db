@@ -1,6 +1,6 @@
 import { Get, Post, Put, Delete, Body, Param } from '@nestjs/common';
 import { InMemoryDBService } from '../services';
-import { InMemoryDBEntity } from '../interfaces';
+import { EntityIDType } from '../interfaces';
 
 /**
  * @example
@@ -17,7 +17,7 @@ import { InMemoryDBEntity } from '../interfaces';
  *
  * ```
  */
-export abstract class InMemoryDBEntityController<T extends InMemoryDBEntity> {
+export abstract class InMemoryDBEntityController<T> {
   constructor(protected readonly dbService: InMemoryDBService<T>) {}
 
   @Post()
@@ -29,8 +29,11 @@ export abstract class InMemoryDBEntityController<T extends InMemoryDBEntity> {
   }
 
   @Put(':id')
-  public update(@Param('id') id: T['id'], @Body() record: Partial<T>): void {
-    return this.dbService.update({ id, ...record } as T);
+  public update(
+    @Param('id') id: EntityIDType,
+    @Body() record: Partial<T>,
+  ): void {
+    return this.dbService.update({ [this.dbService.idKey]: id, ...record });
   }
 
   @Put()
@@ -39,22 +42,22 @@ export abstract class InMemoryDBEntityController<T extends InMemoryDBEntity> {
   }
 
   @Delete(':id')
-  public delete(@Param('id') id: T['id']): void {
+  public delete(@Param('id') id: EntityIDType): void {
     return this.dbService.delete(id);
   }
 
   @Delete()
-  public deleteMany(@Body() ids: Array<T['id']>): void {
+  public deleteMany(@Body() ids: EntityIDType[]): void {
     return this.dbService.deleteMany(ids);
   }
 
   @Get(':id')
-  public get(@Param('id') id: T['id']): T {
+  public get(@Param('id') id: EntityIDType): T {
     return this.dbService.get(id);
   }
 
   @Get()
-  public getMany(@Body() ids?: Array<T['id']>): T[] {
+  public getMany(@Body() ids?: EntityIDType[]): T[] {
     if (ids && Array.isArray(ids)) {
       return this.dbService.getMany(ids);
     }

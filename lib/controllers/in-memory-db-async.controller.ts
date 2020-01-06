@@ -1,7 +1,7 @@
 import { Get, Post, Put, Delete, Body, Param } from '@nestjs/common';
 import { InMemoryDBService } from '../services';
-import { InMemoryDBEntity } from '../interfaces';
 import { Observable } from 'rxjs';
+import { EntityIDType } from '../interfaces';
 
 /**
  * @example
@@ -18,9 +18,7 @@ import { Observable } from 'rxjs';
  *
  * ```
  */
-export abstract class InMemoryDBEntityAsyncController<
-  T extends InMemoryDBEntity
-> {
+export abstract class InMemoryDBEntityAsyncController<T> {
   constructor(protected readonly dbService: InMemoryDBService<T>) {}
 
   @Post()
@@ -35,10 +33,13 @@ export abstract class InMemoryDBEntityAsyncController<
 
   @Put(':id')
   public update(
-    @Param('id') id: T['id'],
+    @Param('id') id: EntityIDType,
     @Body() record: Partial<T>,
   ): Observable<void> {
-    return this.dbService.updateAsync({ id, ...record } as T);
+    return this.dbService.updateAsync({
+      ...record,
+      [this.dbService.idKey]: id,
+    } as Partial<T>);
   }
 
   @Put()
@@ -47,22 +48,22 @@ export abstract class InMemoryDBEntityAsyncController<
   }
 
   @Delete(':id')
-  public delete(@Param('id') id: T['id']): Observable<void> {
+  public delete(@Param('id') id: EntityIDType): Observable<void> {
     return this.dbService.deleteAsync(id);
   }
 
   @Delete()
-  public deleteMany(@Body() ids: Array<T['id']>): Observable<void> {
+  public deleteMany(@Body() ids: EntityIDType[]): Observable<void> {
     return this.dbService.deleteManyAsync(ids);
   }
 
   @Get(':id')
-  public get(@Param('id') id: T['id']): Observable<T> {
+  public get(@Param('id') id: EntityIDType): Observable<T> {
     return this.dbService.getAsync(id);
   }
 
   @Get()
-  public getMany(@Body() ids?: Array<T['id']>): Observable<T[]> {
+  public getMany(@Body() ids?: EntityIDType[]): Observable<T[]> {
     if (ids && Array.isArray(ids)) {
       return this.dbService.getManyAsync(ids);
     }

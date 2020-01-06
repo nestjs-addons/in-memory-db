@@ -34,7 +34,7 @@ describe('ProductController & CustomerController (e2e)', () => {
     });
 
     describe('Create, Update, Read & Delete Customers & Products', () => {
-        const product: Product = { id: 1, name: 'Cheeseburger', cost: 3.99, units: 10000 };
+        const product: Product = { productId: 1, name: 'Cheeseburger', cost: 3.99, units: 10000 };
         const customer: Customer = { id: 1, firstName: 'Kamil', lastName: 'Myśliwiec',  company: 'NestJS', title: 'Founder' };
 
         describe('Create', () => {

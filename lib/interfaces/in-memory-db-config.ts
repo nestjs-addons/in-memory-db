@@ -5,4 +5,5 @@
  */
 export interface InMemoryDBConfig {
   featureName: string;
+  idKey?: string;
 }

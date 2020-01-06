@@ -26,7 +26,7 @@ describe('ProductController (e2e)', () => {
     });
 
     describe('Create, Update, Read & Delete Products', () => {
-        const product: Product = { id: 1, name: 'Cheeseburger', cost: 3.99, units: 10000 };
+        const product: Product = { productId: 1, name: 'Cheeseburger', cost: 3.99, units: 10000 };
 
         test('/api/products (POST) - Create Product 1', () => {
             return request(app.getHttpServer())
@@ -52,7 +52,7 @@ describe('ProductController (e2e)', () => {
                 .expect(product);
         });
 
-        test('/api/products/ (GET) - Get All Products', () => {
+        test('/api/products/ (GET) - Get All Products1', () => {
             return request(app.getHttpServer())
                 .get('/api/products')
                 .expect(200)

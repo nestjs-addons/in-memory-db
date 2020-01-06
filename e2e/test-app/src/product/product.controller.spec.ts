@@ -20,7 +20,7 @@ describe('Product Controller', () => {
   });
 
   describe('CRUD Operations for Products', () => {
-    const product: Product = { id: 1, name: 'Cheeseburger', cost: 3.99, units: 10000 };
+    const product: Product = { productId: 1, name: 'Cheeseburger', cost: 3.99, units: 10000 };
 
     test('createProduct', () => {
       // arrange

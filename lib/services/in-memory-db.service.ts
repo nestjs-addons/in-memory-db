@@ -1,11 +1,16 @@
 import { Injectable, Optional } from '@nestjs/common';
-
-import { InMemoryDBConfig, InMemoryDBEntity } from '../interfaces';
 import { Observable, of } from 'rxjs';
+import { EntityIDType, InMemoryDBConfig, Entity } from '../interfaces';
 
+export function getInitialState<T>(): Entity<T> {
+  return {
+    ids: [],
+    records: {},
+  };
+}
 @Injectable()
-export class InMemoryDBService<T extends InMemoryDBEntity> {
-  private recordMap: { [id: number]: T } = {};
+export class InMemoryDBService<T> {
+  private inmemoryState: Entity<T> = getInitialState();
 
   constructor(@Optional() private readonly config: InMemoryDBConfig) {}
 
@@ -39,20 +44,18 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
    */
   set records(records: T[]) {
     if (!records || records.length === 0) {
-      this.recordMap = {};
+      this.inmemoryState = getInitialState();
     }
-    this.recordMap = records.reduce(
-      (previous: { [id: number]: T }, current: T) => {
-        return {
-          ...previous,
-          [current.id]: current,
-        };
-      },
-      this.recordMap,
-    );
+    this.inmemoryState = this.setState({
+      state: this.inmemoryState,
+      records,
+      idKey: this.idKey,
+    });
   }
   get records(): T[] {
-    return Object.keys(this.recordMap).map(key => this.recordMap[key]);
+    return Object.keys(this.inmemoryState.records).map(
+      key => this.inmemoryState.records[key],
+    );
   }
 
   /**
@@ -62,12 +65,14 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
    * @param record the partial record of type `T` to create
    */
   public create(record: Partial<T>): T {
-    const id = record.id || this.getNextId();
-    const newRecord: T = { ...record, id } as T;
-    this.recordMap = {
-      ...this.recordMap,
-      [id]: newRecord,
-    };
+    const id = record[this.idKey] || this.getNextId();
+    const newRecord: T = { ...record, [this.idKey]: id } as T;
+    this.inmemoryState = this.setState({
+      state: this.inmemoryState,
+      records: [newRecord],
+      idKey: this.idKey,
+    });
+
     return newRecord;
   }
 
@@ -107,18 +112,19 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
    * Update a record in the in-memory data store of type `T` using the supplied record.
    * @param record the record of type `T` to update
    */
-  public update(record: T): void {
-    this.recordMap = {
-      ...this.recordMap,
-      [record.id]: { ...record },
-    };
+  public update(record: T | Partial<T>): void {
+    this.inmemoryState = this.setState({
+      state: this.inmemoryState,
+      records: [record],
+      idKey: this.idKey,
+    });
   }
 
   /**
    * Update a record in the in-memory data store of type `T` using the supplied record asyncronously.
    * @param record the record of type `T` to update
    */
-  public updateAsync(record: T): Observable<void> {
+  public updateAsync(record: T | Partial<T>): Observable<void> {
     this.update(record);
     const result$ = of<void>();
     return result$;
@@ -148,18 +154,26 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
    * Remove the record of type `T` from the in-memory data store using the supplied PK id.
    * @param id the PK id of the record
    */
-  public delete(id: number): void {
-    const { [id]: removed, ...remainder } = this.recordMap;
-    this.recordMap = {
-      ...remainder,
-    };
+  public delete(id: EntityIDType): void {
+    const newRecords = {};
+    for (const currentId of this.inmemoryState.ids) {
+      if (currentId.toString() !== id.toString()) {
+        newRecords[currentId] = this.inmemoryState.records[currentId];
+      }
+    }
+
+    this.inmemoryState = this.setState({
+      state: getInitialState(),
+      records: newRecords,
+      idKey: this.idKey,
+    });
   }
 
   /**
    * Remove the record of type `T` from the in-memory data store using the supplied PK id asyncronously.
    * @param id the PK id of the record
    */
-  public deleteAsync(id: number): Observable<void> {
+  public deleteAsync(id: EntityIDType): Observable<void> {
     this.delete(id);
     const result$ = of<void>();
     return result$;
@@ -169,7 +183,7 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
    * Remove the records of type `T` from the in-memory data store using the supplied PK ids.
    * @param ids the PK ids of the records
    */
-  public deleteMany(ids: number[]): void {
+  public deleteMany(ids: EntityIDType[]): void {
     for (const id of ids) {
       this.delete(id);
     }
@@ -179,7 +193,7 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
    * Remove the records of type `T` from the in-memory data store using the supplied PK ids asyncronously.
    * @param ids the PK ids of the records
    */
-  public deleteManyAsync(ids: number[]): Observable<void> {
+  public deleteManyAsync(ids: EntityIDType[]): Observable<void> {
     this.deleteMany(ids);
     const result$ = of<void>();
     return result$;
@@ -189,15 +203,15 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
    * Get a single record of type `T` with the supplied id value.
    * @param id the PK id of the record
    */
-  public get(id: number): T {
-    return this.recordMap[id];
+  public get(id: EntityIDType): T {
+    return this.inmemoryState.records[id];
   }
 
   /**
    * Get a single record of type `T` with the supplied id value as an Observable;
    * @param id the PK id of the record
    */
-  public getAsync(id: number): Observable<T> {
+  public getAsync(id: EntityIDType): Observable<T> {
     const result$ = of(this.get(id));
     return result$;
   }
@@ -206,11 +220,11 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
    * Get records of type `T` with the supplied id values.
    * @param ids the PK ids of the records
    */
-  public getMany(ids: number[]): T[] {
+  public getMany(ids: EntityIDType[]): T[] {
     const records = ids
-      .filter(id => this.recordMap[id])
+      .filter(id => this.inmemoryState.records[id])
       .map(id => {
-        return this.recordMap[id];
+        return this.inmemoryState.records[id];
       });
 
     return records;
@@ -220,7 +234,7 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
    * Get records of type Observable `T` with the supplied id values
    * @param ids the PK ids of the records
    */
-  public getManyAsync(ids: number[]): Observable<T[]> {
+  public getManyAsync(ids: EntityIDType[]): Observable<T[]> {
     const result$ = of(this.getMany(ids));
     return result$;
   }
@@ -327,9 +341,56 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
    */
   private getNextId(): number {
     if (this.records && this.records.length > 0) {
-      return Math.max(...this.records.map(r => r.id)) + 1;
+      return (
+        Math.max(
+          ...this.inmemoryState.ids.map(e => parseInt(e.toString(), 10)),
+        ) + 1
+      );
     }
 
     return 1;
+  }
+
+  get idKey() {
+    return this.config.idKey || 'id';
+  }
+
+  private setState({ state, records, idKey }) {
+    let newrecords;
+    let newIds: EntityIDType[];
+
+    if (Array.isArray(records)) {
+      const resolve = this.mapToEntityObj(records, idKey);
+      newrecords = resolve.records;
+      newIds = resolve.ids;
+    } else if (records.records && records.ids) {
+      newrecords = records.records;
+      newIds = records.ids;
+    } else {
+      newrecords = records;
+      newIds = Object.keys(newrecords).map(id =>
+        isNaN(id as any) ? id : Number(id),
+      );
+    }
+    const newState = {
+      ...state,
+      records: { ...state.records, ...newrecords },
+      ids: [...state.ids, ...newIds],
+    };
+    return newState;
+  }
+  private mapToEntityObj(records: T[], idKey: string) {
+    const state: Entity<any> = {
+      records: {},
+      ids: [],
+    };
+
+    for (const entity of records) {
+      const current = entity;
+      state.records[current[idKey]] = current;
+      state.ids.push(current[idKey]);
+    }
+
+    return state;
   }
 }

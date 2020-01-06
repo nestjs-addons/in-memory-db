@@ -3,7 +3,7 @@ import { InMemoryDBModule } from '../../../../lib';
 import { ProductController } from './product.controller';
 
 @Module({
-  imports: [InMemoryDBModule.forFeature('product')],
+  imports: [InMemoryDBModule.forFeature('product', { idKey: 'productId' })],
   controllers: [ProductController],
 })
-export class ProductModule {}
+export class ProductModule { }

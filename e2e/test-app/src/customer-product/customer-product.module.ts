@@ -6,8 +6,8 @@ import { CustomerController } from '../customer/customer.controller';
 @Module({
     imports: [
         InMemoryDBModule.forFeature('customer'),
-        InMemoryDBModule.forFeature('product'),
+        InMemoryDBModule.forFeature('product', { idKey: 'productId' }),
     ],
-    controllers: [ ProductController, CustomerController],
+    controllers: [ProductController, CustomerController],
 })
-export class CustomerProductModule {}
+export class CustomerProductModule { }
