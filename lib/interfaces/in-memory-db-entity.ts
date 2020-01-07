@@ -7,3 +7,7 @@ export interface Entity<R> {
   ids: EntityIDType[];
   records: Dictionary<R>;
 }
+
+export interface InMemoryDBEntity {
+  id?: number;
+}

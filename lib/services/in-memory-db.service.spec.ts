@@ -1,10 +1,10 @@
 import { marbles } from 'rxjs-marbles';
 import { InMemoryDBService } from './in-memory-db.service';
 import { inMemoryDBServiceFactory } from '../factories';
+import { InMemoryDBEntity } from '../interfaces';
 
 describe('In Memory DB Service', () => {
-  interface TestEntity {
-    id: number;
+  interface TestEntity extends InMemoryDBEntity {
     someField: string;
   }
 
