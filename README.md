@@ -9,7 +9,7 @@
 
 ## Description
 
-`@nestjs-addons/in-memory-db` provides a ridiculously simple, no configuration needed, way to create a simple in-memory database for use in your `nestjs` applications. You simply define an `interface` that extends the `interface InMemoryEntity`, inject the `InMemoryDBService<T>` into your controllers and/or services, and immediately profit. The records are stored in-memory, as a singleton, for each interface, for the life of the service.
+`@nestjs-addons/in-memory-db` provides a ridiculously simple, no configuration needed, way to create a simple in-memory database for use in your `nestjs` applications. You simply define an `interface` that extends the `interface InMemoryDBEntity`, inject the `InMemoryDBService<T>` into your controllers and/or services, and immediately profit. The records are stored in-memory, as a singleton, for each interface, for the life of the service.
 
 This provides a great way to quickly get up and running with prototypes and mock backends.
 
@@ -78,14 +78,14 @@ As you can see we did the following:
 - Import `InMemoryDBModule` from `@nestjs-addons/in-memory-db`
 - Add `InMemoryDBModule` to the `imports` array in the `@Module` of your choice
 
-### Define an interface for each InMemoryEntity
+### Define an interface for each InMemoryDBEntity
 
-An instance of `InMemoryDBService<T>` will be created for each `InMemoryEntity` entity `interface` defined. The `InMemoryEntity` adds an `id: number` property as the only required field. Additional fields can be defined by extending the `interface`.
+An instance of `InMemoryDBService<T>` will be created for each `InMemoryDBEntity` entity `interface` defined. The `InMemoryDBEntity` adds an `id: number` property as the only required field. Additional fields can be defined by extending the `interface`.
 
-To define a new `InMemoryEntity` extension create an `interface` similar to the following example:
+To define a new `InMemoryDBEntity` extension create an `interface` similar to the following example:
 
 ```typescript
-interface UserEntity extends InMemoryEntity {
+interface UserEntity extends InMemoryDBEntity {
   firstName: string;
   lastName: string;
   emailAddress: string;
