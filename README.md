@@ -116,7 +116,7 @@ export class UserController {
 
   @Post('users')
   createUser(@Body() user: UserEntity): UserEntity {
-    return this.service.create(user);
+    return this.userService.create(user);
   }
 }
 ```
