@@ -67,7 +67,7 @@
     ]
   },
   "dependencies": {
-    "@angular-devkit/core": "8.3.22",
+    "@angular-devkit/core": "9.1.0",
     "copyfiles": "2.1.1",
     "schematics-utilities": "2.0.1",
     "typescript": "3.7.4"
