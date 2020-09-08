@@ -152,6 +152,7 @@ export class InMemoryDBV1Service<T extends InMemoryDBV1Entity> {
    * @param id the PK id of the record
    */
   public delete(id: number): void {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { [id]: removed, ...remainder } = this.recordMap;
     this.recordMap = {
       ...remainder,
@@ -265,7 +266,7 @@ export class InMemoryDBV1Service<T extends InMemoryDBV1Entity> {
    * ```
    * @param predicate the filter predicate
    */
-  public query(predicate: (record: T) => boolean) {
+  public query(predicate: (record: T) => boolean): T[] {
     return this.records.filter(predicate);
   }
 
@@ -306,7 +307,7 @@ export class InMemoryDBV1Service<T extends InMemoryDBV1Entity> {
    * @param recordFactory a factory method to call when generating the random record.
    * @param amount the amount of records to generate, defaults to 10.
    */
-  public seed(recordFactory: (index: number) => Partial<T>, amount = 10) {
+  public seed(recordFactory: (index: number) => Partial<T>, amount = 10): void {
     amount = amount === null ? 10 : amount;
 
     const recordsToCreate = [...Array(amount).keys()].map((i) =>

@@ -1,4 +1,4 @@
-import { Injectable, Optional, ParseUUIDPipe } from '@nestjs/common';
+import { Injectable, Optional } from '@nestjs/common';
 
 import { InMemoryDBConfig, InMemoryDBEntity } from '../interfaces';
 import { Observable, of } from 'rxjs';
@@ -157,6 +157,7 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
    * @param id the PK id of the record
    */
   public delete(id: string): void {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { [id]: removed, ...remainder } = this.recordMap;
     this.recordMap = {
       ...remainder,
@@ -270,7 +271,7 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
    * ```
    * @param predicate the filter predicate
    */
-  public query(predicate: (record: T) => boolean) {
+  public query(predicate: (record: T) => boolean): T[] {
     return this.records.filter(predicate);
   }
 
@@ -315,7 +316,7 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
     recordFactory: (index: number) => Partial<T>,
     amount = 10,
     getNextId: () => string = () => uuid(),
-  ) {
+  ): void {
     amount = amount === null ? 10 : amount;
 
     const recordsToCreate = [...Array(amount).keys()].map((i) =>

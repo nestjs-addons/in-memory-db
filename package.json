@@ -15,7 +15,7 @@
     "watch:schematics": "npm link && npm run build:schematics -- --watch",
     "format": "prettier lib/**/*.ts --write",
     "format:verify": "prettier lib/**/*.ts --check",
-    "lint": "npx tslint -p tsconfig.json -c tslint.json \"lib/**/*.ts\" -e \"*.spec.ts\" --force",
+    "lint": "eslint 'lib/**/*.ts' --fix",
     "test": "jest --config jest.config.js",
     "e2e": "jest --config ./tests/jest-e2e.json --runInBand",
     "semantic-release": "semantic-release"

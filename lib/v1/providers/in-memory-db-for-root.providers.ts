@@ -6,7 +6,7 @@ import { InMemoryDBV1Config } from '../interfaces';
 
 export function createInMemoryDBV1ForRootProviders(
   featureConfig: Partial<InMemoryDBV1Config>,
-) {
+): FactoryProvider[] {
   const providers: FactoryProvider[] = [
     {
       provide: getInMemoryDBV1ServiceToken(),

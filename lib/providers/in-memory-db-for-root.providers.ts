@@ -6,7 +6,7 @@ import { InMemoryDBConfig } from '../interfaces';
 
 export function createInMemoryDBForRootProviders(
   featureConfig: Partial<InMemoryDBConfig>,
-) {
+): FactoryProvider[] {
   const providers: FactoryProvider[] = [
     {
       provide: getInMemoryDBServiceToken(),

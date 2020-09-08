@@ -6,7 +6,7 @@ import { FactoryProvider } from '@nestjs/common/interfaces';
 export function createInMemoryDBV1ForFeatureProviders(
   featureName: string,
   featureConfig: Partial<InMemoryDBV1Config>,
-) {
+): FactoryProvider[] {
   const providers: FactoryProvider[] = [
     {
       provide: getInMemoryDBV1ServiceToken(featureName),
