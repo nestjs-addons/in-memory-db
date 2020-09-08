@@ -23,6 +23,6 @@ module.exports = {
   testPathIgnorePatterns: [
     '<rootDir>/build/',
     '<rootDir>/node_modules/',
-    '<rootDir>/e2e/',
+    '<rootDir>/tests/',
   ],
 };
