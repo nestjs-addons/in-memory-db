@@ -1,19 +1,20 @@
-import { Injectable, Optional, ParseUUIDPipe } from '@nestjs/common';
+import { Injectable, Optional } from '@nestjs/common';
 
-import { InMemoryDBConfig, InMemoryDBEntity } from '../interfaces';
+import { InMemoryDBV1Config, InMemoryDBV1Entity } from '../interfaces';
 import { Observable, of } from 'rxjs';
 
-import { v4 as uuid } from 'uuid';
-
+/**
+ * @deprecated since version 2.0.0, please use InMemoryDBService
+ */
 @Injectable()
-export class InMemoryDBService<T extends InMemoryDBEntity> {
-  private recordMap: { [id: string]: T } = {};
+export class InMemoryDBV1Service<T extends InMemoryDBV1Entity> {
+  private recordMap: { [id: number]: T } = {};
 
-  constructor(@Optional() private readonly config: InMemoryDBConfig) {}
+  constructor(@Optional() private readonly config: InMemoryDBV1Config) {}
 
   /**
    * Given the array of records of type `T`, reduce the array into a dictionary object of
-   * type `{ [id: string]: T }`. Set the value of the in-memory data store
+   * type `{ [id: number]: T }`. Set the value of the in-memory data store
    * to this reduced input array.
    * Example:
    *
@@ -21,11 +22,11 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
    * ```json5
    * [
    *  {
-   *    "id": "random-uuid",
+   *    "id": 1,
    *    "prop": "test1"
    *  },
    *  {
-   *    "id": "another-random-uuid",
+   *    "id": 2,
    *    "prop": "test2"
    *  }
    * ]
@@ -33,8 +34,8 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
    * - becomes
    * ```json5
    * {
-   *    "random-uuid": { "id": "random-uuid", "prop": "test1" },
-   *    "another-random-uuid": { "id": "another-random-uuid", "prop": "test2" }
+   *    1: { "id": 1, "prop": "test1" },
+   *    2: { "id": 2, "prop": "test2" }
    * }
    * ```
    * @param records the array of records of type T
@@ -44,7 +45,7 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
       this.recordMap = {};
     }
     this.recordMap = records.reduce(
-      (previous: { [id: string]: T }, current: T) => {
+      (previous: { [id: number]: T }, current: T) => {
         return {
           ...previous,
           [current.id]: current,
@@ -63,12 +64,12 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
    * Returns the updated record with the newly generated `id`.
    * @param record the partial record of type `T` to create
    */
-  public create(record: Partial<T>, getNextId: () => string = () => uuid()): T {
-    const id = record.id || getNextId();
+  public create(record: Partial<T>): T {
+    const id = record.id || this.getNextId();
     const newRecord: T = { ...record, id } as T;
     this.recordMap = {
       ...this.recordMap,
-      [newRecord.id]: newRecord,
+      [id]: newRecord,
     };
     return newRecord;
   }
@@ -90,11 +91,8 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
    * Returns a sequential array of the records with the newly generated `ids`.
    * @param records an array of partial records of type `T` to create
    */
-  public createMany(
-    records: Array<Partial<T>>,
-    getNextId: () => string = () => uuid(),
-  ): T[] {
-    return records.map((record) => this.create(record, getNextId));
+  public createMany(records: Array<Partial<T>>): T[] {
+    return records.map((record) => this.create(record));
   }
 
   /**
@@ -103,11 +101,8 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
    * Returns a sequential array of the records with the newly generated `ids` as an Observable.
    * @param records an array of partial records of type `T` to create
    */
-  public createManyAsync(
-    records: Array<Partial<T>>,
-    getNextId: () => string = () => uuid(),
-  ): Observable<T[]> {
-    const result$ = of(this.createMany(records, getNextId));
+  public createManyAsync(records: Array<Partial<T>>): Observable<T[]> {
+    const result$ = of(this.createMany(records));
     return result$;
   }
 
@@ -156,7 +151,7 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
    * Remove the record of type `T` from the in-memory data store using the supplied PK id.
    * @param id the PK id of the record
    */
-  public delete(id: string): void {
+  public delete(id: number): void {
     const { [id]: removed, ...remainder } = this.recordMap;
     this.recordMap = {
       ...remainder,
@@ -167,7 +162,7 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
    * Remove the record of type `T` from the in-memory data store using the supplied PK id asyncronously.
    * @param id the PK id of the record
    */
-  public deleteAsync(id: string): Observable<void> {
+  public deleteAsync(id: number): Observable<void> {
     this.delete(id);
     const result$ = of<void>();
     return result$;
@@ -177,7 +172,7 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
    * Remove the records of type `T` from the in-memory data store using the supplied PK ids.
    * @param ids the PK ids of the records
    */
-  public deleteMany(ids: string[]): void {
+  public deleteMany(ids: number[]): void {
     for (const id of ids) {
       this.delete(id);
     }
@@ -187,7 +182,7 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
    * Remove the records of type `T` from the in-memory data store using the supplied PK ids asyncronously.
    * @param ids the PK ids of the records
    */
-  public deleteManyAsync(ids: string[]): Observable<void> {
+  public deleteManyAsync(ids: number[]): Observable<void> {
     this.deleteMany(ids);
     const result$ = of<void>();
     return result$;
@@ -197,7 +192,7 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
    * Get a single record of type `T` with the supplied id value.
    * @param id the PK id of the record
    */
-  public get(id: string): T {
+  public get(id: number): T {
     return this.recordMap[id];
   }
 
@@ -205,7 +200,7 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
    * Get a single record of type `T` with the supplied id value as an Observable;
    * @param id the PK id of the record
    */
-  public getAsync(id: string): Observable<T> {
+  public getAsync(id: number): Observable<T> {
     const result$ = of(this.get(id));
     return result$;
   }
@@ -214,7 +209,7 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
    * Get records of type `T` with the supplied id values.
    * @param ids the PK ids of the records
    */
-  public getMany(ids: string[]): T[] {
+  public getMany(ids: number[]): T[] {
     const records = ids
       .filter((id) => this.recordMap[id])
       .map((id) => {
@@ -228,7 +223,7 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
    * Get records of type Observable `T` with the supplied id values
    * @param ids the PK ids of the records
    */
-  public getManyAsync(ids: string[]): Observable<T[]> {
+  public getManyAsync(ids: number[]): Observable<T[]> {
     const result$ = of(this.getMany(ids));
     return result$;
   }
@@ -255,11 +250,11 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
    * ```json5
    * [
    *  {
-   *    "id": "random-uuid",
+   *    "id": 1,
    *    "prop": "test1"
    *  },
    *  {
-   *    "id": "another-random-uuid",
+   *    "id": 2,
    *    "prop": "test2"
    *  }
    * ]
@@ -281,11 +276,11 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
    * ```json5
    * [
    *  {
-   *    "id": "random-uuid",
+   *    "id": 1,
    *    "prop": "test1"
    *  },
    *  {
-   *    "id": "another-random-uuid",
+   *    "id": 2,
    *    "prop": "test2"
    *  }
    * ]
@@ -311,17 +306,33 @@ export class InMemoryDBService<T extends InMemoryDBEntity> {
    * @param recordFactory a factory method to call when generating the random record.
    * @param amount the amount of records to generate, defaults to 10.
    */
-  public seed(
-    recordFactory: (index: number) => Partial<T>,
-    amount = 10,
-    getNextId: () => string = () => uuid(),
-  ) {
+  public seed(recordFactory: (index: number) => Partial<T>, amount = 10) {
     amount = amount === null ? 10 : amount;
 
     const recordsToCreate = [...Array(amount).keys()].map((i) =>
       recordFactory(i),
     );
 
-    this.createMany(recordsToCreate, getNextId);
+    this.createMany(recordsToCreate);
+  }
+
+  /**
+   * get the next id by finding the max id in the current records array and adding 1 to that value.
+   * Example:
+   * - current `recordMap`
+   * ```json5
+   * {
+   *    1: { "id": 1, "prop": "test1" },
+   *    4: { "id": 4, "prop": "test2" }
+   * }
+   * ```
+   * - next next id would be: `5` as the current highest id is `4` + `1` = `5`.
+   */
+  private getNextId(): number {
+    if (this.records && this.records.length > 0) {
+      return Math.max(...this.records.map((r) => r.id)) + 1;
+    }
+
+    return 1;
   }
 }
