@@ -21,6 +21,3 @@ npm-debug.log
 # schematics
 /schematics/**/*.js
 /schematics/**/*.d.ts
-
-# jest snapshots
-__snapshots__/
