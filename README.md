@@ -7,9 +7,20 @@
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 [![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors)
 
+## Breaking Changes
+
+Please note that starting with V2.0.0, the InMemoryDB\* has been deprecated and moved to V1 instances. For more information on this API, checkout docs here: [V1 Docs](API_V1.md).
+
+Detailed Changes:
+
+- All V1 assets have been renamed to `InMemoryDBv1***`
+- New V2+ assets are the same name as before the V1 deprecation. You will just need to make modifications to support the `id` being a `string` as opposed to `number`
+- `id` has been changed from `number` to `string` to support GUIDs.
+- You can now _optionally_ provide a `getNextId` function that the service will use to generate new string IDs. By default, it will use the `uuid` npm package and `v4` implementation.
+
 ## Description
 
-`@nestjs-addons/in-memory-db` provides a ridiculously simple, no configuration needed, way to create a simple in-memory database for use in your `nestjs` applications. You simply define an `interface` that extends the `interface InMemoryEntity`, inject the `InMemoryDBService<T>` into your controllers and/or services, and immediately profit. The records are stored in-memory, as a singleton, for each interface, for the life of the service.
+`@nestjs-addons/in-memory-db` provides a ridiculously simple, no configuration needed, way to create a simple in-memory database for use in your `nestjs` applications. You simply define an `interface` that extends the `interface InMemoryDBEntity`, inject the `InMemoryDBService<T>` into your controllers and/or services, and immediately profit. The records are stored in-memory, as a singleton, for each interface, for the life of the service.
 
 This provides a great way to quickly get up and running with prototypes and mock backends.
 
@@ -20,10 +31,10 @@ This provides a great way to quickly get up and running with prototypes and mock
 - [Feature Modules](#feature-modules---registering-multiple-instances-using-forfeature)
 - [Entity Controller](#entity-controller)
 
-
 ## Installation
 
 ### Option 1
+
 **With NPM**
 
 ```bash
@@ -80,12 +91,12 @@ As you can see we did the following:
 
 ### Define an interface for each InMemoryEntity
 
-An instance of `InMemoryDBService<T>` will be created for each `InMemoryEntity` entity `interface` defined. The `InMemoryEntity` adds an `id: number` property as the only required field. Additional fields can be defined by extending the `interface`.
+An instance of `InMemoryDBService<T>` will be created for each `InMemoryDBEntity` entity `interface` defined. The `InMemoryDBEntity` adds an `id: string` property as the only required field. Additional fields can be defined by extending the `interface`.
 
-To define a new `InMemoryEntity` extension create an `interface` similar to the following example:
+To define a new `InMemoryDBEntity` extension create an `interface` similar to the following example:
 
 ```typescript
-interface UserEntity extends InMemoryEntity {
+interface UserEntity extends InMemoryDBEntity {
   firstName: string;
   lastName: string;
   emailAddress: string;
@@ -110,7 +121,7 @@ export class UserController {
   constructor(private readonly userService: InMemoryDBService<UserEntity>) {}
 
   @Get('users/:id')
-  getUser(@Param() id: number): UserEntity {
+  getUser(@Param() id: string): UserEntity {
     return this.userService.get(id);
   }
 
@@ -168,25 +179,19 @@ export class FeatureOneController {
 
 Using this decorator ensures that the correct instance is injected.
 
-
 ## Entity Controller
 
 In order to prevent code duplication and boilerplate for each controller, we have created two base entity controllers `InMemoryDBEntityController` and `InMemoryDBEntityAsyncController`. This allows you to quickly provide endpoints to make requests without having to manually implement each action.
 
-
 To use the controllers, simply create a new controller and extend it with one of the provided base controllers.
-
 
 ```typescript
 @Controller('api/users')
 class UsersController extends InMemoryDBEntityController<UserEntity> {
-
   constructor(protected dbService: InMemoryDBService<UserEntity>) {
     super(dbService);
   }
-
 }
-
 ```
 
 In order to have an Entity Controller use a feature-specific instance of the service, use the decorator `InjectInMemoryDBService` in the controller's provided by this library as shown below:
@@ -194,19 +199,20 @@ In order to have an Entity Controller use a feature-specific instance of the ser
 ```typescript
 @Controller('api/users')
 class UsersController extends InMemoryDBEntityController<UserEntity> {
-
-  constructor(@InjectInMemoryDBService('customer') protected readonly inMemoryDBService: InMemoryDBService<UserEntity>) {
+  constructor(
+    @InjectInMemoryDBService('customer')
+    protected readonly inMemoryDBService: InMemoryDBService<UserEntity>,
+  ) {
     super(inMemoryDBService);
   }
-
 }
-
 ```
-
 
 ## Docs
 
 [Click here for more detailed API Documentation](API.md)
+
+[DEPRECATED V1 API - Click here for more detailed API Documentation](API_V1.md)
 
 ## Stay in touch
 
