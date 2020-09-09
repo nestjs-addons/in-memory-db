@@ -1,14 +1,14 @@
-# API Documentation
+# API Documentation - V1
 
-## `InMemoryDBService<T extends InMemoryEntity>`
+## `InMemoryDBV1Service<T extends InMemoryDBV1Entity>`
 
-This is the service that provides the in-memory database. All methods interact with a `records` array and implement `generics` to provide type-safety and intellisense based on the `T extends InMemoryEntity` passed in.
+This is the service that provides the in-memory database. All methods interact with a `records` array and implement `generics` to provide type-safety and intellisense based on the `T extends InMemoryDBV1Entity` passed in.
 
 ### Public Methods
 
-**`public create(record: Partial<T>, getNextId?: () => string): T`**
+**`public create(record: Partial<T>): T`**
 
-This method takes in a `Partial<T>` as we do not always know the `id` for a record when we are creating. If we leave off the `id` property the service will automatically generate an `id` for us. Upon successful creation, the method returns the record with the newly generated `id`. An optional parameter of `getNextId` can be used to pass a function that returns a `string` and will be used by the service to get the next id. By default this uses the `uuid` npm package.
+This method takes in a `Partial<T>` as we do not always know the `id` for a record when we are creating. If we leave off the `id` property the service will automatically generate an `id` for us. Upon successful creation, the method returns the record with the newly generated `id`.
 
 Example Usage:
 
@@ -30,9 +30,9 @@ console.log({ newUser });
 // }
 ```
 
-**`public createMany(records: Array<Partial<T>>, getNextId?: () => string): T[]`**
+**`public createMany(records: Array<Partial<T>>): T[]`**
 
-This method takes in an array of `Partial<T>` as we do not always know the `id` for records when we are creating. If we leave off the `id` properties the service will automatically generate `id`s for us. Upon successful creation, the method returns the an array of records with the newly generated `id`s. An optional parameter of `getNextId` can be used to pass a function that returns a `string` and will be used by the service to get the next id. By default this uses the `uuid` npm package.
+This method takes in an array of `Partial<T>` as we do not always know the `id` for records when we are creating. If we leave off the `id` properties the service will automatically generate `id`s for us. Upon successful creation, the method returns the an array of records with the newly generated `id`s.
 
 Example Usage:
 
@@ -81,31 +81,31 @@ this.userService.update({
 });
 ```
 
-**`public delete(id: string): void`**
+**`public delete(id: number): void`**
 
-This method takes in a `id: string` and deletes the record from the `records` array based on the `id` in the object. This method does not return a value.
+This method takes in a `id: number` and deletes the record from the `records` array based on the `id` in the object. This method does not return a value.
 
 Example Usage:
 
 ```typescript
-this.userService.delete('1');
+this.userService.delete(1);
 ```
 
-**`public get(id: string): T`**
+**`public get(id: number): T`**
 
-This method takes in a `id: string` and returns the record from the `records` array based on the `id` in the object.
+This method takes in a `id: number` and returns the record from the `records` array based on the `id` in the object.
 
 Example Usage:
 
 ```typescript
-const foundUser = this.userService.get('1');
+const foundUser = this.userService.get(1);
 
 console.log({ foundUser });
 
 // logs out
 // {
 //     foundUser: {
-//         id: '1',
+//         id:1,
 //         firstName: 'Some',
 //         lastName: 'Person'
 //    }
@@ -127,12 +127,12 @@ console.log({ allUsers });
 // {
 //   allUsers: [
 //     {
-//       id: '1',
+//       id: 1,
 //       firstName: 'Some',
 //       lastName: 'Person'
 //     },
 //     {
-//       id: '2',
+//       id: 2,
 //       firstName: 'Other',
 //       lastName: 'Person'
 //     }
@@ -157,12 +157,12 @@ console.log({ foundUsers });
 // {
 //   allUsers: [
 //     {
-//       id: '1',
+//       id: 1,
 //       firstName: 'Some',
 //       lastName: 'Person'
 //     },
 //     {
-//       id: '2',
+//       id: 2,
 //       firstName: 'Other',
 //       lastName: 'Person'
 //     }
@@ -174,12 +174,12 @@ console.log({ foundUsers });
 
 - `records: T[]` - This is the in-memory array used in all crud and read operations for the service. Please access with care.
 
-## `InMemoryDBEntity`
+## `InMemoryDBV1Entity`
 
-This is an interface used by the `InMemoryDBService` for intellisense and type-safety. Do not use this interface directly. Rather, implement your own `interface` that `extends` this.
+This is an interface used by the `InMemoryDBV1Service` for intellisense and type-safety. Do not use this interface directly. Rather, implement your own `interface` that `extends` this.
 
 ```typescript
-export interface InMemoryDBEntity {
-  id: string;
+export interface InMemoryDBV1Entity {
+  id: number;
 }
 ```
