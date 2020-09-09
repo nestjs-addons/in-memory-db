@@ -1,3 +1,3 @@
 export interface InMemoryDBEntity {
-  id: number;
+  id: string;
 }

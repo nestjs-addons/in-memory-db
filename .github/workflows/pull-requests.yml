@@ -12,27 +12,17 @@ jobs:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
         with:
-          node-version: 10
+          node-version: 12
       - run: npm ci
       - run: npm run lint
 
-  test-8:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
         with:
-          node-version: 8
-      - run: npm ci
-      - run: npm run test
-
-  test-10:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 10
+          node-version: 12
       - run: npm ci
       - run: npm run test
 
@@ -42,7 +32,7 @@ jobs:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
         with:
-          node-version: 10
+          node-version: 12
       - run: npm ci
       - run: npm run e2e
 
@@ -52,26 +42,16 @@ jobs:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
         with:
-          node-version: 10
+          node-version: 12
       - run: npm ci
       - run: npm run format:verify
 
-  build-8:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
         with:
-          node-version: 8
-      - run: npm ci
-      - run: npm run build
-
-  build-10:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 10
+          node-version: 12
       - run: npm ci
       - run: npm run build

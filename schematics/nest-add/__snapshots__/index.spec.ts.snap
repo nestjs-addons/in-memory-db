@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`nest add function should add package to module 1`] = `
+"
+import { Module } from '@nestjs/common';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { InMemoryDBModule } from '@nestjs-addons/in-memory-db';
+
+@Module({
+  imports: [InMemoryDBModule.forRoot()],
+  controllers: [AppController],
+  providers: [AppService],
+})
+export class AppModule {}
+"
+`;

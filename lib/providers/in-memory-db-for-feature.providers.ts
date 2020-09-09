@@ -6,7 +6,7 @@ import { FactoryProvider } from '@nestjs/common/interfaces';
 export function createInMemoryDBForFeatureProviders(
   featureName: string,
   featureConfig: Partial<InMemoryDBConfig>,
-) {
+): FactoryProvider[] {
   const providers: FactoryProvider[] = [
     {
       provide: getInMemoryDBServiceToken(featureName),

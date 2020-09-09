@@ -12,9 +12,9 @@ describe('In Memory DB Controller', () => {
   let service: InMemoryDBService<TestEntity>;
 
   const sampleRecords: TestEntity[] = [
-    { id: 1, someField: 'AAA' },
-    { id: 2, someField: 'BBB' },
-    { id: 3, someField: 'CCC' },
+    { id: '1', someField: 'AAA' },
+    { id: '2', someField: 'BBB' },
+    { id: '3', someField: 'CCC' },
   ];
 
   class MockController extends InMemoryDBEntityController<TestEntity> {
@@ -37,9 +37,9 @@ describe('In Memory DB Controller', () => {
 
     test('should call service get spy when given valid id', () => {
       // act
-      controller.get(1);
+      controller.get('1');
       // assert
-      expect(spy).toHaveBeenCalledWith(1);
+      expect(spy).toHaveBeenCalledWith('1');
     });
   });
 
@@ -47,7 +47,7 @@ describe('In Memory DB Controller', () => {
     test('should call service getMany spy when given list of ids', () => {
       // arrange
       const spy = spyOn(service, 'getMany');
-      const testEntityMock = [1, 2, 3];
+      const testEntityMock = ['1', '2', '3'];
       // act
       controller.getMany(testEntityMock);
       // assert
@@ -96,9 +96,9 @@ describe('In Memory DB Controller', () => {
       // arrange
       const testEntityMock = { someField: 'DDD' };
       // act
-      controller.update(1, testEntityMock);
+      controller.update('1', testEntityMock);
       // assert
-      expect(spy).toHaveBeenCalledWith({ id: 1, ...testEntityMock });
+      expect(spy).toHaveBeenCalledWith({ id: '1', ...testEntityMock });
     });
   });
 
@@ -126,11 +126,11 @@ describe('In Memory DB Controller', () => {
       spy = jest.spyOn(service, 'delete');
     });
 
-    test('should call delete when give a valid id', () => {
+    test('should call delete when given a valid id', () => {
       // act
-      controller.delete(1);
+      controller.delete('1');
       // assert
-      expect(spy).toHaveBeenCalledWith(1);
+      expect(spy).toHaveBeenCalledWith('1');
     });
   });
 
@@ -143,7 +143,7 @@ describe('In Memory DB Controller', () => {
 
     test('should call delete many when given valid ids list', () => {
       // arrange
-      const testEntityMock = [1, 2, 3];
+      const testEntityMock = ['1', '2', '3'];
       // act
       controller.deleteMany(testEntityMock);
       // assert
