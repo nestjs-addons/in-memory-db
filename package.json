@@ -33,7 +33,7 @@
     "@nestjs/testing": "7.4.4",
     "@semantic-release/changelog": "3.0.6",
     "@types/jest": "26.0.13",
-    "@types/node": "7.10.8",
+    "@types/node": "7.10.12",
     "@types/supertest": "2.0.10",
     "@types/uuid": "8.3.0",
     "@typescript-eslint/eslint-plugin": "4.1.0",
