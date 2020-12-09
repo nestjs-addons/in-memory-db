@@ -24,7 +24,7 @@
     "@angular-devkit/core": "10.1.1",
     "copyfiles": "2.1.1",
     "schematics-utilities": "2.0.1",
-    "uuid": "8.3.0"
+    "uuid": "8.3.2"
   },
   "devDependencies": {
     "@nestjs/common": "7.4.4",
