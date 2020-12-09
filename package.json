@@ -39,7 +39,7 @@
     "@typescript-eslint/eslint-plugin": "4.1.1",
     "@typescript-eslint/parser": "4.1.1",
     "jest": "26.4.2",
-    "prettier": "2.1.1",
+    "prettier": "2.2.1",
     "reflect-metadata": "0.1.13",
     "rxjs": "6.6.3",
     "rxjs-marbles": "6.0.1",
