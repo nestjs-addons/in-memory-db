@@ -43,7 +43,7 @@
     "reflect-metadata": "0.1.13",
     "rxjs": "6.6.3",
     "rxjs-marbles": "6.0.1",
-    "semantic-release": "17.1.1",
+    "semantic-release": "17.3.7",
     "supertest": "4.0.2",
     "ts-jest": "26.3.0",
     "eslint": "7.9.0",
