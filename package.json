@@ -27,10 +27,10 @@
     "uuid": "8.3.0"
   },
   "devDependencies": {
-    "@nestjs/common": "7.4.4",
-    "@nestjs/core": "7.4.4",
-    "@nestjs/platform-express": "7.4.4",
-    "@nestjs/testing": "7.4.4",
+    "@nestjs/common": "7.6.9",
+    "@nestjs/core": "7.6.9",
+    "@nestjs/platform-express": "7.6.9",
+    "@nestjs/testing": "7.6.9",
     "@semantic-release/changelog": "5.0.1",
     "@types/jest": "26.0.13",
     "@types/node": "7.10.12",
